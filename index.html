@@ -373,12 +373,13 @@ function loadQCData() {
   qcLoading = true;
   const fallback = () => {
     qcLoading = false;
-    // สร้าง data จาก hardcoded embed
     qcDataLive = buildQCFromEmbed();
-    Object.keys(rendered).forEach(k => { if(k.startsWith('qc_')) delete rendered[k]; });
+    // fallback: re-render เฉพาะ page2 (ที่ต้องการ NM dynamic)
+    // page1 ใช้ hardcoded ได้เลย ไม่ต้อง re-render
+    delete rendered['qc_1'];
     const activeEl = qcSection.querySelector('.page.active');
     const idx = Array.from(qcSection.querySelectorAll('.page')).indexOf(activeEl);
-    if (idx >= 0) { document.getElementById(qcPages[idx].id).innerHTML = qcPages[idx].build(); rendered[`qc_${idx}`] = true; }
+    if (idx === 1) { document.getElementById(qcPages[1].id).innerHTML = qcPages[1].build(); rendered['qc_1'] = true; }
   };
   fetch(QC_API)
     .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
@@ -388,10 +389,11 @@ function loadQCData() {
         if (!data.products || data.products.length < 3) throw new Error('parse failed');
         qcLoading = false;
         qcDataLive = data;
-        Object.keys(rendered).forEach(k => { if(k.startsWith('qc_')) delete rendered[k]; });
+        // re-render page2 เสมอ (NM อาจเปลี่ยน), page1 ไม่ต้อง
+        delete rendered['qc_1'];
         const activeEl = qcSection.querySelector('.page.active');
         const idx = Array.from(qcSection.querySelectorAll('.page')).indexOf(activeEl);
-        if (idx >= 0) { document.getElementById(qcPages[idx].id).innerHTML = qcPages[idx].build(); rendered[`qc_${idx}`] = true; }
+        if (idx === 1) { document.getElementById(qcPages[1].id).innerHTML = qcPages[1].build(); rendered['qc_1'] = true; }
       } catch(e) { fallback(); }
     })
     .catch(() => fallback());
@@ -719,7 +721,8 @@ function buildPage1() {
 
 // ── PAGE 2 — รายการสินค้า ม.ค.–N เดือน ทุกปี ──
 function buildPage2() {
-  const NM = qcDataLive ? getLastMonth(qcDataLive) : (monthlyTotals[2569].reduce((last,v,i)=>v>0?i+1:last,0)||4);
+  if(!qcDataLive) qcDataLive = buildQCFromEmbed();
+  const NM = getLastMonth(qcDataLive);
   const prodRows = (qcDataLive ? qcDataLive.products : products.map(p=>({
     name:p.name, unit:'ถุง',
     monthly:Object.fromEntries(YEARS.map(y=>[String(y),p.monthly[y]])),
