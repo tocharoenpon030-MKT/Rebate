@@ -1602,7 +1602,7 @@ function buildSikaPage1() {
   ].map(ri=>`<div class="rebate-item"><div class="r-label">${ri.label}</div><div class="r-val">${ri.val>0?fmtM(ri.val):'–'}</div>${ri.pct?`<div class="r-pct">${ri.pct.toFixed(2)}% ของยอดซื้อ</div>`:''}</div>`).join('');
 
   return `
-  <div class="page-title">แดชบอร์ด Sika / Lanco</div>
+  <div class="page-title">แดชบอร์ด ซิก้าแลงโก้</div>
   <div class="page-sub">ยอดซื้อรวมทุกรายการ ปี 2565–2569</div>
   <div class="section-title">ยอดรวมรายปี</div><div class="stat-grid">${yearCards}</div>
   <div class="section-title">ยอดซื้อ ม.ค.–พ.ค. เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
