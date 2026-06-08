@@ -634,7 +634,7 @@ function buildPage1() {
     </div>`;
   }).join('');
 
-  const four = y => (qcDataLive?(qcDataLive.monthlyTotals[String(y)]||[]):monthlyTotals[y]||[]).slice(0,NM).reduce((a,b)=>a+b,0);
+  const four = y => monthlyTotals[y].slice(0,4).reduce((a,b)=>a+b,0);
   const f4 = {}; YEARS.forEach(y=>f4[y]=four(y));
   const fmStrip = YEARS.map(y=>{
     const v=f4[y]; const prev=f4[y-1];
@@ -758,7 +758,7 @@ function buildPage2() {
     </td>`;
   }).join('');
 
-  const four = y => (qcDataLive?(qcDataLive.monthlyTotals[String(y)]||[]):monthlyTotals[y]||[]).slice(0,NM).reduce((a,b)=>a+b,0);
+  const four = y => monthlyTotals[y].slice(0,4).reduce((a,b)=>a+b,0);
   const f4 = {}; YEARS.forEach(y=>f4[y]=four(y));
 
   const mTotQ = qcDataLive ? qcDataLive.monthlyTotals : Object.fromEntries(YEARS.map(y=>[String(y),monthlyTotals[y]]));
