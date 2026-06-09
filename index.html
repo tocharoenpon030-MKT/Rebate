@@ -35,7 +35,7 @@ body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
-  font-size: 14px;
+  font-size: 16px;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -49,11 +49,11 @@ body {
   height: 52px;
   box-shadow: 0 1px 6px rgba(0,0,0,0.07);
 }
-.brand { font-size: 15px; font-weight: 700; letter-spacing: .5px; color: var(--accent); }
+.brand { font-size: 17px; font-weight: 700; letter-spacing: .5px; color: var(--accent); }
 .brand span { color: var(--text); font-weight: 300; }
 .brand-switcher { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
 .brand-pill {
-  font-size: 13px; font-weight: 700; letter-spacing: .5px;
+  font-size: 15px; font-weight: 700; letter-spacing: .5px;
   background: none; border: 2px solid var(--border);
   border-radius: 20px; padding: 4px 11px; cursor: pointer;
   font-family: var(--font); color: var(--muted);
@@ -69,7 +69,7 @@ body {
 .tab-btn {
   white-space: nowrap; background: none; border: none;
   color: var(--muted); font-family: var(--font);
-  font-size: 13px; font-weight: 600;
+  font-size: 15px; font-weight: 600;
   padding: 6px 12px; border-radius: 20px;
   cursor: pointer; transition: all .2s;
 }
@@ -81,7 +81,7 @@ body {
   border: none;
   color: #fff;
   font-family: var(--font);
-  font-size: 12px; font-weight: 700;
+  font-size: 14px; font-weight: 700;
   padding: 5px 11px; border-radius: 20px;
   cursor: pointer; transition: all .2s;
   text-decoration: none;
@@ -100,7 +100,7 @@ main { padding: 16px; max-width: 900px; margin: 0 auto; }
 @keyframes fadeIn { from { opacity:0; transform:translateY(6px) } to { opacity:1; transform:translateY(0) } }
 
 .section-title {
-  font-size: 12px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 1.5px; text-transform: uppercase;
   color: var(--muted); margin: 22px 0 11px;
   display: flex; align-items: center; gap: 8px;
@@ -120,10 +120,10 @@ main { padding: 16px; max-width: 900px; margin: 0 auto; }
   transition: border-color .2s, box-shadow .2s;
 }
 .stat-card:hover { border-color: var(--accent2); box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-.stat-card .year-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 1px; margin-bottom: 5px; }
-.stat-card .value { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
-.stat-card .sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
-.stat-card .badge { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px; display: inline-block; margin-top: 5px; }
+.stat-card .year-label { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 1px; margin-bottom: 5px; }
+.stat-card .value { font-family: var(--mono); font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.stat-card .sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.stat-card .badge { font-size: 13px; font-weight: 600; padding: 2px 7px; border-radius: 20px; display: inline-block; margin-top: 5px; }
 .badge.up   { background: rgba(22,163,74,.12); color: var(--green); }
 .badge.down { background: rgba(220,38,38,.10); color: var(--red); }
 .stat-card.highlight { border-color: var(--accent); }
@@ -138,9 +138,9 @@ main { padding: 16px; max-width: 900px; margin: 0 auto; }
   margin-bottom: 16px;
   overflow-x: auto;
 }
-.chart-title { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+.chart-title { font-size: 14px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
 .chart-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); font-weight: 600; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); font-weight: 600; }
 .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 .bar-chart {
   display: flex;
@@ -168,8 +168,8 @@ main { padding: 16px; max-width: 900px; margin: 0 auto; }
   color: #fff; font-size: 11px; padding: 4px 8px;
   border-radius: 6px; white-space: nowrap; pointer-events: none; z-index: 10;
 }
-.bar-label { font-size: 11px; color: var(--muted); text-align: center; font-weight: 600; }
-.bar-val   { font-size: 10px; color: var(--muted); font-family: var(--mono); }
+.bar-label { font-size: 13px; color: var(--muted); text-align: center; font-weight: 600; }
+.bar-val   { font-size: 12px; color: var(--muted); font-family: var(--mono); }
 
 /* ── TABLE ── */
 .tbl-wrap {
@@ -181,7 +181,7 @@ main { padding: 16px; max-width: 900px; margin: 0 auto; }
 table { width: 100%; border-collapse: collapse; min-width: 340px; }
 thead th {
   background: var(--surface2);
-  color: var(--muted); font-size: 11px; font-weight: 700;
+  color: var(--muted); font-size: 13px; font-weight: 700;
   letter-spacing: .8px; text-transform: uppercase;
   padding: 9px 11px; text-align: right; white-space: nowrap;
   border-bottom: 1.5px solid var(--border);
@@ -189,10 +189,10 @@ thead th {
 thead th:first-child { text-align: left; position: sticky; left: 0; background: var(--surface2); }
 tbody td {
   padding: 8px 11px; border-bottom: 1px solid var(--border);
-  font-family: var(--mono); font-size: 12px; text-align: right; white-space: nowrap;
+  font-family: var(--mono); font-size: 14px; text-align: right; white-space: nowrap;
 }
 tbody td:first-child {
-  text-align: left; font-family: var(--font); font-size: 13px;
+  text-align: left; font-family: var(--font); font-size: 15px;
   position: sticky; left: 0; background: var(--surface);
   border-right: 1px solid var(--border);
 }
@@ -213,25 +213,25 @@ tbody tr.total-row td { background: var(--surface2) !important; font-weight: 700
   background: var(--surface); border: 1.5px solid rgba(22,163,74,.4);
   border-radius: var(--radius); padding: 12px;
 }
-.rebate-item .r-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; line-height: 1.4; }
-.rebate-item .r-val { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--rebate); }
-.rebate-item .r-pct { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.rebate-item .r-label { font-size: 13px; color: var(--muted); margin-bottom: 4px; line-height: 1.4; }
+.rebate-item .r-val { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--rebate); }
+.rebate-item .r-pct { font-size: 13px; color: var(--muted); margin-top: 3px; }
 
 /* ── NOTE ── */
 .note {
   background: rgba(217,119,6,.07); border: 1px solid rgba(217,119,6,.3);
   border-radius: var(--radius); padding: 10px 14px;
-  font-size: 12px; color: var(--yellow); margin-bottom: 14px;
+  font-size: 14px; color: var(--yellow); margin-bottom: 14px;
   display: flex; align-items: flex-start; gap: 8px;
 }
 .note::before { content: '⚠'; flex-shrink: 0; margin-top: 1px; }
 
-.page-title { font-size: 19px; font-weight: 700; margin-bottom: 3px; color: var(--text); }
-.page-sub   { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+.page-title { font-size: 22px; font-weight: 700; margin-bottom: 3px; color: var(--text); }
+.page-sub   { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
 
 footer {
   text-align: center; padding: 20px 16px;
-  font-size: 11px; color: var(--muted);
+  font-size: 13px; color: var(--muted);
   border-top: 1px solid var(--border); margin-top: 28px;
 }
 
@@ -241,9 +241,9 @@ footer {
   border-radius: var(--radius); overflow: auto; margin-bottom: 16px;
 }
 .prod-tbl-wrap table { min-width: 480px; }
-.prod-name-cell { font-size: 12px !important; font-family: var(--font) !important; max-width: 160px; white-space: normal !important; line-height: 1.3; }
+.prod-name-cell { font-size: 14px !important; font-family: var(--font) !important; max-width: 160px; white-space: normal !important; line-height: 1.3; }
 
-/* ── 4-month mini-cards row on page 1 ── */
+/* ── N-month mini-cards row on page 1 ── */
 .four-month-strip {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -253,18 +253,18 @@ footer {
   background: var(--surface); border: 1.5px solid var(--border);
   border-radius: var(--radius); padding: 10px 9px; text-align: center;
 }
-.fm-card .fm-year { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: .8px; margin-bottom: 4px; }
-.fm-card .fm-val  { font-family: var(--mono); font-size: 13px; font-weight: 700; }
-.fm-card .fm-badge { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 20px; display: inline-block; margin-top: 4px; }
+.fm-card .fm-year { font-size: 13px; color: var(--muted); font-weight: 700; letter-spacing: .8px; margin-bottom: 4px; }
+.fm-card .fm-val  { font-family: var(--mono); font-size: 15px; font-weight: 700; }
+.fm-card .fm-badge { font-size: 12px; font-weight: 600; padding: 2px 6px; border-radius: 20px; display: inline-block; margin-top: 4px; }
 
 @media (max-width: 480px) {
   .topbar { height: 48px; }
-  .brand { font-size: 13px; }
-  .tab-btn { font-size: 12px; padding: 5px 9px; }
+  .brand { font-size: 15px; }
+  .tab-btn { font-size: 14px; padding: 5px 9px; }
   main { padding: 10px; }
   .stat-grid { grid-template-columns: repeat(2,1fr); gap: 7px; }
-  .stat-card .value { font-size: 14px; }
-  .page-title { font-size: 16px; }
+  .stat-card .value { font-size: 16px; }
+  .page-title { font-size: 19px; }
   .bar-chart { height: 95px; }
   .four-month-strip { grid-template-columns: repeat(3,1fr); }
 }
@@ -287,11 +287,56 @@ footer {
   </a>
 </div>
 <main id="mainContent"></main>
-<footer>ข้อมูล ณ เดือนเม.ย. 2569 &nbsp;|&nbsp; หน่วย: บาท (ไม่รวม VAT)</footer>
+<footer id="footerEl">ข้อมูล ณ เดือนพ.ค. 2569 &nbsp;|&nbsp; หน่วย: บาท (ไม่รวม VAT)</footer>
+
 <script>
 
 // ══════════════════════════════════════════════
-// ── QUICKCOAT LIVE FETCH ──
+// ── SHARED HELPERS ──
+// ══════════════════════════════════════════════
+const YEARS = [2565,2566,2567,2568,2569];
+const MN = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const YR_COL = {2565:'#6366f1',2566:'#0ea5e9',2567:'#10b981',2568:'#e07b1e',2569:'#d97706'};
+
+const fmt  = (n) => (n && n!==0) ? n.toLocaleString('th-TH',{maximumFractionDigits:0}) : '–';
+const fmtM = (n) => {
+  if(!n) return '–';
+  if(n>=1e6) return (n/1e6).toFixed(2)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(0)+'K';
+  return n.toLocaleString('th-TH',{maximumFractionDigits:0});
+};
+const pctStr = (a,b) => {
+  if(!a) return '<span class="pct neutral">–</span>';
+  const p = ((b-a)/a)*100;
+  const cls = p>0?'pos':'neg';
+  return `<span class="pct ${cls}">${p>0?'+':''}${p.toFixed(1)}%</span>`;
+};
+const pChange = (a,b) => a ? ((b-a)/a) : null;
+
+// ── getLastMonth: นับเดือนสุดท้ายที่มียอด จาก data object ──
+// รองรับทั้ง key เป็น string '2569' และ number 2569
+function getLastMonth(dataObj) {
+  if (!dataObj) return 4;
+  const mTot = dataObj.monthlyTotals;
+  if (!mTot) return 4;
+  const arr = mTot['2569'] || mTot[2569] || [];
+  const last = arr.reduce((acc, v, i) => (v && v > 0 ? i + 1 : acc), 0);
+  return last || 4;
+}
+
+// ── nmLabel: แปลงจำนวนเดือนเป็น label ──
+function nmLabel(nm) {
+  return `ม.ค.–${MN[nm-1]}`;
+}
+
+// ── updateFooter: อัปเดต footer ตามเดือนล่าสุด ──
+function updateFooter(nm) {
+  const el = document.getElementById('footerEl');
+  if (el) el.innerHTML = `ข้อมูล ณ เดือน${MN[nm-1]} 2569 &nbsp;|&nbsp; หน่วย: บาท (ไม่รวม VAT)`;
+}
+
+// ══════════════════════════════════════════════
+// ── QUICKCOAT DATA ──
 // ══════════════════════════════════════════════
 const QC_SHEET_ID = '1aKR6KmUGosext5SE1d92VF-CVEHeCJEFfM_IvHE6gzY';
 const QC_API = `https://docs.google.com/spreadsheets/d/${QC_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
@@ -316,43 +361,52 @@ function parseQCCSV(csvText) {
     return result;
   });
 
-  // format เหมือน Sika:
-  // A(0)=ชื่อสินค้า/เดือน, B(1)=จำนวน65, C(2)=ยอด65,
-  // D(3)=จำนวน66, E(4)=ยอด66, F(5)=จำนวน67, G(6)=ยอด67,
-  // H(7)=จำนวน68, I(8)=ยอด68, J(9)=จำนวน69, K(10)=ยอด69
   const YEARS_Q = ['2565','2566','2567','2568','2569'];
   const BAG_COLS  = [1, 3, 5, 7, 9];
   const SALE_COLS = [2, 4, 6, 8, 10];
 
+  // debug: log first 5 rows to understand format
+  console.log('[QC CSV] first 3 rows:', rows.slice(0,3).map(r=>r.slice(0,6)));
+
+  const UNIT_VALS = ['ถุง','กระปุก','แกลลอน','ชุด','ถัง'];
   const products = [];
   let i = 0;
   while (i < rows.length) {
     const row = rows[i];
-    const a = (row[0]||'').trim();
+    const a = (row[0]||'').replace(/\xa0/g,'\u00a0').replace(/\u00a0/g,' ').trim();
     const b = (row[1]||'').trim();
-    if (b.includes('จำนวน')) {
-      const unit = b.replace('จำนวน','').trim();
+    const c2 = (row[2]||'').trim();
+
+    // รองรับ 2 format:
+    // Format 1 (QC xlsx): col B='จำนวนถุง', col C='ยอดซื้อ'
+    // Format 2 (CROC style): col B='ถุง', col C='ยอด'/'ยอดซื้อ'
+    const isQCHeader = b.includes('จำนวน') && (c2.includes('ยอด') || c2.includes('ราคา'));
+    const isUnitHeader = UNIT_VALS.includes(b) && (c2 === 'ยอด' || c2 === 'ยอดซื้อ');
+    const isProductHeader = (isQCHeader || isUnitHeader) && a && !a.includes('เดือน') && !a.includes('รวม');
+
+    if (isProductHeader) {
+      const unit = isQCHeader ? (b.replace('จำนวน','').trim() || 'ถุง') : b;
       const name = a;
       const monthly = {}, bags = {};
       YEARS_Q.forEach(y => { monthly[y] = new Array(12).fill(0); bags[y] = new Array(12).fill(0); });
       for (let m = 0; m < 12; m++) {
         const dr = rows[i + 1 + m];
-        if (!dr || !dr[0] || !dr[0].includes('เดือน')) break;
+        if (!dr || !(dr[0]||'').includes('เดือน')) break;
         YEARS_Q.forEach((y, yi) => {
-          const bv = parseFloat((dr[BAG_COLS[yi]]||'0').replace(/,/g,'')) || 0;
-          const sv = parseFloat((dr[SALE_COLS[yi]]||'0').replace(/,/g,'')) || 0;
-          bags[y][m] = bv;
-          monthly[y][m] = sv;
+          const bRaw = (dr[BAG_COLS[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
+          const sRaw = (dr[SALE_COLS[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
+          bags[y][m]    = parseFloat(bRaw) || 0;
+          monthly[y][m] = parseFloat(sRaw) || 0;
         });
       }
       products.push({ name, unit, monthly, bags });
-      i += 14;
+      i += 13;
       continue;
     }
     i++;
   }
+  console.log('[QC CSV] parse ได้ products:', products.length);
 
-  // คำนวณ monthly/yearly totals
   const monthlyTotals = {}, yearlyTotals = {};
   YEARS_Q.forEach(y => { monthlyTotals[y] = new Array(12).fill(0); });
   products.forEach(p => {
@@ -362,96 +416,99 @@ function parseQCCSV(csvText) {
   });
   YEARS_Q.forEach(y => { yearlyTotals[y] = monthlyTotals[y].reduce((a,b) => a+b, 0); });
 
-  // นับ lastMonth ของปี 2569 (เดือนสุดท้ายที่มียอด)
   const last69 = monthlyTotals['2569'].reduce((last, v, m) => v > 0 ? m+1 : last, 0);
 
-  return { products, monthlyTotals, yearlyTotals, lastMonth2569: last69 };
-}
+  // อ่านค่า rebate 2569 จาก row ที่มี 'รวมทั้งหมดได้รีเบท' (row150) และ 'คิดเป็นเปอร์เซ็น' (row151)
+  let rebate2569 = null;
+  for (let ri = 0; ri < rows.length; ri++) {
+    const ra = (rows[ri][0]||'').trim();
+    if (ra.includes('รวมทั้งหมดได้รีเบท') || ra.includes('รีเบท ประมาณ')) {
+      // col D=index3 = current, col E=index4 = proposed
+      const cur  = parseFloat((rows[ri][3]||'').toString().replace(/,/g,'')) || 0;
+      const prop = parseFloat((rows[ri][4]||'').toString().replace(/,/g,'')) || 0;
+      let curP = 0, propP = 0;
+      if (ri+1 < rows.length) {
+        curP  = parseFloat((rows[ri+1][3]||'').toString().replace(/,/g,'')) || 0;
+        propP = parseFloat((rows[ri+1][4]||'').toString().replace(/,/g,'')) || 0;
+      }
+      if (cur > 0 || prop > 0) {
+        rebate2569 = { current: cur, currentPct: curP, proposed: prop, proposedPct: propP };
+        console.log('[QC CSV] rebate2569:', rebate2569);
+      }
+      break;
+    }
+  }
 
-function loadQCData() {
-  if (qcDataLive || qcLoading) return;
-  qcLoading = true;
-  const fallback = () => {
-    qcLoading = false;
-    qcDataLive = buildQCFromEmbed();
-    // fallback: re-render เฉพาะ page2 (ที่ต้องการ NM dynamic)
-    // page1 ใช้ hardcoded ได้เลย ไม่ต้อง re-render
-    delete rendered['qc_1'];
-    const activeEl = qcSection.querySelector('.page.active');
-    const idx = Array.from(qcSection.querySelectorAll('.page')).indexOf(activeEl);
-    if (idx === 1) { document.getElementById(qcPages[1].id).innerHTML = qcPages[1].build(); rendered['qc_1'] = true; }
-  };
-  fetch(QC_API)
-    .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
-    .then(csv => {
-      try {
-        const data = parseQCCSV(csv);
-        if (!data.products || data.products.length < 3) throw new Error('parse failed');
-        qcLoading = false;
-        qcDataLive = data;
-        // re-render page2 เสมอ (NM อาจเปลี่ยน), page1 ไม่ต้อง
-        delete rendered['qc_1'];
-        const activeEl = qcSection.querySelector('.page.active');
-        const idx = Array.from(qcSection.querySelectorAll('.page')).indexOf(activeEl);
-        if (idx === 1) { document.getElementById(qcPages[1].id).innerHTML = qcPages[1].build(); rendered['qc_1'] = true; }
-      } catch(e) { fallback(); }
-    })
-    .catch(() => fallback());
+  return { products, monthlyTotals, yearlyTotals, lastMonth2569: last69, rebate2569 };
 }
 
 function buildQCFromEmbed() {
-  // คำนวณจาก hardcoded data
   const YEARS_Q = ['2565','2566','2567','2568','2569'];
   const mTot = {};
   YEARS_Q.forEach(y => { mTot[y] = new Array(12).fill(0); });
   YEARS_Q.forEach(y => {
-    monthlyTotals[Number(y)].forEach((v,m) => { mTot[y][m] = v; });
+    qcMonthlyTotals[Number(y)].forEach((v,m) => { mTot[y][m] = v; });
   });
   const yTot = {};
-  YEARS_Q.forEach(y => { yTot[y] = yearlyTotals[Number(y)] || 0; });
+  YEARS_Q.forEach(y => { yTot[y] = qcYearlyTotals[Number(y)] || 0; });
   const last69 = mTot['2569'].reduce((last, v, m) => v > 0 ? m+1 : last, 0);
-  // แปลง products format
-  const prods = products.map(p => ({
-    name: p.name, unit: p.bags[2565] ? 'ถุง' : 'หน่วย',
+  const prods = qcProducts.map(p => ({
+    name: p.name, unit: 'ถุง',
     monthly: Object.fromEntries(YEARS_Q.map(y => [y, p.monthly[Number(y)]])),
     bags: Object.fromEntries(YEARS_Q.map(y => [y, p.bags[Number(y)]]))
   }));
   return { products: prods, monthlyTotals: mTot, yearlyTotals: yTot, lastMonth2569: last69 };
 }
 
-// helper: นับเดือนสุดท้ายที่มียอดปี 2569 จาก data object
-function getLastMonth(dataObj) {
-  const m = dataObj.monthlyTotals;
-  const arr = m['2569'] || m[2569] || [];
-  return arr.reduce((last, v, i) => v > 0 ? i+1 : last, 0) || 4;
+function loadQCData() {
+  if (qcDataLive || qcLoading) return;
+  qcLoading = true;
+  const fallback = (reason) => {
+    console.warn('[QC] fallback เพราะ:', reason);
+    qcLoading = false;
+    qcDataLive = buildQCFromEmbed();
+    setFetchBadge('qc', 'embed');
+    reRenderAll('qc');
+  };
+  fetch(QC_API)
+    .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
+    .then(csv => {
+      try {
+        const data = parseQCCSV(csv);
+        if (!data.products || data.products.length < 3) throw new Error('parse failed: products=' + (data.products||[]).length);
+        qcLoading = false;
+        qcDataLive = data;
+        console.log('[QC] live fetch สำเร็จ lastMonth=', data.lastMonth2569, 'products=', data.products.length);
+        setFetchBadge('qc', 'live', data.lastMonth2569);
+        reRenderAll('qc');
+      } catch(e) { fallback(e.message); }
+    })
+    .catch(e => fallback(e.message));
 }
 
-const YEARS = [2565,2566,2567,2568,2569];
-const MN = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-const YR_COL = {2565:'#6366f1',2566:'#0ea5e9',2567:'#10b981',2568:'#e07b1e',2569:'#d97706'};
-
-const monthlyTotals = {
+// ── Hardcoded QC embed data ──
+const qcMonthlyTotals = {
   2565:[703500,625593,863409,614327,515879,739565,644794,663112,425047,566514,604533,543785],
   2566:[566617,558166,977196,591037,764234,1045746,953428,975150,949402,940318,799625,848979],
   2567:[723411,1122234,1100079,1010138,796879,745794,1056028,714654,801964,818682,721019,564056],
   2568:[906022,502019,1210079,897671,857208,1495712,872465,836232,937942,1291463,954669,1072340],
-  2569:[706159,830421,1068785,1249813,0,0,0,0,0,0,0,0],
+  2569:[706159,830421,1068785,1249813,781028,0,0,0,0,0,0,0],
 };
-const yearlyTotals = {2565:7510059,2566:9969898,2567:10174939,2568:11833822,2569:3855178};
-const quarterlyTotals = {
+const qcYearlyTotals = {2565:7510059,2566:9969898,2567:10174939,2568:11833822,2569:4636206};
+const qcQuarterlyTotals = {
   2565:[2192503,1869771,1732953,1714832],
   2566:[2101979,2401017,2877979,2588922],
   2567:[2945724,2552811,2572647,2103757],
   2568:[2618120,3250592,2646639,3318472],
   2569:[2605365,0,0,0],
 };
-const rebateSummary = {
+const qcRebateSummary = {
   2567:{total:211245,pct:2.076},
   2568:{total:313191,pct:2.647},
-  "2569_current":167309,
-  "2569_proposed":310666,
+  "2569_current":167309,   "2569_current_pct":1.35,
+  "2569_proposed":324333,  "2569_proposed_pct":2.64,
 };
-const products = [
+const qcProducts = [
   {
     name:"ปูนก่ออิฐมวลเบา ตราจิงโจ้ ม่วง (40กก.)",
     monthly:{
@@ -459,14 +516,14 @@ const products = [
       2566:[243533,261858,474206,341589,404280,441895,489316,482243,458935,501093,449438,453045],
       2567:[446075,577888,689678,499764,302206,502336,569850,393308,542245,511178,311850,330336],
       2568:[530769,281308,780706,532718,458671,935288,562617,556547,556707,809426,647652,682745],
-      2569:[465364,583411,578692,707991,0,0,0,0,0,0,0,0],
+      2569:[465364,583411,578692,707991,500187,0,0,0,0,0,0,0],
     },
     bags:{
       2565:[2525,2075,2950,1940,1420,2030,1350,1790,1400,1435,1675,1175],
       2566:[1515,1629,2950,2125,2515,2749,3044,3000,2855,3115,2792,2814],
       2567:[2775,3595,4290,3109,1880,3125,3545,2445,3380,3280,1980,2125],
       2568:[3315,1750,4853,3314,2849,5814,3500,3553,3557,5180,4055,4270],
-      2569:[2895,3625,3600,4400,0,0,0,0,0,0,0,0],
+      2569:[2895,3625,3600,4400,3075,0,0,0,0,0,0,0],
     },
     rebate2567:53549, rebate2568:73352, targetRebate:1500000,
   },
@@ -477,14 +534,14 @@ const products = [
       2566:[165701,188832,301122,218607,225000,350579,232150,357393,314579,253430,263271,183785],
       2567:[182944,237617,285729,340654,433178,130374,197579,170411,122804,163766,254103,144000],
       2568:[174673,128187,221636,170748,291028,315000,246449,95888,195561,163598,113551,202626],
-      2569:[109346,109346,313318,393224,0,0,0,0,0,0,0,0],
+      2569:[109346,109346,313318,393224,116916,0,0,0,0,0,0,0],
     },
     bags:{
       2565:[2325,1615,2824,2430,2230,2895,2090,2385,1400,2315,2375,1875],
       2566:[1970,2245,3580,2599,2675,4168,2760,4249,3740,3009,3130,2185],
       2567:[2175,2825,3395,4050,5150,1550,2349,2025,1460,1995,3095,1750],
       2568:[2075,1524,2635,2030,3460,3745,2930,1140,2325,1945,1350,2415],
-      2569:[1300,1300,3725,4675,0,0,0,0,0,0,0,0],
+      2569:[1300,1300,3725,4675,1375,0,0,0,0,0,0,0],
     },
     rebate2567:0, rebate2568:0, targetRebate:0,
   },
@@ -495,14 +552,14 @@ const products = [
       2566:[143925,92523,164486,30841,127477,215888,187103,113084,145981,160374,71963,174766],
       2567:[71963,269346,100748,139813,39065,113084,267290,113084,127477,121308,143103,82243],
       2568:[176000,92523,200262,174766,98692,207664,49346,154206,145981,267290,184224,135495],
-      2569:[94579,113084,164486,133645,0,0,0,0,0,0,0,0],
+      2569:[94579,113084,164486,133645,137757,0,0,0,0,0,0,0],
     },
     bags:{
       2565:[630,820,870,630,500,820,970,850,400,650,550,850],
       2566:[700,450,800,150,620,1050,910,550,710,780,350,850],
       2567:[350,1310,490,680,190,550,1300,550,620,590,700,400],
       2568:[870,450,974,850,480,1010,240,750,710,1300,902,670],
-      2569:[462,550,800,650,0,0,0,0,0,0,0,0],
+      2569:[462,550,800,650,670,0,0,0,0,0,0,0],
     },
     rebate2567:8673, rebate2568:8183, targetRebate:500000,
   },
@@ -513,14 +570,14 @@ const products = [
       2566:[13458,14953,37383,0,7477,37383,44860,22430,29907,25421,14953,37383],
       2567:[22430,37383,23925,29907,22430,0,1495,32897,4486,22430,11963,7477],
       2568:[14953,0,7477,19439,4486,11963,0,17944,14953,37383,0,0],
-      2569:[22430,14953,7477,14953,0,0,0,0,0,0,0,0],
+      2569:[22430,14953,7477,14953,4486,0,0,0,0,0,0,0],
     },
     bags:{
       2565:[50,100,100,0,50,100,400,7,3,50,150,150],
       2566:[90,100,250,0,50,250,300,150,200,170,100,250],
       2567:[150,250,160,200,150,0,10,220,30,150,80,50],
       2568:[100,0,50,130,30,80,0,120,100,250,0,0],
-      2569:[150,100,50,100,0,0,0,0,0,0,0,0],
+      2569:[150,100,50,100,30,0,0,0,0,0,0,0],
     },
     rebate2567:0, rebate2568:0, targetRebate:0,
   },
@@ -531,14 +588,14 @@ const products = [
       2566:[0,0,0,0,0,0,0,0,0,0,0,0],
       2567:[0,0,0,0,0,0,19813,4953,4953,0,0,0],
       2568:[9626,0,0,0,4332,25798,14054,11648,24739,13765,9241,51474],
-      2569:[14439,9626,4813,0,0,0,0,0,0,0,0,0],
+      2569:[14439,9626,4813,0,21682,0,0,0,0,0,0,0],
     },
     bags:{
       2565:[0,0,0,0,0,0,0,0,0,0,0,0],
       2566:[0,0,0,0,0,0,0,0,0,0,0,0],
       2567:[0,0,0,0,0,0,200,50,50,0,0,0],
       2568:[100,0,0,0,45,276,150,126,265,150,100,550],
-      2569:[150,100,50,0,0,0,0,0,0,0,0,0],
+      2569:[150,100,50,0,200,0,0,0,0,0,0,0],
     },
     rebate2567:0, rebate2568:0, targetRebate:0,
   },
@@ -580,32 +637,28 @@ const products = [
   },
 ];
 
-// ── HELPERS ──
-const fmt  = (n) => (n && n!==0) ? n.toLocaleString('th-TH',{maximumFractionDigits:0}) : '–';
-const fmtM = (n) => {
-  if(!n) return '–';
-  if(n>=1e6) return (n/1e6).toFixed(2)+'M';
-  if(n>=1e3) return (n/1e3).toFixed(0)+'K';
-  return n.toLocaleString('th-TH',{maximumFractionDigits:0});
-};
-const pctStr = (a,b) => {
-  if(!a) return '<span class="pct neutral">–</span>';
-  const p = ((b-a)/a)*100;
-  const cls = p>0?'pos':'neg';
-  return `<span class="pct ${cls}">${p>0?'+':''}${p.toFixed(1)}%</span>`;
-};
-const pChange = (a,b) => a ? ((b-a)/a) : null;
-
-// ── PAGE 1 — ภาพรวม ──
+// ══════════════════════════════════════════════
+// ── QUICKCOAT PAGE BUILDERS ──
+// ══════════════════════════════════════════════
 function buildPage1() {
-  let yearCards = YEARS.map(y => {
-    const v = yearlyTotals[y];
-    const prev = yearlyTotals[y-1];
-    const chg = prev ? pChange(prev,v) : null;
+  if (!qcDataLive) qcDataLive = buildQCFromEmbed();
+  const NM = getLastMonth(qcDataLive);
+  const mTot = qcDataLive.monthlyTotals;
+  const yTot = qcDataLive.yearlyTotals;
+  const lastY = 2569;
+
+  // คำนวณ yearlyTotals ปี 2569 จาก live data (NM เดือน)
+  const y69live = (mTot['2569']||mTot[2569]||[]).reduce((a,b)=>a+b,0);
+
+  const yearCards = YEARS.map(y => {
+    const rawV = yTot[String(y)] || yTot[y] || 0;
+    const v = (y === lastY) ? y69live : rawV;
+    const prevV = (y-1 === lastY) ? y69live : (yTot[String(y-1)] || yTot[y-1] || 0);
+    const chg = prevV ? pChange(prevV, v) : null;
     const col = YR_COL[y];
-    const badge = (y===2569)
-      ? `<span class="badge" style="background:rgba(217,119,6,.12);color:#d97706">4 เดือน</span>`
-      : (chg!==null ? `<span class="badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>` : '');
+    const badge = (y === lastY)
+      ? `<span class="badge" style="background:rgba(217,119,6,.12);color:#d97706">${NM} เดือน</span>`
+      : (chg !== null ? `<span class="badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>` : '');
     return `<div class="stat-card" style="${y===2568?'border-color:'+col:''}">
       <div class="year-label" style="color:${col}">ปี ${y}</div>
       <div class="value" style="color:${col}">${fmtM(v)}</div>
@@ -617,16 +670,16 @@ function buildPage1() {
   const legend = YEARS.map(y=>`
     <div class="legend-item">
       <div class="legend-dot" style="background:${YR_COL[y]}"></div>
-      <span>ปี ${y}${y===2569?' (4 เดือน)':''}</span>
+      <span>ปี ${y}${y===lastY?` (${NM} เดือน)`:''}</span>
     </div>`).join('');
 
-  const yBarData = YEARS.map(y=>yearlyTotals[y]);
+  const yBarData = YEARS.map(y => y===lastY ? y69live : (yTot[String(y)]||yTot[y]||0));
   const yBarMax = Math.max(...yBarData);
   const yBars = yBarData.map((v,i)=>{
     const h = Math.max(3, Math.round((v/yBarMax)*100));
     const y = YEARS[i];
     const col = YR_COL[y];
-    const note = y===2569 ? ' (4 เดือน)' : '';
+    const note = y===lastY ? ` (${NM} เดือน)` : '';
     return `<div class="bar-group">
       <div class="bar" style="height:${h}%;background:${col}" data-tip="ปี ${y}: ${fmtM(v)}${note}"></div>
       <div class="bar-label" style="color:${col}">'${String(y).slice(2)}</div>
@@ -634,61 +687,93 @@ function buildPage1() {
     </div>`;
   }).join('');
 
-  const four = y => monthlyTotals[y].slice(0,4).reduce((a,b)=>a+b,0);
-  const f4 = {}; YEARS.forEach(y=>f4[y]=four(y));
+  // NM-month strip — เปรียบเทียบทุกปี
+  const fNM = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
+  const fN = {}; YEARS.forEach(y => fN[y] = fNM(y));
   const fmStrip = YEARS.map(y=>{
-    const v=f4[y]; const prev=f4[y-1];
-    const chg=prev?pChange(prev,v):null;
-    const col=YR_COL[y];
-    const badge = chg!==null
+    const v = fN[y]; const prev = fN[y-1];
+    const chg = prev ? pChange(prev,v) : null;
+    const col = YR_COL[y];
+    const badge = chg !== null
       ? `<span class="fm-badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`
       : '';
-    return `<div class="fm-card" style="${y===2569?'border-color:'+col:''}">
+    return `<div class="fm-card" style="${y===lastY?'border-color:'+col:''}">
       <div class="fm-year" style="color:${col}">ปี ${y}</div>
       <div class="fm-val" style="color:${col}">${fmtM(v)}</div>
       ${badge}
     </div>`;
   }).join('');
 
+  // ไตรมาส — ใช้ hardcode แต่ Q ปี 2569 คำนวณจาก live
+  const qTot = {};
+  YEARS.forEach(y => {
+    if (y === lastY) {
+      // คำนวณ Q จาก live monthly
+      const m = mTot[String(y)] || mTot[y] || Array(12).fill(0);
+      qTot[y] = [0,1,2,3].map(q => m.slice(q*3,(q+1)*3).reduce((a,b)=>a+b,0));
+    } else {
+      qTot[y] = qcQuarterlyTotals[y] || [0,0,0,0];
+    }
+  });
   let qRows = '';
   for(let q=0;q<4;q++){
     const cells = YEARS.map(y=>{
-      const v=quarterlyTotals[y][q];
-      const isSkip = y===2569 && q>0;
-      const isCur  = y===2569 && q===0;
+      const v = qTot[y][q] || 0;
+      const isSkip = y===lastY && (q*3) >= NM;
+      const isCur  = y===lastY && !isSkip;
       return `<td class="${isCur?'yr2569':''}">${isSkip?'–':fmtM(v)}</td>`;
     }).join('');
-    const c68=quarterlyTotals[2568][q], c69=q===0?quarterlyTotals[2569][0]:null;
-    const chgCol = (q===0 && c69) ? `<td>${pctStr(c68,c69)}</td>` : `<td><span class="pct neutral">–</span></td>`;
+    const c68 = qTot[2568][q] || 0;
+    const c69val = qTot[lastY][q] || 0;
+    const isSkip69 = (q*3) >= NM;
+    const chgCol = !isSkip69 ? `<td>${pctStr(c68,c69val)}</td>` : `<td><span class="pct neutral">–</span></td>`;
     qRows += `<tr><td>Q${q+1}</td>${cells}${chgCol}</tr>`;
   }
-  const yCellsQ = YEARS.map(y=>`<td class="highlight-cell">${fmtM(y===2569?quarterlyTotals[2569][0]:yearlyTotals[y])}</td>`).join('');
+  const yCellsQ = YEARS.map(y => {
+    const total = y===lastY ? y69live : (yTot[String(y)]||yTot[y]||0);
+    return `<td class="highlight-cell">${fmtM(total)}</td>`;
+  }).join('');
   qRows += `<tr class="total-row"><td>รวม</td>${yCellsQ}<td>–</td></tr>`;
 
+  // ตารางรายเดือน — แสดงทุกเดือน ปี 2569 แสดงถ้ามีข้อมูล
   let mRows = '';
   for(let m=0;m<12;m++){
     const cells = YEARS.map(y=>{
-      const v=monthlyTotals[y][m];
-      const skip=y===2569&&m>=4;
-      return `<td class="${y===2569&&m<4?'yr2569':''}">${skip?'–':fmtM(v)}</td>`;
+      const arr = mTot[String(y)] || mTot[y] || Array(12).fill(0);
+      const v = arr[m] || 0;
+      const skip = y===lastY && m >= NM;
+      return `<td class="${y===lastY&&m<NM?'yr2569':''}">${skip?'–':fmtM(v)}</td>`;
     }).join('');
-    const v68=monthlyTotals[2568][m], v69=monthlyTotals[2569][m];
-    const chg69 = m<4 ? pctStr(v68,v69) : '<span class="pct neutral">–</span>';
+    const arr68 = mTot['2568']||mTot[2568]||Array(12).fill(0);
+    const arr69 = mTot['2569']||mTot[2569]||Array(12).fill(0);
+    const v68 = arr68[m]||0, v69 = arr69[m]||0;
+    const chg69 = m<NM ? pctStr(v68,v69) : '<span class="pct neutral">–</span>';
     mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${chg69}</td></tr>`;
   }
-  mRows+=`<tr class="total-row"><td>รวม</td>${YEARS.map(y=>`<td>${fmtM(yearlyTotals[y])}</td>`).join('')}<td>–</td></tr>`;
+  const mTotCells = YEARS.map(y => {
+    const total = y===lastY ? y69live : (yTot[String(y)]||yTot[y]||0);
+    return `<td>${fmtM(total)}</td>`;
+  }).join('');
+  mRows+=`<tr class="total-row"><td>รวม</td>${mTotCells}<td>–</td></tr>`;
+
+  // ดึงค่า rebate live ถ้ามี ไม่งั้นใช้ embed
+  const liveRb = (qcDataLive && qcDataLive.rebate2569) || {};
+  const rb2569cur   = liveRb.current    || qcRebateSummary['2569_current'];
+  const rb2569curP  = liveRb.currentPct || qcRebateSummary['2569_current_pct'];
+  const rb2569prop  = liveRb.proposed   || qcRebateSummary['2569_proposed'];
+  const rb2569propP = liveRb.proposedPct|| qcRebateSummary['2569_proposed_pct'];
 
   const rebateItems = [
-    {label:'รีเบทปี 2567', val:rebateSummary[2567].total, pct:rebateSummary[2567].pct},
-    {label:'รีเบทปี 2568', val:rebateSummary[2568].total, pct:rebateSummary[2568].pct},
-    {label:'รีเบท 2569 ที่คาดว่าทำได้จริง', val:rebateSummary['2569_current'], pct:null},
-    {label:'รีเบท 2569 (ที่กำลังขอพิจารณา)', val:rebateSummary['2569_proposed'], pct:null},
+    {label:'รีเบทปี 2567', val:qcRebateSummary[2567].total, pct:qcRebateSummary[2567].pct},
+    {label:'รีเบทปี 2568', val:qcRebateSummary[2568].total, pct:qcRebateSummary[2568].pct},
+    {label:'รีเบท 2569 ที่คาดว่าทำได้จริง', val:rb2569cur, pct:rb2569curP},
+    {label:'รีเบท 2569 (ที่กำลังขอพิจารณา)', val:rb2569prop, pct:rb2569propP},
   ];
   const rebCards = rebateItems.map(ri=>`
     <div class="rebate-item">
       <div class="r-label">${ri.label}</div>
       <div class="r-val">${fmtM(ri.val)}</div>
-      ${ri.pct?`<div class="r-pct">${ri.pct.toFixed(2)}% ของยอดซื้อ</div>`:''}
+      ${ri.pct!=null?`<div class="r-pct">${Number(ri.pct).toFixed(2)}% ของยอดซื้อ</div>`:''}
     </div>`).join('');
 
   return `
@@ -698,19 +783,18 @@ function buildPage1() {
   <div class="section-title">ยอดรวมรายปี</div>
   <div class="stat-grid">${yearCards}</div>
 
-  <div class="section-title">ยอดซื้อ ม.ค.–เม.ย. เทียบทุกปี</div>
+  <div class="section-title">ยอดซื้อ ${nmLabel(NM)} เทียบทุกปี</div>
   <div class="four-month-strip">${fmStrip}</div>
 
   <div class="section-title">รายไตรมาส</div>
-  <div class="note">ปี 2569: Q1 = ม.ค.–มี.ค. เท่านั้น (ไม่รวมเม.ย.)</div>
   <div class="tbl-wrap"><table>
-    <thead><tr><th>ไตรมาส</th>${YEARS.map(y=>`<th class="${y===2569?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead>
+    <thead><tr><th>ไตรมาส</th>${YEARS.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead>
     <tbody>${qRows}</tbody>
   </table></div>
 
   <div class="section-title">รายเดือน</div>
   <div class="tbl-wrap"><table>
-    <thead><tr><th>เดือน</th>${YEARS.map(y=>`<th class="${y===2569?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead>
+    <thead><tr><th>เดือน</th>${YEARS.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead>
     <tbody>${mRows}</tbody>
   </table></div>
 
@@ -719,21 +803,47 @@ function buildPage1() {
   `;
 }
 
-// ── PAGE 2 — รายการสินค้า ม.ค.–N เดือน ทุกปี ──
 function buildPage2() {
-  if(!qcDataLive) qcDataLive = buildQCFromEmbed();
+  if (!qcDataLive) qcDataLive = buildQCFromEmbed();
   const NM = getLastMonth(qcDataLive);
-  const prodRows = (qcDataLive ? qcDataLive.products : products.map(p=>({
-    name:p.name, unit:'ถุง',
-    monthly:Object.fromEntries(YEARS.map(y=>[String(y),p.monthly[y]])),
-    bags:Object.fromEntries(YEARS.map(y=>[String(y),p.bags[y]]))
-  }))).map(p => {
+  const mTot = qcDataLive.monthlyTotals;
+  const lastY = 2569;
+
+  const fNM = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
+  const fN = {}; YEARS.forEach(y => fN[y] = fNM(y));
+
+  const f4Vals = YEARS.map(y => fN[y]);
+  const f4Min  = Math.min(...f4Vals.filter(v => v > 0));
+  const range  = (Math.max(...f4Vals) - f4Min) || 1;
+  const legend = YEARS.map(y=>`
+    <div class="legend-item">
+      <div class="legend-dot" style="background:${YR_COL[y]}"></div><span>ปี ${y}</span>
+    </div>`).join('');
+  const barsH = f4Vals.map((v,i)=>{
+    const h = ((v - f4Min) / range) * 220 + 25;
+    const y = YEARS[i];
+    return `<div class="bar-group">
+      <div class="bar" style="height:${h}%;background:${YR_COL[y]}" data-tip="ปี ${y}: ${fmtM(v)}"></div>
+      <div class="bar-label" style="color:${YR_COL[y]}">'${String(y).slice(2)}</div>
+      <div class="bar-val">${fmtM(v)}</div>
+    </div>`;
+  }).join('');
+
+  let mRows = '';
+  for(let m=0;m<NM;m++){
+    const cells = YEARS.map(y=>`<td class="${y===lastY?'yr2569':''}">${fmtM((mTot[String(y)]||mTot[y]||[])[m]||0)}</td>`).join('');
+    const v68=(mTot['2568']||mTot[2568]||[])[m]||0, v69=(mTot['2569']||mTot[2569]||[])[m]||0;
+    mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${pctStr(v68,v69)}</td></tr>`;
+  }
+  const totCells = YEARS.map(y=>`<td>${fmtM(fN[y])}</td>`).join('');
+  mRows+=`<tr class="total-row"><td>รวม</td>${totCells}<td>${pctStr(fN[2568],fN[lastY])}</td></tr>`;
+
+  const prodRows = (qcDataLive.products || []).map(p => {
     const data = YEARS.map(y => ({
-      bags: (p.bags[String(y)]||p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0),
-      amt:  (p.monthly[String(y)]||p.monthly[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0),
+      bags: ((p.bags[String(y)]||p.bags[y]||Array(12).fill(0))).slice(0,NM).reduce((a,b)=>a+b,0),
+      amt:  ((p.monthly[String(y)]||p.monthly[y]||Array(12).fill(0))).slice(0,NM).reduce((a,b)=>a+b,0),
     }));
     if(data.every(d=>d.bags===0 && d.amt===0)) return '';
-
     return `<tr>
       <td class="prod-name-cell">${p.name}</td>
       ${data.map((d,i)=>{
@@ -750,61 +860,32 @@ function buildPage2() {
   }).filter(Boolean).join('');
 
   const totalRow = YEARS.map(y=>{
-    const bags = products.reduce((s,p)=>s+p.bags[y].slice(0,4).reduce((a,b)=>a+b,0),0);
-    const amt  = products.reduce((s,p)=>s+p.monthly[y].slice(0,4).reduce((a,b)=>a+b,0),0);
+    const arr = mTot[String(y)]||mTot[y]||Array(12).fill(0);
+    const amt = arr.slice(0,NM).reduce((a,b)=>a+b,0);
+    const bags = (qcDataLive.products||[]).reduce((s,p)=>s+((p.bags[String(y)]||p.bags[y]||Array(12).fill(0))).slice(0,NM).reduce((a,b)=>a+b,0),0);
     return `<td style="text-align:center;padding:7px 8px">
       <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:${YR_COL[y]}">${fmt(bags)} ถุง</div>
       <div style="font-family:var(--mono);font-size:11px;color:#555;margin-top:2px">${fmtM(amt)}</div>
     </td>`;
   }).join('');
 
-  const four = y => monthlyTotals[y].slice(0,4).reduce((a,b)=>a+b,0);
-  const f4 = {}; YEARS.forEach(y=>f4[y]=four(y));
-
-  const mTotQ = qcDataLive ? qcDataLive.monthlyTotals : Object.fromEntries(YEARS.map(y=>[String(y),monthlyTotals[y]]));
-  let mRows='';
-  for(let m=0;m<NM;m++){
-    const cells=YEARS.map(y=>`<td class="${y===2569?'yr2569':''}">${fmtM((mTotQ[String(y)]||mTotQ[y]||[])[m]||0)}</td>`).join('');
-    const v68=(mTotQ['2568']||mTotQ[2568]||[])[m]||0, v69=(mTotQ['2569']||mTotQ[2569]||[])[m]||0;
-    mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${pctStr(v68,v69)}</td></tr>`;
-  }
-  mRows+=`<tr class="total-row"><td>รวม</td>${YEARS.map(y=>`<td>${fmtM(f4[y])}</td>`).join('')}<td>${pctStr(f4[2568],f4[2569])}</td></tr>`;
-
-  const f4Vals = YEARS.map(y => f4[y]);
-  const f4Max  = Math.max(...f4Vals);
-  const f4Min  = Math.min(...f4Vals.filter(v => v > 0));
-  const range  = f4Max - f4Min || 1;
-  const legend = YEARS.map(y=>`
-    <div class="legend-item">
-      <div class="legend-dot" style="background:${YR_COL[y]}"></div><span>ปี ${y}</span>
-    </div>`).join('');
-  const barsH=f4Vals.map((v,i)=>{
-   const h = ((v - f4Min) / range) * 220 + 25;
-    const y=YEARS[i];
-    return `<div class="bar-group">
-      <div class="bar" style="height:${h}%;background:${YR_COL[y]}" data-tip="ปี ${y}: ${fmtM(v)}"></div>
-      <div class="bar-label" style="color:${YR_COL[y]}">'${String(y).slice(2)}</div>
-      <div class="bar-val">${fmtM(v)}</div>
-    </div>`;
-  }).join('');
-
   return `
-  <div class="page-title">รายการสินค้า ม.ค.–${MN[NM-1]}</div>
+  <div class="page-title">รายการสินค้า ${nmLabel(NM)}</div>
   <div class="page-sub">จำนวน และยอดซื้อ (บาท) เดือน 1–${NM} แยกตามสินค้าและปี</div>
 
   <div class="chart-wrap">
-    <div class="chart-title">ยอดซื้อ ม.ค.–${MN[NM-1]} รายปี (บาท)</div>
+    <div class="chart-title">ยอดซื้อ ${nmLabel(NM)} รายปี (บาท)</div>
     <div class="chart-legend">${legend}</div>
     <div class="bar-chart">${barsH}</div>
   </div>
 
-  <div class="section-title">เทียบรายเดือน (ม.ค.–เม.ย.)</div>
+  <div class="section-title">เทียบรายเดือน (${nmLabel(NM)})</div>
   <div class="tbl-wrap"><table>
-    <thead><tr><th>เดือน</th>${YEARS.map(y=>`<th class="${y===2569?'yr2569':''}">${y}</th>`).join('')}<th>68→69 ⭐</th></tr></thead>
+    <thead><tr><th>เดือน</th>${YEARS.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69 ⭐</th></tr></thead>
     <tbody>${mRows}</tbody>
   </table></div>
 
-  <div class="section-title">รายการสินค้า ม.ค.–${MN[NM-1]} ทุกปี</div>
+  <div class="section-title">รายการสินค้า ${nmLabel(NM)} ทุกปี</div>
   <div class="note">แถวละสินค้า — แสดงจำนวน (บน) และยอดซื้อบาท (ล่าง) เฉพาะเดือน 1–${NM}</div>
   <div class="prod-tbl-wrap">
     <table>
@@ -826,167 +907,16 @@ function buildPage2() {
   `;
 }
 
-// ── ROUTER ──
-const qcPages = [
-  { id:'p0', label:'ภาพรวม',      build: buildPage1 },
-  { id:'p1', label:'สินค้า 4 เดือน', build: buildPage2 },
-];
-
-const navTabs    = document.getElementById('navTabs');
-const mainContent= document.getElementById('mainContent');
-
-// ── QUICKCOAT SECTION ──
-const qcSection = document.createElement('div');
-qcSection.id = 'sectionQC';
-mainContent.appendChild(qcSection);
-
-qcPages.forEach((pg,i)=>{
-  const btn = document.createElement('button');
-  btn.className = 'tab-btn' + (i===0?' active':'');
-  btn.textContent = pg.label;
-  btn.dataset.brand = 'qc';
-  btn.onclick = ()=> showPage(i, 'qc');
-  navTabs.appendChild(btn);
-  const div = document.createElement('div');
-  div.className = 'page' + (i===0?' active':'');
-  div.id = pg.id;
-  qcSection.appendChild(div);
-});
-
-// ── CROC SECTION ──
-const crocSection = document.createElement('div');
-crocSection.id = 'sectionCROC';
-crocSection.style.display = 'none';
-mainContent.appendChild(crocSection);
-
-const CROC_SHEET_ID = '1ru3ctlBD9jaHE62NOUk6Dcdh-tP5cXqzzXhwW0hsjK4';
-const CROC_API = `https://docs.google.com/spreadsheets/d/${CROC_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=รายละเอียด`;
-
-// ── STATE ──
-let rendered = {};
-let currentBrand = 'qc';
-
-function showPage(idx, brand) {
-  const prefix = brand || currentBrand;
-  const tabs = navTabs.querySelectorAll(`.tab-btn[data-brand="${prefix}"]`);
-  tabs.forEach((b,i)=>b.classList.toggle('active',i===idx));
-
-  const pages = prefix==='qc' ? qcSection : prefix==='croc' ? crocSection : sikaSection;
-  pages.querySelectorAll('.page').forEach((d,i)=>d.classList.toggle('active',i===idx));
-
-  const key = `${prefix}_${idx}`;
-  if(!rendered[key]){
-    if(prefix==='qc'){
-      document.getElementById(qcPages[idx].id).innerHTML = qcPages[idx].build();
-    } else if(prefix==='croc') {
-      buildCrocPage(idx);
-    } else {
-      buildSikaPage(idx);
-    }
-    rendered[key]=true;
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
+// ══════════════════════════════════════════════
 // ── CROC DATA ──
+// ══════════════════════════════════════════════
+const CROC_SHEET_ID = '1ru3ctlBD9jaHE62NOUk6Dcdh-tP5cXqzzXhwW0hsjK4';
+const CROC_API = `https://docs.google.com/spreadsheets/d/${CROC_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
+
 let crocData = null;
 let crocLoading = false;
 
-const SHEET_QC   = 'https://docs.google.com/spreadsheets/d/1aKR6KmUGosext5SE1d92VF-CVEHeCJEFfM_IvHE6gzY/edit?gid=246191077#gid=246191077';
-const SHEET_CROC = 'https://docs.google.com/spreadsheets/d/1ru3ctlBD9jaHE62NOUk6Dcdh-tP5cXqzzXhwW0hsjK4/edit?gid=1779795165#gid=1779795165';
-const SHEET_SIKA = 'https://docs.google.com/spreadsheets/d/1Rn5wDBvdNDog_gnxZjbQ08dxurWphqrH4u1MENmXLeM/edit?gid=401787243#gid=401787243';
-
-function switchBrand(brand) {
-  currentBrand = brand;
-  document.getElementById('brandQC').classList.toggle('active', brand==='qc');
-  document.getElementById('brandCROC').classList.toggle('active', brand==='croc');
-  document.getElementById('brandSIKA').classList.toggle('active', brand==='sika');
-
-  const bannerLink = document.getElementById('bannerLink');
-  const bannerLabel = document.getElementById('bannerLabel');
-  if(brand==='qc'){
-    bannerLink.href = SHEET_QC;
-    bannerLabel.textContent = '📊 ดูข้อมูลดิบ สินค้าควิกโค้ท ใน Google Sheets';
-  } else if(brand==='croc') {
-    bannerLink.href = SHEET_CROC;
-    bannerLabel.textContent = '📊 ดูข้อมูลดิบ สินค้าจระเข้ ใน Google Sheets';
-  } else {
-    bannerLink.href = SHEET_SIKA;
-    bannerLabel.textContent = '📊 ดูข้อมูลดิบ สินค้าซิก้า ใน Google Sheets';
-  }
-
-  if(brand==='qc'){
-    qcSection.style.display='';
-    crocSection.style.display='none';
-    sikaSection.style.display='none';
-    navTabs.querySelectorAll('.tab-btn').forEach(b=>{
-      b.style.display = b.dataset.brand==='qc' ? '' : 'none';
-    });
-  } else if(brand==='croc') {
-    qcSection.style.display='none';
-    crocSection.style.display='';
-    sikaSection.style.display='none';
-    navTabs.querySelectorAll('.tab-btn').forEach(b=>{
-      b.style.display = b.dataset.brand==='croc' ? '' : 'none';
-    });
-    loadCrocData();
-  } else {
-    qcSection.style.display='none';
-    crocSection.style.display='none';
-    sikaSection.style.display='';
-    navTabs.querySelectorAll('.tab-btn').forEach(b=>{
-      b.style.display = b.dataset.brand==='sika' ? '' : 'none';
-    });
-    loadSikaData();
-  }
-}
-
-function showCrocLoading() {
-  crocSection.querySelectorAll('.page').forEach(p => {
-    if(p.classList.contains('active')) {
-      p.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted)">
-        <div style="font-size:28px;margin-bottom:12px">⏳</div>
-        <div style="font-size:14px;font-weight:600">กำลังโหลดข้อมูลจระเข้…</div>
-      </div>`;
-    }
-  });
-}
-
-function showCrocError(msg) {
-  const activeCrocPage = crocSection.querySelector('.page.active');
-  if(activeCrocPage){
-    activeCrocPage.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--red)">
-      <div style="font-size:28px;margin-bottom:12px">⚠️</div>
-      <div style="font-size:14px;font-weight:600">โหลดข้อมูลไม่สำเร็จ</div>
-      <div style="font-size:12px;color:var(--muted);margin-top:6px">${msg}</div>
-      <button onclick="crocData=null;crocLoading=false;loadCrocData()" style="margin-top:14px;padding:8px 20px;border-radius:20px;border:none;background:var(--accent2);color:#fff;font-family:var(--font);cursor:pointer;font-weight:600">ลองใหม่</button>
-    </div>`;
-  }
-}
-
-function onCrocLoaded(data) {
-  if(data.products) {
-    data.products = data.products.map(p => {
-      const fixYr = obj => {
-        const out = {};
-        Object.keys(obj).forEach(y => {
-          const arr = obj[y];
-          out[y] = arr.length > 12 ? arr.slice(0,12) : arr;
-        });
-        return out;
-      };
-      return { ...p, monthly: fixYr(p.monthly), bags: fixYr(p.bags) };
-    });
-  }
-  crocData = data;
-  crocLoading = false;
-  Object.keys(rendered).forEach(k=>{ if(k.startsWith('croc_')) delete rendered[k]; });
-  const activeCrocPage = crocSection.querySelector('.page.active');
-  const idx = Array.from(crocSection.querySelectorAll('.page')).indexOf(activeCrocPage);
-  if(idx>=0){ buildCrocPage(idx); rendered[`croc_${idx}`]=true; }
-}
-
-const CROC_DATA_EMBED = {"monthlyTotals":{"2565":[0.0,288691.83,416713.38,547399.61,660742.87,417218.4,664625.59,1243295.28,632560.91,77805.18,604167.22,643298.69],"2566":[448503.56,694000.5,560475.91,445854.4,525561.08,733634.4,702100.79,668830.78,664075.88,779075.88,790041.63,294092.31],"2567":[487689.14,820409.26,974547.63,627605.82,647990.82,672559.38,864713.26,800033.76,1443692.5,870212.49,1113704.76,627994.1],"2568":[460699.14,1003995.02,609069.77,922357.81,932470.03,603087.11,657841.31,1115797.19,884139.61,1442123.27,519624.2,1229648.27],"2569":[665117.24,761127.15,1089491.65,648537.63,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"yearlyTotals":{"2565":6196518.96,"2566":7306247.12,"2567":9951152.92,"2568":10380852.73,"2569":3164273.67},"rebateSummary":{"2567":{"total":478193,"pct":4.8054},"2568":{"total":522591,"pct":5.0342},"2569_current":150616},"products":[{"group":"กาวซีเมนต์","name":"ปูนกาวกระเบื้อง จระเข้ เขียว 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,211502.08,408302.17,397746.84,574655.0,198477.58,583018.58,861582.96,589629.61,77805.18,569035.93,575149.3],"2566":[400347.12,623929.38,395984.88,381411.54,384688.5,542627.9,565508.89,577667.54,557733.55,620927.11,604381.85,191411.74],"2567":[388379.93,645744.49,752474.66,393266.23,593941.04,566056.49,655096.7,687113.95,1195511.35,631900.11,800580.07,550710.4],"2568":[410307.79,858845.31,408273.02,625558.03,814215.98,500594.12,508077.0,792934.64,631848.83,1048077.46,392224.8,961963.87],"2569":[515239.64,562675.62,828738.34,536716.33,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,1600,3100,3120,4680,1560,4580,6540,4680,795,4650,4585],"2566":[3120,4990,3170,3120,3103,4700,4640,4600,4575,4740,4860,1560],"2567":[3215,5060,6140,3270,4860,4470,5220,5316,9190,4770,6230,4290],"2568":[3270,6450,3120,4820,6400,4050,4050,6390,5061,8020,3240,6910],"2569":[4110,4110,6240,3900,0,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวกระเบื้อง+สระว่ายน้ำ จระเข้ แดง 20 กก. (สีเทา)","unit":"ถุง","monthly":{"2565":[0.0,9891.34,8411.21,63139.67,52485.98,121896.73,46436.92,191320.09,24147.2,0.0,27862.15,25992.52],"2566":[36074.6,35910.74,79523.55,43646.29,86151.15,95456.9,94014.96,67964.66,57987.57,122518.8,92634.06,65058.76],"2567":[25091.66,55357.84,116832.85,56248.09,18133.24,103045.04,45613.13,31653.64,122426.31,27316.85,70995.82,39327.16],"2568":[16433.37,43025.29,57375.91,151442.49,89130.83,42178.94,49068.24,56775.47,133478.3,99185.53,104151.17,70890.7],"2569":[71174.87,97487.81,123765.03,29141.99,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,60,50,390,312,725,250,1030,130,0,150,140],"2566":[200,200,470,240,560,646,543,405,340,700,560,380],"2567":[150,310,670,310,100,570,270,180,700,150,420,218],"2568":[90,234,316,858,518,234,332,340,850,560,572,388],"2569":[390,530,702,156,0,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวทุกพื้นผิว จระเข้ ทอง 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,47356.34,0.0,81031.96,30067.29,80537.38,28037.38,162616.82,0.0,0.0,0.0,28037.38],"2566":[0.0,26200.96,82071.94,0.0,50634.7,78170.12,11909.67,10876.55,27093.69,19041.75,28438.34,33083.22],"2567":[38354.29,78194.63,32389.1,124159.35,28868.58,0.0,136691.61,76949.37,71802.79,135805.28,166578.27,31176.64],"2568":[32838.0,94290.56,55044.93,126907.15,0.0,40822.23,78271.38,248824.61,11059.31,156978.5,0.0,86483.89],"2569":[32921.5,43067.35,84103.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,90,0,156,56,150,50,290,0,0,0,50],"2566":[0,50,160,0,100,162,40,20,50,40,55,60],"2567":[70,150,60,250,60,0,260,150,140,250,320,60],"2568":[60,170,100,240,0,78,150,650,20,310,0,158],"2569":[78,80,160,0,0,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวงานปูทับ จระเข้ เงิน 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2567":[0.0,12903.39,32250.17,16037.5,0.0,0.0,0.0,0.0,0.0,0.0,10037.4,0.0],"2568":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6508.51,26315.03,741.21,0.0],"2569":[0.0,25688.55,25046.24,10283.24,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,0,0,0,0,0,0,0],"2567":[0,0,0,0,0,0,0,0,0,0,0,0],"2568":[0,0,0,0,0,0,0,0,20,80,10,0],"2569":[0,80,78,30,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (1 กก.) สีเทา","unit":"กระปุก","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,1682.24,0.0,1682.24,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,1640.88,0.0,0.0,5006.51,0.0,0.0,0.0,0.0,0.0],"2567":[1667.83,0.0,1619.15,4931.46,0.0,0.0,697.47,0.0,0.0,0.0,4625.77,0.0],"2568":[0.0,0.0,1657.93,0.0,0.0,0.0,0.0,0.0,1623.13,2761.17,0.0,1606.38],"2569":[1673.33,0.0,0.0,4869.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,12,0,12,0,0,0],"2566":[0,0,0,12,0,0,36,0,0,0,0,0],"2567":[12,0,12,36,0,0,12,0,0,0,36,0],"2568":[0,0,12,0,0,0,0,0,12,24,0,12],"2569":[12,0,0,36,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (4 กก.) สีเทา","unit":"แกลลอน","monthly":{"2565":[0.0,6878.09,0.0,0.0,0.0,0.0,5450.47,5450.47,9084.11,0.0,0.0,5450.47],"2566":[10579.39,0.0,0.0,5316.43,2927.05,0.0,11537.2,0.0,5368.76,6814.24,21197.96,0.0],"2567":[16131.09,0.0,20918.55,10546.87,0.0,0.0,7680.69,0.0,10371.61,5185.8,10380.25,0.0],"2568":[0.0,5330.5,20742.74,1590.47,15999.5,3784.56,0.0,0.0,6383.17,14640.58,0.0,5856.21],"2569":[6389.41,5938.92,0.0,28208.82,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,17,0,0,0,0,12,12,20,0,0,12],"2566":[24,0,0,12,8,0,28,0,12,12,48,0],"2567":[36,0,48,24,0,0,24,0,24,12,28,0],"2568":[0,12,52,4,40,12,0,0,17,40,0,16],"2569":[24,16,0,72,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"จระเข้ ฟลอร์ สมูท เบส (สีเทา) (20 กก.)","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,7711.36,0.0,0.0,0.0,0.0,0.0,0.0],"2567":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2568":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2569":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,30,0,0,0,0,0,0],"2567":[0,0,0,0,0,0,0,0,0,0,0,0],"2568":[0,0,0,0,0,0,0,0,0,0,0,0],"2569":[0,0,0,0,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (20 กก.) สีเทา","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,27260.29,0.0],"2567":[14356.63,18324.49,0.0,0.0,0.0,0.0,0.0,0.0,31552.51,62168.3,0.0,0.0],"2568":[0.0,0.0,45493.72,0.0,7459.01,0.0,15916.06,7698.02,60445.79,54989.42,0.0,44477.39],"2569":[15135.44,14935.5,15134.73,31734.05,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,0,0,0,0,0,15,0],"2567":[15,10,0,0,0,0,0,0,20,39,0,0],"2568":[0,0,30,0,5,0,10,5,40,40,0,30],"2569":[10,10,10,20,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์ทากันซึมชนิดยืดหยุ่น จระเข้ เฟล็กซ์ 2 เค (ชุด)","unit":"ชุด","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,2595.82,6793.15,0.0,0.0,3981.35,0.0,7298.49,0.0,2548.09,0.0],"2567":[0.0,2708.41,3258.52,0.0,0.0,0.0,0.0,2031.3,0.0,4062.6,0.0,2663.66],"2568":[0.0,0.0,6635.58,6771.0,0.0,6115.04,0.0,0.0,15871.21,0.0,0.0,16781.72],"2569":[5669.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,4,14,0,0,6,0,11,0,4,0],"2567":[0,4,5,0,0,0,0,3,0,6,0,4],"2568":[0,0,10,10,0,10,0,0,28,0,0,30],"2569":[10,0,0,0,0,0,0,0,0,0,0,0]}},{"group":"ยาแนว","name":"ยาแนว ทุกสี + ยาแนวพรีเมี่ยมพลัส","unit":"ถุง","monthly":{"2565":[0.0,13063.98,0.0,5481.14,3534.6,16306.71,0.0,22324.94,8017.75,0.0,7269.14,8669.02],"2566":[1502.45,7959.42,299.72,7046.11,1159.68,9668.12,10142.21,12322.03,8593.82,9773.98,13581.04,4538.59],"2567":[3707.71,7176.01,14804.63,22416.32,7047.96,3457.85,18933.66,2285.5,12027.93,3773.55,50507.18,4116.24],"2568":[1119.98,2503.36,13845.94,10088.67,5664.71,9592.22,6508.63,9564.45,16921.36,39175.58,22507.02,41588.11],"2569":[16913.55,11333.4,12703.48,7583.81,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,500,0,140,200,640,0,860,280,0,240,320],"2566":[100,260,20,300,80,520,360,480,240,400,620,180],"2567":[160,280,520,900,380,160,700,100,490,140,1700,100],"2568":[60,60,500,440,260,440,180,320,550,1330,830,1330],"2569":[560,360,340,240,0,0,0,0,0,0,0,0]}}],"bimonthlyByGroup":{"กาวซีเมนต์":{"2565":[268749.76,958631.85,1058119.96,1873012.75,691581.99,1226077.28],"2566":[1122462.8,982638.2,1237729.27,1327942.27,1405302.47,1015007.97],"2567":[1244026.23,1523657.95,1310044.39,1633118.4,2184762.69,1669405.76],"2568":[1455740.32,1424601.53,1486942.1,1733951.34,2113451.47,1616455.64],"2569":[1348255.34,1637795.0,0.0,0.0,0.0,0.0]},"เคมีก่อสร้าง":{"2565":[6878.09,0.0,0.0,12583.18,10766.35,5450.47],"2566":[10579.39,16346.28,10638.41,20525.06,19481.49,51006.34],"2567":[53188.45,41274.55,0.0,10409.46,113340.82,17669.68],"2568":[5330.5,82891.44,33358.11,23614.08,156714.47,68721.7],"2569":[49742.1,79946.99,0.0,0.0,0.0,0.0]},"ยาแนว":{"2565":[13063.98,5481.14,19841.31,22324.94,8017.75,15938.16],"2566":[9461.87,7345.83,10827.8,22464.24,18367.8,18119.63],"2567":[10883.72,37220.95,10505.81,21219.16,15801.48,54623.42],"2568":[3623.34,23934.61,15256.93,16073.08,56096.94,64095.13],"2569":[28246.95,20287.29,0.0,0.0,0.0,0.0]}}};
+const CROC_DATA_EMBED = {"monthlyTotals":{"2565":[0.0,288691.83,416713.38,547399.61,660742.87,417218.4,664625.59,1243295.28,632560.91,77805.18,604167.22,643298.69],"2566":[448503.56,694000.5,560475.91,445854.4,525561.08,733634.4,702100.79,668830.78,664075.88,779075.88,790041.63,294092.31],"2567":[487689.14,820409.26,974547.63,627605.82,647990.82,672559.38,864713.26,800033.76,1443692.5,870212.49,1113704.76,627994.1],"2568":[460699.14,1003995.02,609069.77,922357.81,932470.03,603087.11,657841.31,1115797.19,884139.61,1442123.27,519624.2,1229648.27],"2569":[665117.24,761127.15,1089491.65,648537.63,970283.48,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"yearlyTotals":{"2565":6196518.96,"2566":7306247.12,"2567":9951152.92,"2568":10380852.73,"2569":4134557.15},"rebateSummary":{"2567":{"total":478193,"pct":4.8054},"2568":{"total":522591,"pct":5.0342},"2569_current":150616},"products":[{"group":"กาวซีเมนต์","name":"ปูนกาวกระเบื้อง จระเข้ เขียว 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,211502.08,408302.17,397746.84,574655.0,198477.58,583018.58,861582.96,589629.61,77805.18,569035.93,575149.3],"2566":[400347.12,623929.38,395984.88,381411.54,384688.5,542627.9,565508.89,577667.54,557733.55,620927.11,604381.85,191411.74],"2567":[388379.93,645744.49,752474.66,393266.23,593941.04,566056.49,655096.7,687113.95,1195511.35,631900.11,800580.07,550710.4],"2568":[410307.79,858845.31,408273.02,625558.03,814215.98,500594.12,508077.0,792934.64,631848.83,1048077.46,392224.8,961963.87],"2569":[515239.64,562675.62,828738.34,536716.33,872905.99,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,1600,3100,3120,4680,1560,4580,6540,4680,795,4650,4585],"2566":[3120,4990,3170,3120,3103,4700,4640,4600,4575,4740,4860,1560],"2567":[3215,5060,6140,3270,4860,4470,5220,5316,9190,4770,6230,4290],"2568":[3270,6450,3120,4820,6400,4050,4050,6390,5061,8020,3240,6910],"2569":[4110,4110,6240,3900,6240,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวกระเบื้อง+สระว่ายน้ำ จระเข้ แดง 20 กก. (สีเทา)","unit":"ถุง","monthly":{"2565":[0.0,9891.34,8411.21,63139.67,52485.98,121896.73,46436.92,191320.09,24147.2,0.0,27862.15,25992.52],"2566":[36074.6,35910.74,79523.55,43646.29,86151.15,95456.9,94014.96,67964.66,57987.57,122518.8,92634.06,65058.76],"2567":[25091.66,55357.84,116832.85,56248.09,18133.24,103045.04,45613.13,31653.64,122426.31,27316.85,70995.82,39327.16],"2568":[16433.37,43025.29,57375.91,151442.49,89130.83,42178.94,49068.24,56775.47,133478.3,99185.53,104151.17,70890.7],"2569":[71174.87,97487.81,123765.03,29141.99,84806.73,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,60,50,390,312,725,250,1030,130,0,150,140],"2566":[200,200,470,240,560,646,543,405,340,700,560,380],"2567":[150,310,670,310,100,570,270,180,700,150,420,218],"2568":[90,234,316,858,518,234,332,340,850,560,572,388],"2569":[390,530,702,156,440,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวทุกพื้นผิว จระเข้ ทอง 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,47356.34,0.0,81031.96,30067.29,80537.38,28037.38,162616.82,0.0,0.0,0.0,28037.38],"2566":[0.0,26200.96,82071.94,0.0,50634.7,78170.12,11909.67,10876.55,27093.69,19041.75,28438.34,33083.22],"2567":[38354.29,78194.63,32389.1,124159.35,28868.58,0.0,136691.61,76949.37,71802.79,135805.28,166578.27,31176.64],"2568":[32838.0,94290.56,55044.93,126907.15,0.0,40822.23,78271.38,248824.61,11059.31,156978.5,0.0,86483.89],"2569":[32921.5,43067.35,84103.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,90,0,156,56,150,50,290,0,0,0,50],"2566":[0,50,160,0,100,162,40,20,50,40,55,60],"2567":[70,150,60,250,60,0,260,150,140,250,320,60],"2568":[60,170,100,240,0,78,150,650,20,310,0,158],"2569":[78,80,160,0,0,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวงานปูทับ จระเข้ เงิน 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2567":[0.0,12903.39,32250.17,16037.5,0.0,0.0,0.0,0.0,0.0,0.0,10037.4,0.0],"2568":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6508.51,26315.03,741.21,0.0],"2569":[0.0,25688.55,25046.24,10283.24,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,0,0,0,0,0,0,0],"2567":[0,0,0,0,0,0,0,0,0,0,0,0],"2568":[0,0,0,0,0,0,0,0,20,80,10,0],"2569":[0,80,78,30,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (1 กก.) สีเทา","unit":"กระปุก","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,1682.24,0.0,1682.24,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,1640.88,0.0,0.0,5006.51,0.0,0.0,0.0,0.0,0.0],"2567":[1667.83,0.0,1619.15,4931.46,0.0,0.0,697.47,0.0,0.0,0.0,4625.77,0.0],"2568":[0.0,0.0,1657.93,0.0,0.0,0.0,0.0,0.0,1623.13,2761.17,0.0,1606.38],"2569":[1673.33,0.0,0.0,4869.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,12,0,12,0,0,0],"2566":[0,0,0,12,0,0,36,0,0,0,0,0],"2567":[12,0,12,36,0,0,12,0,0,0,36,0],"2568":[0,0,12,0,0,0,0,0,12,24,0,12],"2569":[12,0,0,36,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (4 กก.) สีเทา","unit":"แกลลอน","monthly":{"2565":[0.0,6878.09,0.0,0.0,0.0,0.0,5450.47,5450.47,9084.11,0.0,0.0,5450.47],"2566":[10579.39,0.0,0.0,5316.43,2927.05,0.0,11537.2,0.0,5368.76,6814.24,21197.96,0.0],"2567":[16131.09,0.0,20918.55,10546.87,0.0,0.0,7680.69,0.0,10371.61,5185.8,10380.25,0.0],"2568":[0.0,5330.5,20742.74,1590.47,15999.5,3784.56,0.0,0.0,6383.17,14640.58,0.0,5856.21],"2569":[6389.41,5938.92,0.0,28208.82,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,17,0,0,0,0,12,12,20,0,0,12],"2566":[24,0,0,12,8,0,28,0,12,12,48,0],"2567":[36,0,48,24,0,0,24,0,24,12,28,0],"2568":[0,12,52,4,40,12,0,0,17,40,0,16],"2569":[24,16,0,72,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"จระเข้ ฟลอร์ สมูท เบส (สีเทา) (20 กก.)","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,7711.36,0.0,0.0,0.0,0.0,0.0,0.0],"2567":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2568":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2569":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,30,0,0,0,0,0,0],"2567":[0,0,0,0,0,0,0,0,0,0,0,0],"2568":[0,0,0,0,0,0,0,0,0,0,0,0],"2569":[0,0,0,0,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (20 กก.) สีเทา","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,27260.29,0.0],"2567":[14356.63,18324.49,0.0,0.0,0.0,0.0,0.0,0.0,31552.51,62168.3,0.0,0.0],"2568":[0.0,0.0,45493.72,0.0,7459.01,0.0,15916.06,7698.02,60445.79,54989.42,0.0,44477.39],"2569":[15135.44,14935.5,15134.73,31734.05,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,0,0,0,0,0,15,0],"2567":[15,10,0,0,0,0,0,0,20,39,0,0],"2568":[0,0,30,0,5,0,10,5,40,40,0,30],"2569":[10,10,10,20,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์ทากันซึมชนิดยืดหยุ่น จระเข้ เฟล็กซ์ 2 เค (ชุด)","unit":"ชุด","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,2595.82,6793.15,0.0,0.0,3981.35,0.0,7298.49,0.0,2548.09,0.0],"2567":[0.0,2708.41,3258.52,0.0,0.0,0.0,0.0,2031.3,0.0,4062.6,0.0,2663.66],"2568":[0.0,0.0,6635.58,6771.0,0.0,6115.04,0.0,0.0,15871.21,0.0,0.0,16781.72],"2569":[5669.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,4,14,0,0,6,0,11,0,4,0],"2567":[0,4,5,0,0,0,0,3,0,6,0,4],"2568":[0,0,10,10,0,10,0,0,28,0,0,30],"2569":[10,0,0,0,0,0,0,0,0,0,0,0]}},{"group":"ยาแนว","name":"ยาแนว ทุกสี + ยาแนวพรีเมี่ยมพลัส","unit":"ถุง","monthly":{"2565":[0.0,13063.98,0.0,5481.14,3534.6,16306.71,0.0,22324.94,8017.75,0.0,7269.14,8669.02],"2566":[1502.45,7959.42,299.72,7046.11,1159.68,9668.12,10142.21,12322.03,8593.82,9773.98,13581.04,4538.59],"2567":[3707.71,7176.01,14804.63,22416.32,7047.96,3457.85,18933.66,2285.5,12027.93,3773.55,50507.18,4116.24],"2568":[1119.98,2503.36,13845.94,10088.67,5664.71,9592.22,6508.63,9564.45,16921.36,39175.58,22507.02,41588.11],"2569":[16913.55,11333.4,12703.48,7583.81,12570.76,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,500,0,140,200,640,0,860,280,0,240,320],"2566":[100,260,20,300,80,520,360,480,240,400,620,180],"2567":[160,280,520,900,380,160,700,100,490,140,1700,100],"2568":[60,60,500,440,260,440,180,320,550,1330,830,1330],"2569":[560,360,340,240,400,0,0,0,0,0,0,0]}}],"bimonthlyByGroup":{"กาวซีเมนต์":{"2565":[268749.76,958631.85,1058119.96,1873012.75,691581.99,1226077.28],"2566":[1122462.8,982638.2,1237729.27,1327942.27,1405302.47,1015007.97],"2567":[1244026.23,1523657.95,1310044.39,1633118.4,2184762.69,1669405.76],"2568":[1455740.32,1424601.53,1486942.1,1733951.34,2113451.47,1616455.64],"2569":[1348255.34,1637795.0,957712.72,0.0,0.0,0.0]},"เคมีก่อสร้าง":{"2565":[6878.09,0.0,0.0,12583.18,10766.35,5450.47],"2566":[10579.39,16346.28,10638.41,20525.06,19481.49,51006.34],"2567":[53188.45,41274.55,0.0,10409.46,113340.82,17669.68],"2568":[5330.5,82891.44,33358.11,23614.08,156714.47,68721.7],"2569":[49742.1,79946.99,0.0,0.0,0.0,0.0]},"ยาแนว":{"2565":[13063.98,5481.14,19841.31,22324.94,8017.75,15938.16],"2566":[9461.87,7345.83,10827.8,22464.24,18367.8,18119.63],"2567":[10883.72,37220.95,10505.81,21219.16,15801.48,54623.42],"2568":[3623.34,23934.61,15256.93,16073.08,56096.94,64095.13],"2569":[28246.95,20287.29,12570.76,0.0,0.0,0.0]}}};
 
 function parseCSVLine(line) {
   const result = [];
@@ -1007,38 +937,59 @@ function parseCSVLine(line) {
 function parseCrocCSV(csvText) {
   const lines = csvText.trim().split('\n');
   const rows = lines.map(parseCSVLine);
+
   const YEARS_C = ['2565','2566','2567','2568','2569'];
-  const BAG_COLS  = [5, 7, 10, 13, 16];
-  const SALE_COLS = [6, 8, 11, 14, 17];
+  const BAG_COLS_C  = [1, 3, 5, 7, 9];
+  const SALE_COLS_C = [2, 4, 6, 8, 10];
+  const UNIT_VALS = ['ถุง','กระปุก','แกลลอน','ชุด','ถัง'];
+
+  // debug: log first 5 rows
+  console.log('[CROC CSV] first 3 rows:', rows.slice(0,3).map(r=>r.slice(0,6)));
+
   const products_c = [];
-  let i = 0;
-  while (i < rows.length) {
+  let currentGroup = '';
+
+  for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
-    const group = (row[0]||'').trim();
-    const nameShort = (row[1]||'').trim();
-    const nameFull  = (row[2]||'').trim();
-    const unitCell  = (row[5]||'').trim();
-    const isProductHeader = group && nameShort && (unitCell === 'ถุง' || unitCell === 'กระปุก' || unitCell === 'แกลลอน' || unitCell === 'ชุด');
-    if (isProductHeader) {
-      const productName = nameFull || nameShort;
-      const unit = unitCell;
-      const groupName = group === 'กาวยาแนว' ? 'ยาแนว' : group;
+    const a = (row[0]||'').replace(/\xa0/g,' ').trim();
+    const b = (row[1]||'').trim();
+    const c = (row[2]||'').trim();
+
+    // group header: col A = ชื่อกลุ่ม, col B = 'ปี 2565' หรือ 'ปี'
+    if (a && (b === 'ปี 2565' || b.startsWith('ปี ')) && !a.includes('เดือน') && !a.includes('รวม')) {
+      const grp = a.replace('กาวยาแนว','ยาแนว').trim();
+      currentGroup = grp;
+    }
+
+    // product header: col B = unit และ col C = 'ยอด'/'ยอดซื้อ'
+    // รองรับกรณี CSV encode unit ต่างออกมาด้วย includes
+    const bIsUnit = UNIT_VALS.includes(b) || UNIT_VALS.some(u => b.includes(u));
+    const cIsYod = (c === 'ยอด' || c === 'ยอดซื้อ' || c.includes('ยอด'));
+    if (bIsUnit && cIsYod && a && !a.includes('เดือน') && !a.includes('รวม') && !a.includes('ปี ')) {
+      const name = a;
+      const unit = b;
       const monthly = {}, bags = {};
       YEARS_C.forEach(y => { monthly[y] = new Array(12).fill(0); bags[y] = new Array(12).fill(0); });
       for (let m = 0; m < 12; m++) {
-        const dataRow = rows[i + 1 + m];
-        if (!dataRow) break;
+        const dr = rows[i + 1 + m];
+        if (!dr || !(dr[0]||'').includes('เดือน')) break;
         YEARS_C.forEach((y, yi) => {
-          bags[y][m]    = parseFloat((dataRow[BAG_COLS[yi]]||'0').replace(/,/g,'')) || 0;
-          monthly[y][m] = parseFloat((dataRow[SALE_COLS[yi]]||'0').replace(/,/g,'')) || 0;
+          const bRaw = (dr[BAG_COLS_C[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
+          const sRaw = (dr[SALE_COLS_C[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
+          bags[y][m]    = parseFloat(bRaw) || 0;
+          monthly[y][m] = parseFloat(sRaw) || 0;
         });
       }
-      products_c.push({ group: groupName, name: productName, unit, monthly, bags });
-      i += 13;
-    } else { i++; }
+      products_c.push({ group: currentGroup, name, unit, monthly, bags });
+      i += 12;
+      continue;
+    }
   }
-  const monthlyTotals_c = {}, yearlyTotals_c = {}, bimonthlyByGroup_c = {};
+
+  console.log('[CROC CSV] parse ได้ products:', products_c.length);
+
   const GROUPS_C = ['กาวซีเมนต์','เคมีก่อสร้าง','ยาแนว'];
+  const monthlyTotals_c = {}, yearlyTotals_c = {}, bimonthlyByGroup_c = {};
   YEARS_C.forEach(y => {
     monthlyTotals_c[y] = new Array(12).fill(0);
     GROUPS_C.forEach(g => {
@@ -1055,51 +1006,76 @@ function parseCrocCSV(csvText) {
     });
   });
   YEARS_C.forEach(y => { yearlyTotals_c[y] = monthlyTotals_c[y].reduce((a,b) => a+b, 0); });
-  return { monthlyTotals: monthlyTotals_c, yearlyTotals: yearlyTotals_c, rebateSummary: CROC_DATA_EMBED.rebateSummary, products: products_c, bimonthlyByGroup: bimonthlyByGroup_c };
+
+  return {
+    monthlyTotals: monthlyTotals_c, yearlyTotals: yearlyTotals_c,
+    rebateSummary: CROC_DATA_EMBED.rebateSummary,
+    products: products_c, bimonthlyByGroup: bimonthlyByGroup_c
+  };
+}
+
+function setFetchBadge(brand, mode, nm) {
+  const label = document.getElementById('bannerLabel');
+  if (!label) return;
+  if (currentBrand !== brand) return;
+  const names = {qc:'ควิกโค้ท', croc:'จระเข้', sika:'ซิก้าแลงโก้'};
+  if (mode === 'live') {
+    label.innerHTML = `📊 ข้อมูลสด ${names[brand]} (${nm} เดือน) &nbsp;<span style="background:#16a34a;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px">LIVE</span>`;
+  } else {
+    label.innerHTML = `📊 ${names[brand]} ใช้ข้อมูล embed (fetch ไม่สำเร็จ) &nbsp;<span style="background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px">OFFLINE</span>`;
+  }
+}
+
+function onCrocLoaded(data) {
+  if(data.products) {
+    data.products = data.products.map(p => {
+      const fixYr = obj => {
+        const out = {};
+        Object.keys(obj).forEach(y => {
+          const arr = obj[y];
+          out[y] = arr.length > 12 ? arr.slice(0,12) : arr;
+        });
+        return out;
+      };
+      return { ...p, monthly: fixYr(p.monthly), bags: fixYr(p.bags) };
+    });
+  }
+  crocData = data;
+  crocLoading = false;
+  const nm = (data.monthlyTotals?.['2569']||data.monthlyTotals?.[2569]||[]).reduce((l,v,i)=>v>0?i+1:l,0)||4;
+  console.log('[CROC] loaded lastMonth=', nm);
+  setFetchBadge('croc', data._fromEmbed ? 'embed' : 'live', nm);
+  reRenderAll('croc');
 }
 
 function loadCrocData() {
   if(crocData || crocLoading) return;
   crocLoading = true;
-  showCrocLoading();
-  const fallback = () => { crocLoading = false; onCrocLoaded(JSON.parse(JSON.stringify(CROC_DATA_EMBED))); };
+  showBrandLoading('croc');
+  const fallback = () => {
+    console.warn('[CROC] fallback ใช้ embed');
+    crocLoading = false;
+    const d = JSON.parse(JSON.stringify(CROC_DATA_EMBED));
+    d._fromEmbed = true;
+    onCrocLoaded(d);
+  };
   fetch(CROC_API)
     .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
     .then(csv => {
       try {
         const data = parseCrocCSV(csv);
-        if (!data.products || data.products.length < 5) throw new Error('parse failed');
+        if (!data.products || data.products.length < 5) throw new Error('parse failed: products=' + (data.products||[]).length);
+        console.log('[CROC] live fetch สำเร็จ products=', data.products.length);
         crocLoading = false;
         onCrocLoaded(data);
-      } catch(e) { fallback(); }
+      } catch(e) { console.warn('[CROC] parse error:', e.message); fallback(); }
     })
-    .catch(() => fallback());
+    .catch(e => { console.warn('[CROC] fetch error:', e.message); fallback(); });
 }
 
-const crocPageDefs = [
-  { id:'cp0', label:'ภาพรวม' },
-  { id:'cp1', label:'สินค้า 4 เดือน' },
-];
-crocPageDefs.forEach((pg,i)=>{
-  const btn = document.createElement('button');
-  btn.className = 'tab-btn' + (i===0?' active':'');
-  btn.style.display = 'none';
-  btn.textContent = pg.label;
-  btn.dataset.brand = 'croc';
-  btn.onclick = ()=> showPage(i,'croc');
-  navTabs.appendChild(btn);
-  const div = document.createElement('div');
-  div.className = 'page' + (i===0?' active':'');
-  div.id = pg.id;
-  crocSection.appendChild(div);
-});
-
-function buildCrocPage(idx){
-  if(!crocData){ loadCrocData(); return; }
-  const el = document.getElementById(crocPageDefs[idx].id);
-  if(idx===0) el.innerHTML = buildCrocPage1();
-  else el.innerHTML = buildCrocPage2();
-}
+// ── CROC PAGE BUILDERS ──
+const YR_COL_C = {2565:'#6366f1',2566:'#0ea5e9',2567:'#10b981',2568:'#e07b1e',2569:'#d97706'};
+const BM_LABELS = ['ม.ค.–ก.พ.','มี.ค.–เม.ย.','พ.ค.–มิ.ย.','ก.ค.–ส.ค.','ก.ย.–ต.ค.','พ.ย.–ธ.ค.'];
 
 function parseCrocData() {
   const d = crocData;
@@ -1128,10 +1104,6 @@ function parseCrocData() {
   return { YEARS: CY, monthlyTotals: mTot, yearlyTotals: yTot, products: prods, rebateSummary: rb, bimonthlyByGroup: bmg };
 }
 
-const CROC_ACCENT = '#0ea5e9';
-const YR_COL_C = {2565:'#6366f1',2566:'#0ea5e9',2567:'#10b981',2568:'#e07b1e',2569:'#d97706'};
-const BM_LABELS = ['ม.ค.–ก.พ.','มี.ค.–เม.ย.','พ.ค.–มิ.ย.','ก.ค.–ส.ค.','ก.ย.–ต.ค.','พ.ย.–ธ.ค.'];
-
 function buildCrocPage1(){
   const cd = parseCrocData();
   const CY = cd.YEARS || YEARS;
@@ -1139,48 +1111,58 @@ function buildCrocPage1(){
   const yTot = cd.yearlyTotals;
   const colFor = y => YR_COL_C[y] || '#6366f1';
   const lastY = CY[CY.length-1];
+  // NM จาก live data
+  const NM = (mTot[lastY]||[]).reduce((last,v,i)=>v>0?i+1:last,0)||4;
+
+  // คำนวณ yearlyTotals ปี lastY จาก live (NM เดือน)
+  const y69live = (mTot[lastY]||[]).reduce((a,b)=>a+b,0);
 
   const yearCards = CY.map(y=>{
-    const v=yTot[y]||0; const prev=yTot[y-1];
-    const chg=prev?pChange(prev,v):null; const col=colFor(y); const isLast=y===lastY;
-    const badge=isLast?`<span class="badge" style="background:rgba(217,119,6,.12);color:#d97706">4 เดือน</span>`:(chg!==null?`<span class="badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'');
+    const v = y===lastY ? y69live : (yTot[y]||0);
+    const prevV = y===lastY ? (yTot[y-1]||0) : (yTot[y-1]||0);
+    const chg = prevV ? pChange(prevV,v) : null;
+    const col = colFor(y);
+    const badge = y===lastY
+      ? `<span class="badge" style="background:rgba(217,119,6,.12);color:#d97706">${NM} เดือน</span>`
+      : (chg!==null?`<span class="badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'');
     return `<div class="stat-card"><div class="year-label" style="color:${col}">ปี ${y}</div><div class="value" style="color:${col}">${fmtM(v)}</div><div class="sub">บาท</div>${badge}</div>`;
   }).join('');
 
-  const yBarData = CY.map(y=>yTot[y]||0);
+  const yBarData = CY.map(y => y===lastY ? y69live : (yTot[y]||0));
   const yBarMax = Math.max(...yBarData)||1;
-  const legend = CY.map(y=>`<div class="legend-item"><div class="legend-dot" style="background:${colFor(y)}"></div><span>ปี ${y}</span></div>`).join('');
+  const legend = CY.map(y=>`<div class="legend-item"><div class="legend-dot" style="background:${colFor(y)}"></div><span>ปี ${y}${y===lastY?` (${NM} เดือน)`:''}</span></div>`).join('');
   const yBars = yBarData.map((v,i)=>{
     const h=Math.max(3,Math.round((v/yBarMax)*100)); const y=CY[i];
     return `<div class="bar-group"><div class="bar" style="height:${h}%;background:${colFor(y)}" data-tip="ปี ${y}: ${fmtM(v)}"></div><div class="bar-label" style="color:${colFor(y)}">'${String(y).slice(2)}</div><div class="bar-val">${fmtM(v)}</div></div>`;
   }).join('');
 
-  const four = y=>(mTot[y]||Array(12).fill(0)).slice(0,4).reduce((a,b)=>a+b,0);
-  const f4={}; CY.forEach(y=>f4[y]=four(y));
+  const fNM = y=>(mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
+  const fN={}; CY.forEach(y=>fN[y]=fNM(y));
   const fmStrip=CY.map(y=>{
-    const v=f4[y],prev=f4[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
+    const v=fN[y],prev=fN[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
     const badge=chg!==null?`<span class="fm-badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'';
     return `<div class="fm-card"><div class="fm-year" style="color:${col}">ปี ${y}</div><div class="fm-val" style="color:${col}">${fmtM(v)}</div>${badge}</div>`;
   }).join('');
 
+  // bimonthly totals คำนวณจาก mTot ตรงๆ
   const bmTot = {}; CY.forEach(y=>{ const m=mTot[y]||Array(12).fill(0); bmTot[y]=[0,1,2,3,4,5].map(b=>m[b*2]+m[b*2+1]); });
   let bmRows='';
   for(let b=0;b<6;b++){
-    const isAvail = y => !(y===lastY && b>=2);
+    const isAvail = y => !((y===lastY) && (b*2 >= NM));
     const cells = CY.map(y=>{ if(!isAvail(y)) return `<td>–</td>`; const v=bmTot[y][b]||0; return `<td class="${y===lastY?'yr2569':''}">${fmtM(v)}</td>`; }).join('');
-    const v68=bmTot[2568]?.[b]||0; const v69=b<2?(bmTot[lastY]?.[b]||0):null;
+    const v68=bmTot[2568]?.[b]||0; const avail69=isAvail(lastY); const v69=avail69?(bmTot[lastY]?.[b]||0):null;
     const chgCol=v69!==null?`<td>${pctStr(v68,v69)}</td>`:`<td><span class="pct neutral">–</span></td>`;
     bmRows+=`<tr><td>${BM_LABELS[b]}</td>${cells}${chgCol}</tr>`;
   }
-  bmRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td class="highlight-cell">${fmtM(yTot[y]||0)}</td>`).join('')}<td>–</td></tr>`;
+  bmRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td class="highlight-cell">${fmtM(y===lastY?y69live:(yTot[y]||0))}</td>`).join('')}<td>–</td></tr>`;
 
   let mRows='';
   for(let m=0;m<12;m++){
-    const cells=CY.map(y=>{ const v=(mTot[y]||Array(12).fill(0))[m]||0; const skip=y===lastY&&m>=4; return `<td class="${y===lastY&&m<4?'yr2569':''}">${skip?'–':fmtM(v)}</td>`; }).join('');
+    const cells=CY.map(y=>{ const v=(mTot[y]||Array(12).fill(0))[m]||0; const skip=y===lastY&&m>=NM; return `<td class="${y===lastY&&m<NM?'yr2569':''}">${skip?'–':fmtM(v)}</td>`; }).join('');
     const v68=(mTot[2568]||Array(12).fill(0))[m]; const v69=(mTot[lastY]||Array(12).fill(0))[m];
-    mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${m<4?pctStr(v68,v69):'<span class="pct neutral">–</span>'}</td></tr>`;
+    mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${m<NM?pctStr(v68,v69):'<span class="pct neutral">–</span>'}</td></tr>`;
   }
-  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(yTot[y]||0)}</td>`).join('')}<td>–</td></tr>`;
+  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(y===lastY?y69live:(yTot[y]||0))}</td>`).join('')}<td>–</td></tr>`;
 
   const rb=cd.rebateSummary||{};
   let rebCards='';
@@ -1205,9 +1187,9 @@ function buildCrocPage1(){
     const gData = bmg[g] || {};
     let gRows = '';
     for(let b=0;b<6;b++){
-      const avail = y => !(y===lastY && b>=2);
+      const avail = y => !((y===lastY) && (b*2 >= NM));
       const cells = CY.map(y => { if(!avail(y)) return `<td>–</td>`; const v=(gData[y]||[])[b]||0; return `<td class="${y===lastY?'yr2569':''}">${v>0?fmtM(v):'–'}</td>`; }).join('');
-      const v68=(gData[2568]||[])[b]||0; const v69=b<2?((gData[lastY]||[])[b]||0):null;
+      const v68=(gData[2568]||[])[b]||0; const avail69=avail(lastY); const v69=avail69?((gData[lastY]||[])[b]||0):null;
       const chg=v69!==null?`<td>${pctStr(v68,v69)}</td>`:`<td><span class="pct neutral">–</span></td>`;
       gRows+=`<tr><td>${BM_LABELS[b]}</td>${cells}${chg}</tr>`;
     }
@@ -1225,10 +1207,10 @@ function buildCrocPage1(){
   <div class="page-title">แดชบอร์ด จระเข้</div>
   <div class="page-sub">ยอดซื้อรวมทุกรายการ ปี ${CY[0]}–${lastY}</div>
   <div class="section-title">ยอดรวมรายปี</div><div class="stat-grid">${yearCards}</div>
-  <div class="section-title">ยอดซื้อ ม.ค.–เม.ย. เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
+  <div class="section-title">ยอดซื้อ ${nmLabel(NM)} เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
   <div class="chart-wrap"><div class="chart-title">ยอดซื้อรายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${yBars}</div></div>
   <div class="section-title">ราย 2 เดือน (รวมทุกกลุ่ม)</div>
-  <div class="note">ปี ${lastY}: มีข้อมูล ม.ค.–เม.ย. (2 ช่วงแรก)</div>
+  <div class="note">ปี ${lastY}: มีข้อมูล ${nmLabel(NM)}</div>
   <div class="tbl-wrap"><table><thead><tr><th>ช่วง</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${bmRows}</tbody></table></div>
   <div class="section-title">ราย 2 เดือน แยกกลุ่มสินค้า</div>${groupBmTables}
   <div class="section-title">รายเดือน</div>
@@ -1236,11 +1218,6 @@ function buildCrocPage1(){
   ${rebCards}`;
 }
 
-function getNMCroc() {
-  const cd = parseCrocData();
-  const lastY = (cd.YEARS||YEARS).slice(-1)[0];
-  return (cd.monthlyTotals[lastY]||[]).reduce((last,v,i)=>v>0?i+1:last,0)||4;
-}
 function buildCrocPage2(){
   const cd = parseCrocData();
   const CY = cd.YEARS || YEARS;
@@ -1248,11 +1225,11 @@ function buildCrocPage2(){
   const products_c = cd.products || [];
   const colFor = y => YR_COL_C[y] || '#6366f1';
   const lastY = CY[CY.length-1];
-  const NM = getNMCroc();
+  const NM = (mTot[lastY]||[]).reduce((last,v,i)=>v>0?i+1:last,0)||4;
 
-  const four = y => (mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
-  const f4 = {}; CY.forEach(y=>f4[y]=four(y));
-  const f4Vals = CY.map(y=>f4[y]||0);
+  const fNM = y => (mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
+  const fN = {}; CY.forEach(y=>fN[y]=fNM(y));
+  const f4Vals = CY.map(y=>fN[y]||0);
   const f4Max = Math.max(...f4Vals)||1;
   const f4Min = Math.min(...f4Vals.filter(v=>v>0))||0;
   const rangeV = f4Max-f4Min||1;
@@ -1268,7 +1245,7 @@ function buildCrocPage2(){
     const v68=(mTot[2568]||Array(12).fill(0))[m]; const v69=(mTot[lastY]||Array(12).fill(0))[m];
     mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${pctStr(v68,v69)}</td></tr>`;
   }
-  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(f4[y])}</td>`).join('')}<td>${pctStr(f4[2568],f4[lastY])}</td></tr>`;
+  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(fN[y])}</td>`).join('')}<td>${pctStr(fN[2568],fN[lastY])}</td></tr>`;
 
   const GROUPS_C = ['กาวซีเมนต์','เคมีก่อสร้าง','ยาแนว'];
   const GROUP_COL_C = {'กาวซีเมนต์':'#e07b1e','เคมีก่อสร้าง':'#0ea5e9','ยาแนว':'#10b981'};
@@ -1277,20 +1254,15 @@ function buildCrocPage2(){
   products_c.forEach(p=>{
     const rawG=(p.group||'').trim(); const g=GROUPS_C.find(k=>k.trim()===rawG)||rawG;
     if(!groupTotAmt[g]) return;
-    CY.forEach(y=>{ groupTotAmt[g][y]+=(p.monthly[y]||Array(12).fill(0)).slice(0,4).reduce((a,b)=>a+b,0); groupTotQty[g][y]+=(p.bags[y]||Array(12).fill(0)).slice(0,4).reduce((a,b)=>a+b,0); });
+    CY.forEach(y=>{ groupTotAmt[g][y]+=(p.monthly[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0); groupTotQty[g][y]+=(p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0); });
   });
 
   const groupSummaryHead=`<tr><th rowspan="2" style="min-width:110px">กลุ่ม</th>${CY.map(y=>`<th colspan="2" style="text-align:center;color:${colFor(y)}" class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th rowspan="2">68→69</th></tr><tr>${CY.map(()=>`<th style="text-align:right;font-size:10px;color:#888">จำนวน</th><th style="text-align:right;font-size:10px;color:#888">บาท</th>`).join('')}</tr>`;
-  const groupSummaryRows=GROUPS_C.map(g=>{
-    const col=GROUP_COL_C[g]||'#888';
-    const cells=CY.map(y=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)};font-weight:600">${v>0?fmtM(v):'–'}</td>`; }).join('');
-    const a68=groupTotAmt[g][2568]||0,a69=groupTotAmt[g][lastY]||0;
-    return `<tr style="border-left:3px solid ${col}"><td style="font-weight:700;color:${col}">${g}</td>${cells}<td>${a68&&a69?pctStr(a68,a69):'<span class="pct neutral">–</span>'}</td></tr>`;
-  }).join('');
-  const grandAmt=CY.map(y=>f4[y]||0);
+  const groupSummaryRows=GROUPS_C.map(g=>{ const col=GROUP_COL_C[g]||'#888'; const cells=CY.map(y=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)};font-weight:600">${v>0?fmtM(v):'–'}</td>`; }).join(''); const a68=groupTotAmt[g][2568]||0,a69=groupTotAmt[g][lastY]||0; return `<tr style="border-left:3px solid ${col}"><td style="font-weight:700;color:${col}">${g}</td>${cells}<td>${a68&&a69?pctStr(a68,a69):'<span class="pct neutral">–</span>'}</td></tr>`; }).join('');
+  const grandAmt=CY.map(y=>fN[y]||0);
   const grandQty=CY.map(y=>products_c.reduce((s,p)=>s+(p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0),0));
   const grandCells=CY.map((y,i)=>`<td style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700">${grandQty[i]>0?fmt(grandQty[i]):'–'}</td><td style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700">${fmtM(grandAmt[i])}</td>`).join('');
-  const grandRow=`<tr class="total-row"><td>รวมทั้งหมด</td>${grandCells}<td>${pctStr(f4[2568],f4[lastY])}</td></tr>`;
+  const grandRow=`<tr class="total-row"><td>รวมทั้งหมด</td>${grandCells}<td>${pctStr(fN[2568],fN[lastY])}</td></tr>`;
 
   let productSections='';
   GROUPS_C.forEach(g=>{
@@ -1305,21 +1277,21 @@ function buildCrocPage2(){
       return `<tr><td class="prod-name-cell" style="padding-left:14px;font-size:11px">${p.name}</td>${dataCells}<td>${a68&&a69&&a68.amt&&a69.amt?pctStr(a68.amt,a69.amt):'<span class="pct neutral">–</span>'}</td></tr>`;
     }).filter(Boolean).join('');
     if(!prodRows) return;
-    const subCells=CY.map((y,i)=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${v>0?fmtM(v):'–'}</td>`; }).join('');
+    const subCells=CY.map((y)=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${v>0?fmtM(v):'–'}</td>`; }).join('');
     const sg68=groupTotAmt[g][2568]||0,sg69=groupTotAmt[g][lastY]||0;
     productSections+=`<tr style="background:${col}18"><td colspan="${CY.length*2+2}" style="font-weight:700;color:${col};font-size:12px;padding:8px 12px">▸ ${g}</td></tr>${prodRows}<tr style="background:${col}0d;border-top:1px dashed ${col}60"><td style="padding-left:14px;font-size:11px;color:${col};font-style:italic">รวม${g}</td>${subCells}<td>${sg68&&sg69?pctStr(sg68,sg69):'<span class="pct neutral">–</span>'}</td></tr>`;
   });
 
   return `
-  <div class="page-title">รายการสินค้า ม.ค.–${MN[getNMCroc()-1]} (จระเข้)</div>
-  <div class="page-sub">ยอดซื้อ (บาท) และจำนวน เดือน 1–${getNMCroc()} แยกตามสินค้าและปี</div>
-  <div class="chart-wrap"><div class="chart-title">ยอดซื้อรวม ม.ค.–เม.ย. รายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${barsH}</div></div>
-  <div class="section-title">เทียบรายเดือน (ม.ค.–เม.ย.)</div>
+  <div class="page-title">รายการสินค้า ${nmLabel(NM)} (จระเข้)</div>
+  <div class="page-sub">ยอดซื้อ (บาท) และจำนวน เดือน 1–${NM} แยกตามสินค้าและปี</div>
+  <div class="chart-wrap"><div class="chart-title">ยอดซื้อรวม ${nmLabel(NM)} รายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${barsH}</div></div>
+  <div class="section-title">เทียบรายเดือน (${nmLabel(NM)})</div>
   <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69 ⭐</th></tr></thead><tbody>${mRows}</tbody></table></div>
-  <div class="section-title">ยอดรวมตามกลุ่มสินค้า (ม.ค.–เม.ย.)</div>
+  <div class="section-title">ยอดรวมตามกลุ่มสินค้า (${nmLabel(NM)})</div>
   <div class="tbl-wrap"><table><thead>${groupSummaryHead}</thead><tbody>${groupSummaryRows}${grandRow}</tbody></table></div>
-  <div class="section-title">รายละเอียดสินค้า ม.ค.–เม.ย. ทุกปี</div>
-  <div class="note">จำนวน (ซ้าย) และยอดซื้อบาท (ขวา) เฉพาะเดือน 1–4</div>
+  <div class="section-title">รายละเอียดสินค้า ${nmLabel(NM)} ทุกปี</div>
+  <div class="note">จำนวน (ซ้าย) และยอดซื้อบาท (ขวา) เฉพาะเดือน 1–${NM}</div>
   <div class="prod-tbl-wrap"><table>
     <thead><tr><th rowspan="2" style="min-width:160px">สินค้า</th>${CY.map(y=>`<th colspan="2" style="text-align:center;color:${colFor(y)}" class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th rowspan="2">68→69</th></tr><tr>${CY.map(()=>`<th style="text-align:right;font-size:10px;color:#888">จำนวน</th><th style="text-align:right;font-size:10px;color:#888">บาท</th>`).join('')}</tr></thead>
     <tbody>${productSections}</tbody>
@@ -1327,9 +1299,15 @@ function buildCrocPage2(){
 }
 
 // ══════════════════════════════════════════════
-// ── SIKA / LANCO DATA ──
+// ── SIKA DATA ──
 // ══════════════════════════════════════════════
 const SIKA_YEARS = [2565,2566,2567,2568,2569];
+const SIKA_SHEET_ID = '1Rn5wDBvdNDog_gnxZjbQ08dxurWphqrH4u1MENmXLeM';
+const SIKA_API = `https://docs.google.com/spreadsheets/d/${SIKA_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
+
+let sikaDataLive = null;
+let sikaLoading = false;
+
 const sikaMonthlyTotals = {
   2565:[0,0,0,0,0,0,117480,121333,23600,250278,0,39356],
   2566:[186885,103096,153716,165698,14284,157179,364329,409630,168023,110728,122460,91774],
@@ -1346,7 +1324,7 @@ const sikaQuarterlyTotals = {
   2569:[402915,281872,0,0],
 };
 const sikaRebateSummary = {2567:{total:12364,pct:0.73},2568:{total:79872,pct:3.78}};
-const sikaProducts = [
+const sikaProductsEmbed = [
   {group:'เคมีก่อสร้าง',name:'ปูนแลงโก้ #110 (ฉาบผิวบางสีเทา) 20 กก.',unit:'ถุง',
     monthly:{2565:[0,0,0,0,0,0,20880,41760,10440,33000,0,0],2566:[49200,9840,49200,9840,0,0,0,0,0,0,0,0],2567:[9840,36960,18480,0,0,0,0,0,3080,20944,29260,6160],2568:[0,16324,3080,9240,0,0,18788,9240,18480,3080,6160,0],2569:[9240,0,0,0,10140,0,0,0,0,0,0,0]},
     bags:{2565:[0,0,0,0,0,0,132,264,66,208,0,0],2566:[330,66,330,66,0,0,0,0,0,0,0,0],2567:[66,264,132,0,0,0,0,0,22,150,209,44],2568:[0,106,20,76,0,0,134,68,134,22,44,0],2569:[66,0,0,0,66,0,0,0,0,0,0,0]}},
@@ -1383,40 +1361,7 @@ const sikaProducts = [
 ];
 const SIKA_GROUPS = ['เคมีก่อสร้าง'];
 const SIKA_GROUP_COL = {'เคมีก่อสร้าง':'#e07b1e'};
-
 const YR_COL_S = {2565:'#6366f1',2566:'#0ea5e9',2567:'#10b981',2568:'#e07b1e',2569:'#d97706'};
-
-// ── SIKA SECTION DOM ──
-const sikaSection = document.createElement('div');
-sikaSection.id = 'sectionSIKA';
-sikaSection.style.display = 'none';
-mainContent.appendChild(sikaSection);
-
-const sikaPageDefs = [
-  { id:'sp0', label:'ภาพรวม' },
-  { id:'sp1', label:'สินค้า 4 เดือน' },
-];
-sikaPageDefs.forEach((pg,i) => {
-  const btn = document.createElement('button');
-  btn.className = 'tab-btn' + (i===0?' active':'');
-  btn.style.display = 'none';
-  btn.textContent = pg.label;
-  btn.dataset.brand = 'sika';
-  btn.onclick = () => showPage(i,'sika');
-  navTabs.appendChild(btn);
-  const div = document.createElement('div');
-  div.className = 'page' + (i===0?' active':'');
-  div.id = pg.id;
-  sikaSection.appendChild(div);
-});
-
-
-// ── SIKA LIVE FETCH ──
-const SIKA_SHEET_ID = '1Rn5wDBvdNDog_gnxZjbQ08dxurWphqrH4u1MENmXLeM';
-const SIKA_API = `https://docs.google.com/spreadsheets/d/${SIKA_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
-
-let sikaDataLive = null;
-let sikaLoading = false;
 
 function parseSikaCSV(csvText) {
   const lines = csvText.trim().split('\n');
@@ -1428,19 +1373,13 @@ function parseSikaCSV(csvText) {
       if (c === '"') {
         if (inQ && line[i+1] === '"') { cur += '"'; i++; }
         else inQ = !inQ;
-      } else if (c === ',' && !inQ) {
-        result.push(cur.trim()); cur = '';
-      } else cur += c;
+      } else if (c === ',' && !inQ) { result.push(cur.trim()); cur = ''; }
+      else cur += c;
     }
     result.push(cur.trim());
     return result;
   });
 
-  // Sika column layout:
-  // A(0)=กลุ่ม/ชื่อสินค้า/เดือน
-  // B(1)=จำนวน65 C(2)=ยอด65 D(3)=จำนวน66 E(4)=ยอด66
-  // F(5)=จำนวน67 G(6)=ยอด67 H(7)=จำนวน68 I(8)=ยอด68
-  // J(9)=จำนวน69 K(10)=ยอด69
   const YEARS_S = ['2565','2566','2567','2568','2569'];
   const BAG_COLS  = [1, 3, 5, 7, 9];
   const SALE_COLS = [2, 4, 6, 8, 10];
@@ -1451,21 +1390,18 @@ function parseSikaCSV(csvText) {
     const row = rows[i];
     const a = (row[0]||'').trim();
     const b = (row[1]||'').trim();
-
-    // product header: col B มี 'จำนวน'
     if (b.includes('จำนวน')) {
       const unit = b.replace('จำนวน','').trim();
       const name = a;
       const monthly = {}, bags = {};
       YEARS_S.forEach(y => { monthly[y] = new Array(12).fill(0); bags[y] = new Array(12).fill(0); });
-
       for (let m = 0; m < 12; m++) {
         const dr = rows[i + 1 + m];
         if (!dr || !dr[0] || !dr[0].includes('เดือน')) break;
         YEARS_S.forEach((y, yi) => {
           const bv = parseFloat((dr[BAG_COLS[yi]]||'0').replace(/,/g,'')) || 0;
           const sv = parseFloat((dr[SALE_COLS[yi]]||'0').replace(/,/g,'')) || 0;
-          bags[y][m]    = bv;
+          bags[y][m] = bv;
           monthly[y][m] = sv;
         });
       }
@@ -1476,7 +1412,6 @@ function parseSikaCSV(csvText) {
     i++;
   }
 
-  // คำนวณ monthlyTotals, yearlyTotals
   const monthlyTotals = {}, yearlyTotals = {};
   YEARS_S.forEach(y => { monthlyTotals[y] = new Array(12).fill(0); });
   products.forEach(p => {
@@ -1489,29 +1424,36 @@ function parseSikaCSV(csvText) {
   return { products, monthlyTotals, yearlyTotals, rebateSummary: sikaRebateSummary };
 }
 
+function parseSikaFromEmbed() {
+  const YEARS_S = ['2565','2566','2567','2568','2569'];
+  const monthlyTotals = {}, yearlyTotals = {};
+  YEARS_S.forEach(y => { monthlyTotals[y] = new Array(12).fill(0); });
+  sikaProductsEmbed.forEach(p => {
+    YEARS_S.forEach(y => {
+      (p.monthly[Number(y)]||p.monthly[y]||[]).forEach((v,m) => { monthlyTotals[y][m] += v; });
+    });
+  });
+  YEARS_S.forEach(y => { yearlyTotals[y] = monthlyTotals[y].reduce((a,b)=>a+b,0); });
+  // wrap products ให้ key เป็น string
+  const products = sikaProductsEmbed.map(p => ({
+    ...p,
+    monthly: Object.fromEntries(YEARS_S.map(y => [y, p.monthly[Number(y)] || p.monthly[y] || Array(12).fill(0)])),
+    bags: Object.fromEntries(YEARS_S.map(y => [y, p.bags[Number(y)] || p.bags[y] || Array(12).fill(0)])),
+  }));
+  return { products, monthlyTotals, yearlyTotals, rebateSummary: sikaRebateSummary };
+}
+
 function loadSikaData() {
   if (sikaDataLive || sikaLoading) return;
   sikaLoading = true;
-
-  // แสดง loading
-  sikaSection.querySelectorAll('.page').forEach(p => {
-    if (p.classList.contains('active')) {
-      p.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted)">
-        <div style="font-size:28px;margin-bottom:12px">⏳</div>
-        <div style="font-size:14px;font-weight:600">กำลังโหลดข้อมูล Sika…</div>
-      </div>`;
-    }
-  });
+  showBrandLoading('sika');
 
   const fallback = () => {
+    console.warn('[SIKA] fallback ใช้ embed');
     sikaLoading = false;
-    // ใช้ข้อมูล embed เป็น fallback
-    const data = parseSikaFromEmbed();
-    sikaDataLive = data;
-    Object.keys(rendered).forEach(k => { if(k.startsWith('sika_')) delete rendered[k]; });
-    const activeEl = sikaSection.querySelector('.page.active');
-    const idx = Array.from(sikaSection.querySelectorAll('.page')).indexOf(activeEl);
-    if (idx >= 0) { buildSikaPage(idx); rendered[`sika_${idx}`] = true; }
+    sikaDataLive = parseSikaFromEmbed();
+    setFetchBadge('sika', 'embed');
+    reRenderAll('sika');
   };
 
   fetch(SIKA_API)
@@ -1519,85 +1461,85 @@ function loadSikaData() {
     .then(csv => {
       try {
         const data = parseSikaCSV(csv);
-        if (!data.products || data.products.length < 5) throw new Error('parse failed');
+        if (!data.products || data.products.length < 5) throw new Error('parse failed: products=' + (data.products||[]).length);
         sikaLoading = false;
         sikaDataLive = data;
-        // re-render
-        Object.keys(rendered).forEach(k => { if(k.startsWith('sika_')) delete rendered[k]; });
-        const activeEl = sikaSection.querySelector('.page.active');
-        const idx = Array.from(sikaSection.querySelectorAll('.page')).indexOf(activeEl);
-        if (idx >= 0) { buildSikaPage(idx); rendered[`sika_${idx}`] = true; }
-      } catch(e) { fallback(); }
+        const nm = (data.monthlyTotals?.['2569']||[]).reduce((l,v,i)=>v>0?i+1:l,0)||4;
+        console.log('[SIKA] live fetch สำเร็จ lastMonth=', nm, 'products=', data.products.length);
+        setFetchBadge('sika', 'live', nm);
+        reRenderAll('sika');
+      } catch(e) { console.warn('[SIKA] parse error:', e.message); fallback(); }
     })
-    .catch(() => fallback());
+    .catch(e => { console.warn('[SIKA] fetch error:', e.message); fallback(); });
 }
 
-function parseSikaFromEmbed() {
-  // คำนวณจาก sikaProducts embed
-  const YEARS_S = ['2565','2566','2567','2568','2569'];
-  const monthlyTotals = {}, yearlyTotals = {};
-  YEARS_S.forEach(y => { monthlyTotals[y] = new Array(12).fill(0); });
-  sikaProducts.forEach(p => {
-    YEARS_S.forEach(y => {
-      (p.monthly[y]||[]).forEach((v,m) => { monthlyTotals[y][m] += v; });
-    });
-  });
-  YEARS_S.forEach(y => { yearlyTotals[y] = monthlyTotals[y].reduce((a,b)=>a+b,0); });
-  return { products: sikaProducts, monthlyTotals, yearlyTotals, rebateSummary: sikaRebateSummary };
-}
-
-function buildSikaPage(idx) {
-  if (!sikaDataLive) { loadSikaData(); return; }
-  const el = document.getElementById(sikaPageDefs[idx].id);
-  if(idx===0) el.innerHTML = buildSikaPage1();
-  else el.innerHTML = buildSikaPage2();
-}
-
+// ── SIKA PAGE BUILDERS ──
 function buildSikaPage1() {
+  if (!sikaDataLive) sikaDataLive = parseSikaFromEmbed();
   const CY = SIKA_YEARS;
   const mTot = sikaDataLive.monthlyTotals;
-  const yTot = sikaDataLive.yearlyTotals;
   const lastY = 2569;
   const colFor = y => YR_COL_S[y] || '#6366f1';
 
+  // NM จาก live
+  const NM = (mTot['2569']||mTot[2569]||[]).reduce((last,v,i)=>v>0?i+1:last,0)||4;
+  const y69live = (mTot['2569']||mTot[2569]||[]).reduce((a,b)=>a+b,0);
+
   const yearCards = CY.map(y=>{
-    const v=yTot[y]||0, prev=yTot[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
-    const badge=y===lastY?`<span class="badge" style="background:rgba(217,119,6,.12);color:#d97706">5 เดือน</span>`:(chg!==null?`<span class="badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'');
+    const rawV = sikaDataLive.yearlyTotals[String(y)] || sikaDataLive.yearlyTotals[y] || 0;
+    const v = y===lastY ? y69live : rawV;
+    const prevV = sikaDataLive.yearlyTotals[String(y-1)] || sikaDataLive.yearlyTotals[y-1] || 0;
+    const chg = prevV ? pChange(prevV,v) : null;
+    const col = colFor(y);
+    const badge = y===lastY
+      ? `<span class="badge" style="background:rgba(217,119,6,.12);color:#d97706">${NM} เดือน</span>`
+      : (chg!==null?`<span class="badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'');
     return `<div class="stat-card"><div class="year-label" style="color:${col}">ปี ${y}</div><div class="value" style="color:${col}">${fmtM(v)}</div><div class="sub">บาท</div>${badge}</div>`;
   }).join('');
 
-  const fiveM = y => (mTot[y]||Array(12).fill(0)).slice(0,5).reduce((a,b)=>a+b,0);
-  const f5 = {}; CY.forEach(y=>f5[y]=fiveM(y));
+  const fNM = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
+  const fN = {}; CY.forEach(y=>fN[y]=fNM(y));
   const fmStrip = CY.map(y=>{
-    const v=f5[y],prev=f5[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
+    const v=fN[y], prev=fN[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
     const badge=chg!==null?`<span class="fm-badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'';
     return `<div class="fm-card"><div class="fm-year" style="color:${col}">ปี ${y}</div><div class="fm-val" style="color:${col}">${fmtM(v)}</div>${badge}</div>`;
   }).join('');
 
-  const yBarData=CY.map(y=>yTot[y]||0); const yBarMax=Math.max(...yBarData)||1;
-  const legend=CY.map(y=>`<div class="legend-item"><div class="legend-dot" style="background:${colFor(y)}"></div><span>ปี ${y}</span></div>`).join('');
-  const yBars=yBarData.map((v,i)=>{ const h=Math.max(3,Math.round((v/yBarMax)*100)); const y=CY[i]; return `<div class="bar-group"><div class="bar" style="height:${h}%;background:${colFor(y)}" data-tip="ปี ${y}: ${fmtM(v)}"></div><div class="bar-label" style="color:${colFor(y)}">'${String(y).slice(2)}</div><div class="bar-val">${fmtM(v)}</div></div>`; }).join('');
+  const yBarData = CY.map(y => y===lastY ? y69live : (sikaDataLive.yearlyTotals[String(y)]||sikaDataLive.yearlyTotals[y]||0));
+  const yBarMax = Math.max(...yBarData)||1;
+  const legend = CY.map(y=>`<div class="legend-item"><div class="legend-dot" style="background:${colFor(y)}"></div><span>ปี ${y}${y===lastY?` (${NM} เดือน)`:''}</span></div>`).join('');
+  const yBars = yBarData.map((v,i)=>{ const h=Math.max(3,Math.round((v/yBarMax)*100)); const y=CY[i]; return `<div class="bar-group"><div class="bar" style="height:${h}%;background:${colFor(y)}" data-tip="ปี ${y}: ${fmtM(v)}"></div><div class="bar-label" style="color:${colFor(y)}">'${String(y).slice(2)}</div><div class="bar-val">${fmtM(v)}</div></div>`; }).join('');
 
+  // ไตรมาส คำนวณจาก live
+  const qTot = {};
+  CY.forEach(y => {
+    if (y === lastY) {
+      const m = mTot[String(y)]||mTot[y]||Array(12).fill(0);
+      qTot[y] = [0,1,2,3].map(q => m.slice(q*3,(q+1)*3).reduce((a,b)=>a+b,0));
+    } else {
+      qTot[y] = sikaQuarterlyTotals[y] || [0,0,0,0];
+    }
+  });
   let qRows='';
   for(let q=0;q<4;q++){
-    const cells=CY.map(y=>{ const v=(sikaQuarterlyTotals[y]||[])[q]||0; const skip=(y===2569&&q>=2); return `<td class="${y===2569&&q<2?'yr2569':''}">${skip?'–':fmtM(v)}</td>`; }).join('');
-    const v68=(sikaQuarterlyTotals[2568]||[])[q]||0; const v69=q<2?((sikaQuarterlyTotals[2569]||[])[q]||0):null;
+    const cells=CY.map(y=>{ const v=qTot[y][q]||0; const skip=y===lastY&&(q*3)>=NM; return `<td class="${y===lastY&&!skip?'yr2569':''}">${skip?'–':fmtM(v)}</td>`; }).join('');
+    const v68=qTot[2568][q]||0; const skip69=(q*3)>=NM; const v69=skip69?null:(qTot[lastY][q]||0);
     qRows+=`<tr><td>Q${q+1}</td>${cells}${v69!==null?`<td>${pctStr(v68,v69)}</td>`:`<td><span class="pct neutral">–</span></td>`}</tr>`;
   }
-  qRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td class="highlight-cell">${fmtM(yTot[y]||0)}</td>`).join('')}<td>–</td></tr>`;
+  qRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td class="highlight-cell">${fmtM(y===lastY?y69live:(sikaDataLive.yearlyTotals[String(y)]||sikaDataLive.yearlyTotals[y]||0))}</td>`).join('')}<td>–</td></tr>`;
 
   let mRows='';
   for(let m=0;m<12;m++){
-    const cells=CY.map(y=>{ const v=(mTot[y]||Array(12).fill(0))[m]||0; const skip=(y===2569&&m>=5); return `<td class="${y===2569&&m<5?'yr2569':''}">${skip?'–':fmtM(v)}</td>`; }).join('');
-    const v68=(mTot[2568]||Array(12).fill(0))[m]; const v69=(mTot[2569]||Array(12).fill(0))[m];
-    mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${m<5?pctStr(v68,v69):'<span class="pct neutral">–</span>'}</td></tr>`;
+    const cells=CY.map(y=>{ const arr=mTot[String(y)]||mTot[y]||Array(12).fill(0); const v=arr[m]||0; const skip=y===lastY&&m>=NM; return `<td class="${y===lastY&&m<NM?'yr2569':''}">${skip?'–':fmtM(v)}</td>`; }).join('');
+    const v68=(mTot['2568']||mTot[2568]||[])[m]||0; const v69=(mTot['2569']||mTot[2569]||[])[m]||0;
+    mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${m<NM?pctStr(v68,v69):'<span class="pct neutral">–</span>'}</td></tr>`;
   }
-  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(yTot[y]||0)}</td>`).join('')}<td>–</td></tr>`;
+  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(y===lastY?y69live:(sikaDataLive.yearlyTotals[String(y)]||sikaDataLive.yearlyTotals[y]||0))}</td>`).join('')}<td>–</td></tr>`;
 
   const rb = sikaDataLive.rebateSummary;
   const rebCards=[
-    {label:'รีเบทปี 2567', val:rb[2567].total, pct:sikaRebateSummary[2567].pct},
-    {label:'รีเบทปี 2568', val:rb[2568].total, pct:rb[2568].pct},
+    {label:'รีเบทปี 2567', val:rb[2567]?.total||0, pct:rb[2567]?.pct||null},
+    {label:'รีเบทปี 2568', val:rb[2568]?.total||0, pct:rb[2568]?.pct||null},
     {label:'รีเบท 2569 (ยังไม่มีข้อมูล)', val:0, pct:null},
   ].map(ri=>`<div class="rebate-item"><div class="r-label">${ri.label}</div><div class="r-val">${ri.val>0?fmtM(ri.val):'–'}</div>${ri.pct?`<div class="r-pct">${ri.pct.toFixed(2)}% ของยอดซื้อ</div>`:''}</div>`).join('');
 
@@ -1605,76 +1547,243 @@ function buildSikaPage1() {
   <div class="page-title">แดชบอร์ด ซิก้าแลงโก้</div>
   <div class="page-sub">ยอดซื้อรวมทุกรายการ ปี 2565–2569</div>
   <div class="section-title">ยอดรวมรายปี</div><div class="stat-grid">${yearCards}</div>
-  <div class="section-title">ยอดซื้อ ม.ค.–พ.ค. เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
+  <div class="section-title">ยอดซื้อ ${nmLabel(NM)} เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
   <div class="chart-wrap"><div class="chart-title">ยอดซื้อรายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${yBars}</div></div>
   <div class="section-title">รายไตรมาส</div>
-  <div class="note">ปี 2569: มีข้อมูล Q1–Q2 (ม.ค.–พ.ค.) | ปี 2565: เริ่มซื้อ Q3</div>
-  <div class="tbl-wrap"><table><thead><tr><th>ไตรมาส</th>${CY.map(y=>`<th class="${y===2569?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${qRows}</tbody></table></div>
+  <div class="note">ปี 2565: เริ่มซื้อ Q3 | ปี 2569: มีข้อมูล ${nmLabel(NM)}</div>
+  <div class="tbl-wrap"><table><thead><tr><th>ไตรมาส</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${qRows}</tbody></table></div>
   <div class="section-title">รายเดือน</div>
-  <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===2569?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${mRows}</tbody></table></div>
+  <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${mRows}</tbody></table></div>
   <div class="section-title">สรุปรีเบท</div>
   <div class="rebate-summary" style="grid-template-columns:repeat(3,1fr)">${rebCards}</div>`;
 }
 
 function buildSikaPage2() {
+  if (!sikaDataLive) sikaDataLive = parseSikaFromEmbed();
   const CY = SIKA_YEARS;
   const mTot = sikaDataLive.monthlyTotals;
   const lastY = 2569;
   const colFor = y => YR_COL_S[y] || '#6366f1';
-  const NM = getLastMonth(sikaDataLive);
+  const NM = (mTot['2569']||mTot[2569]||[]).reduce((last,v,i)=>v>0?i+1:last,0)||4;
 
-  const four = y => (mTot[y]||mTot[String(y)]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
-  const f4 = {}; CY.forEach(y=>f4[y]=four(y));
-  const f4Vals=CY.map(y=>f4[y]||0); const f4Max=Math.max(...f4Vals)||1; const f4Min=Math.min(...f4Vals.filter(v=>v>0))||0; const rangeV=f4Max-f4Min||1;
+  const fNM = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
+  const fN = {}; CY.forEach(y=>fN[y]=fNM(y));
+  const f4Vals=CY.map(y=>fN[y]||0); const f4Max=Math.max(...f4Vals)||1; const f4Min=Math.min(...f4Vals.filter(v=>v>0))||0; const rangeV=f4Max-f4Min||1;
   const legend=CY.map(y=>`<div class="legend-item"><div class="legend-dot" style="background:${colFor(y)}"></div><span>ปี ${y}</span></div>`).join('');
   const barsH=f4Vals.map((v,i)=>{ const h=Math.max(5,((v-f4Min)/rangeV)*75+20); const y=CY[i]; return `<div class="bar-group"><div class="bar" style="height:${h}%;background:${colFor(y)}" data-tip="ปี ${y}: ${fmtM(v)}"></div><div class="bar-label" style="color:${colFor(y)}">'${String(y).slice(2)}</div><div class="bar-val">${fmtM(v)}</div></div>`; }).join('');
 
   let mRows='';
   for(let m=0;m<NM;m++){
-    const cells=CY.map(y=>`<td class="${y===2569?'yr2569':''}">${fmtM((mTot[y]||mTot[String(y)]||Array(12).fill(0))[m]||0)}</td>`).join('');
-    const v68=(mTot[2568]||mTot['2568']||Array(12).fill(0))[m]||0; const v69=(mTot[2569]||mTot['2569']||Array(12).fill(0))[m]||0;
+    const cells=CY.map(y=>`<td class="${y===lastY?'yr2569':''}">${fmtM((mTot[String(y)]||mTot[y]||Array(12).fill(0))[m]||0)}</td>`).join('');
+    const v68=(mTot['2568']||mTot[2568]||Array(12).fill(0))[m]||0; const v69=(mTot['2569']||mTot[2569]||Array(12).fill(0))[m]||0;
     mRows+=`<tr><td>${MN[m]}</td>${cells}<td>${pctStr(v68,v69)}</td></tr>`;
   }
-  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(f4[y])}</td>`).join('')}<td>${pctStr(f4[2568],f4[lastY])}</td></tr>`;
+  mRows+=`<tr class="total-row"><td>รวม</td>${CY.map(y=>`<td>${fmtM(fN[y])}</td>`).join('')}<td>${pctStr(fN[2568],fN[lastY])}</td></tr>`;
 
   const groupTotAmt={},groupTotQty={};
   SIKA_GROUPS.forEach(g=>{ groupTotAmt[g]={}; groupTotQty[g]={}; CY.forEach(y=>{ groupTotAmt[g][y]=0; groupTotQty[g][y]=0; }); });
-  sikaDataLive.products.forEach(p=>{ const g=p.group; if(!groupTotAmt[g]) return; CY.forEach(y=>{ groupTotAmt[g][y]+=(p.monthly[y]||p.monthly[String(y)]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0); groupTotQty[g][y]+=(p.bags[y]||p.bags[String(y)]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0); }); });
+  (sikaDataLive.products||[]).forEach(p=>{ const g=p.group; if(!groupTotAmt[g]) return; CY.forEach(y=>{ groupTotAmt[g][y]+=(p.monthly[String(y)]||p.monthly[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0); groupTotQty[g][y]+=(p.bags[String(y)]||p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0); }); });
 
   const groupSummaryHead=`<tr><th rowspan="2" style="min-width:110px">กลุ่ม</th>${CY.map(y=>`<th colspan="2" style="text-align:center;color:${colFor(y)}" class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th rowspan="2">68→69</th></tr><tr>${CY.map(()=>`<th style="text-align:right;font-size:10px;color:#888">จำนวน</th><th style="text-align:right;font-size:10px;color:#888">บาท</th>`).join('')}</tr>`;
   const groupSummaryRows=SIKA_GROUPS.map(g=>{ const col=SIKA_GROUP_COL[g]||'#888'; const cells=CY.map(y=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)};font-weight:600">${v>0?fmtM(v):'–'}</td>`; }).join(''); const a68=groupTotAmt[g][2568]||0,a69=groupTotAmt[g][lastY]||0; return `<tr style="border-left:3px solid ${col}"><td style="font-weight:700;color:${col}">${g}</td>${cells}<td>${a68&&a69?pctStr(a68,a69):'<span class="pct neutral">–</span>'}</td></tr>`; }).join('');
-  const grandAmt=CY.map(y=>f4[y]||0); const grandQty=CY.map(y=>sikaProducts.reduce((s,p)=>s+(p.bags[y]||Array(12).fill(0)).slice(0,4).reduce((a,b)=>a+b,0),0));
+  const grandAmt=CY.map(y=>fN[y]||0);
+  const grandQty=CY.map(y=>(sikaDataLive.products||[]).reduce((s,p)=>s+(p.bags[String(y)]||p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0),0));
   const grandCells=CY.map((y,i)=>`<td style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700">${grandQty[i]>0?fmt(grandQty[i]):'–'}</td><td style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700">${fmtM(grandAmt[i])}</td>`).join('');
-  const grandRow=`<tr class="total-row"><td>รวมทั้งหมด</td>${grandCells}<td>${pctStr(f4[2568],f4[lastY])}</td></tr>`;
+  const grandRow=`<tr class="total-row"><td>รวมทั้งหมด</td>${grandCells}<td>${pctStr(fN[2568],fN[lastY])}</td></tr>`;
 
   let productSections='';
   SIKA_GROUPS.forEach(g=>{
-    const col=SIKA_GROUP_COL[g]||'#888'; const prods=sikaProducts.filter(p=>p.group===g); if(!prods.length) return;
-    const prodRows=prods.map(p=>{ const data=CY.map(y=>({bags:(p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0),amt:(p.monthly[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0)})); if(data.every(d=>d.bags===0&&d.amt===0)) return ''; const dataCells=data.map((d,i)=>{ const y=CY[i]; const cls=y===lastY?'yr2569':''; const noData=d.bags===0&&d.amt===0; return `<td class="${cls}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)}">${noData?'<span style="color:#ccc">–</span>':fmt(d.bags)+' '+(p.unit||'หน่วย')}</td><td class="${cls}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)};font-weight:600">${noData?'<span style="color:#ccc">–</span>':fmtM(d.amt)}</td>`; }).join(''); const a68=data.find((_,i)=>CY[i]===2568); const a69=data.find((_,i)=>CY[i]===lastY); return `<tr><td class="prod-name-cell" style="padding-left:14px;font-size:11px">${p.name}</td>${dataCells}<td>${a68&&a69&&a68.amt&&a69.amt?pctStr(a68.amt,a69.amt):'<span class="pct neutral">–</span>'}</td></tr>`; }).filter(Boolean).join('');
+    const col=SIKA_GROUP_COL[g]||'#888';
+    const prods=(sikaDataLive.products||[]).filter(p=>p.group===g);
+    if(!prods.length) return;
+    const prodRows=prods.map(p=>{ const data=CY.map(y=>({bags:(p.bags[String(y)]||p.bags[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0),amt:(p.monthly[String(y)]||p.monthly[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0)})); if(data.every(d=>d.bags===0&&d.amt===0)) return ''; const dataCells=data.map((d,i)=>{ const y=CY[i]; const cls=y===lastY?'yr2569':''; const noData=d.bags===0&&d.amt===0; return `<td class="${cls}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)}">${noData?'<span style="color:#ccc">–</span>':fmt(d.bags)+' '+(p.unit||'หน่วย')}</td><td class="${cls}" style="text-align:right;font-family:var(--mono);font-size:11px;color:${colFor(y)};font-weight:600">${noData?'<span style="color:#ccc">–</span>':fmtM(d.amt)}</td>`; }).join(''); const a68=data.find((_,i)=>CY[i]===2568); const a69=data.find((_,i)=>CY[i]===lastY); return `<tr><td class="prod-name-cell" style="padding-left:14px;font-size:11px">${p.name}</td>${dataCells}<td>${a68&&a69&&a68.amt&&a69.amt?pctStr(a68.amt,a69.amt):'<span class="pct neutral">–</span>'}</td></tr>`; }).filter(Boolean).join('');
     if(!prodRows) return;
-    const subCells=CY.map((y,i)=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${v>0?fmtM(v):'–'}</td>`; }).join('');
+    const subCells=CY.map(y=>{ const q=groupTotQty[g][y]||0,v=groupTotAmt[g][y]||0; return `<td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${q>0?fmt(q):'–'}</td><td class="${y===lastY?'yr2569':''}" style="text-align:right;font-family:var(--mono);font-size:11px;font-weight:700;color:${col}">${v>0?fmtM(v):'–'}</td>`; }).join('');
     const sg68=groupTotAmt[g][2568]||0,sg69=groupTotAmt[g][lastY]||0;
     productSections+=`<tr style="background:${col}18"><td colspan="${CY.length*2+2}" style="font-weight:700;color:${col};font-size:12px;padding:8px 12px">▸ ${g}</td></tr>${prodRows}<tr style="background:${col}0d;border-top:1px dashed ${col}60"><td style="padding-left:14px;font-size:11px;color:${col};font-style:italic">รวม${g}</td>${subCells}<td>${sg68&&sg69?pctStr(sg68,sg69):'<span class="pct neutral">–</span>'}</td></tr>`;
   });
 
   return `
-  <div class="page-title">รายการสินค้า ม.ค.–${MN[NM-1]} (ซิก้าแลงโก้)</div>
+  <div class="page-title">รายการสินค้า ${nmLabel(NM)} (ซิก้าแลงโก้)</div>
   <div class="page-sub">ยอดซื้อ (บาท) และจำนวน เดือน 1–${NM} แยกตามสินค้าและปี</div>
-  <div class="chart-wrap"><div class="chart-title">ยอดซื้อรวม ม.ค.–เม.ย. รายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${barsH}</div></div>
-  <div class="section-title">เทียบรายเดือน (ม.ค.–เม.ย.)</div>
+  <div class="chart-wrap"><div class="chart-title">ยอดซื้อรวม ${nmLabel(NM)} รายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${barsH}</div></div>
+  <div class="section-title">เทียบรายเดือน (${nmLabel(NM)})</div>
   <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69 ⭐</th></tr></thead><tbody>${mRows}</tbody></table></div>
-  <div class="section-title">ยอดรวมตามกลุ่มสินค้า (ม.ค.–เม.ย.)</div>
+  <div class="section-title">ยอดรวมตามกลุ่มสินค้า (${nmLabel(NM)})</div>
   <div class="tbl-wrap"><table><thead>${groupSummaryHead}</thead><tbody>${groupSummaryRows}${grandRow}</tbody></table></div>
-  <div class="section-title">รายละเอียดสินค้า ม.ค.–เม.ย. ทุกปี</div>
-  <div class="note">จำนวน (ซ้าย) และยอดซื้อบาท (ขวา) เฉพาะเดือน 1–4</div>
+  <div class="section-title">รายละเอียดสินค้า ${nmLabel(NM)} ทุกปี</div>
+  <div class="note">จำนวน (ซ้าย) และยอดซื้อบาท (ขวา) เฉพาะเดือน 1–${NM}</div>
   <div class="prod-tbl-wrap"><table>
     <thead><tr><th rowspan="2" style="min-width:160px">สินค้า</th>${CY.map(y=>`<th colspan="2" style="text-align:center;color:${colFor(y)}" class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th rowspan="2">68→69</th></tr><tr>${CY.map(()=>`<th style="text-align:right;font-size:10px;color:#888">จำนวน</th><th style="text-align:right;font-size:10px;color:#888">บาท</th>`).join('')}</tr></thead>
     <tbody>${productSections}</tbody>
   </table></div>`;
 }
 
+// ══════════════════════════════════════════════
+// ── ROUTER & RENDER ENGINE ──
+// ══════════════════════════════════════════════
+const qcPages = [
+  { id:'p0', label:'ภาพรวม',      build: buildPage1 },
+  { id:'p1', label:'สินค้า N เดือน', build: buildPage2 },
+];
+const crocPageDefs = [
+  { id:'cp0', label:'ภาพรวม' },
+  { id:'cp1', label:'สินค้า N เดือน' },
+];
+const sikaPageDefs = [
+  { id:'sp0', label:'ภาพรวม' },
+  { id:'sp1', label:'สินค้า N เดือน' },
+];
+
+// อัปเดต label ปุ่ม "สินค้า N เดือน" ให้แสดงเดือนจริง
+function updateTabLabel(brand, nm) {
+  const MN_SHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  const label = `สินค้า ${MN_SHORT[nm-1]}`; // เช่น "สินค้า พ.ค."
+  navTabs.querySelectorAll(`.tab-btn[data-brand="${brand}"]`).forEach((btn, i) => {
+    if (i === 1) btn.textContent = label;
+  });
+}
+
+const navTabs     = document.getElementById('navTabs');
+const mainContent = document.getElementById('mainContent');
+
+const qcSection   = document.createElement('div'); qcSection.id = 'sectionQC'; mainContent.appendChild(qcSection);
+const crocSection = document.createElement('div'); crocSection.id = 'sectionCROC'; crocSection.style.display='none'; mainContent.appendChild(crocSection);
+const sikaSection = document.createElement('div'); sikaSection.id = 'sectionSIKA'; sikaSection.style.display='none'; mainContent.appendChild(sikaSection);
+
+let rendered = {};
+let currentBrand = 'qc';
+
+// สร้าง DOM elements สำหรับทุก page
+qcPages.forEach((pg,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn'+(i===0?' active':'');
+  btn.textContent = pg.label; btn.dataset.brand='qc';
+  btn.onclick=()=>showPage(i,'qc');
+  navTabs.appendChild(btn);
+  const div = document.createElement('div');
+  div.className = 'page'+(i===0?' active':''); div.id = pg.id;
+  qcSection.appendChild(div);
+});
+crocPageDefs.forEach((pg,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn'+(i===0?' active':''); btn.style.display='none';
+  btn.textContent = pg.label; btn.dataset.brand='croc';
+  btn.onclick=()=>showPage(i,'croc');
+  navTabs.appendChild(btn);
+  const div = document.createElement('div');
+  div.className = 'page'+(i===0?' active':''); div.id = pg.id;
+  crocSection.appendChild(div);
+});
+sikaPageDefs.forEach((pg,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn'+(i===0?' active':''); btn.style.display='none';
+  btn.textContent = pg.label; btn.dataset.brand='sika';
+  btn.onclick=()=>showPage(i,'sika');
+  navTabs.appendChild(btn);
+  const div = document.createElement('div');
+  div.className = 'page'+(i===0?' active':''); div.id = pg.id;
+  sikaSection.appendChild(div);
+});
+
+// ── reRenderAll: เรียกหลัง live data โหลดสำเร็จ ──
+function reRenderAll(brand) {
+  // ลบ rendered cache ทั้งหมดของ brand นี้
+  Object.keys(rendered).forEach(k => { if(k.startsWith(brand+'_')) delete rendered[k]; });
+  // re-render เฉพาะ page ที่ active อยู่
+  const section = brand==='qc' ? qcSection : brand==='croc' ? crocSection : sikaSection;
+  const pages = section.querySelectorAll('.page');
+  pages.forEach((div, idx) => {
+    if (div.classList.contains('active')) {
+      renderPage(brand, idx, div);
+    }
+  });
+  // อัปเดต footer
+  const nm = brand==='qc' ? getLastMonth(qcDataLive)
+           : brand==='croc' ? (crocData ? getLastMonth({monthlyTotals: parseCrocData().monthlyTotals}) : 5)
+           : getLastMonth(sikaDataLive);
+  updateFooter(nm);
+  updateTabLabel(brand, nm);
+}
+
+function renderPage(brand, idx, divEl) {
+  const key = `${brand}_${idx}`;
+  if (brand === 'qc') {
+    divEl.innerHTML = qcPages[idx].build();
+  } else if (brand === 'croc') {
+    divEl.innerHTML = idx===0 ? buildCrocPage1() : buildCrocPage2();
+  } else {
+    divEl.innerHTML = idx===0 ? buildSikaPage1() : buildSikaPage2();
+  }
+  rendered[key] = true;
+}
+
+function showPage(idx, brand) {
+  const prefix = brand || currentBrand;
+  navTabs.querySelectorAll(`.tab-btn[data-brand="${prefix}"]`).forEach((b,i)=>b.classList.toggle('active',i===idx));
+  const section = prefix==='qc' ? qcSection : prefix==='croc' ? crocSection : sikaSection;
+  section.querySelectorAll('.page').forEach((d,i)=>d.classList.toggle('active',i===idx));
+
+  const key = `${prefix}_${idx}`;
+  if (!rendered[key]) {
+    const div = section.querySelectorAll('.page')[idx];
+    renderPage(prefix, idx, div);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const SHEET_QC   = 'https://docs.google.com/spreadsheets/d/1aKR6KmUGosext5SE1d92VF-CVEHeCJEFfM_IvHE6gzY/edit?gid=246191077#gid=246191077';
+const SHEET_CROC = 'https://docs.google.com/spreadsheets/d/1ru3ctlBD9jaHE62NOUk6Dcdh-tP5cXqzzXhwW0hsjK4/edit?gid=1779795165#gid=1779795165';
+const SHEET_SIKA = 'https://docs.google.com/spreadsheets/d/1Rn5wDBvdNDog_gnxZjbQ08dxurWphqrH4u1MENmXLeM/edit?gid=401787243#gid=401787243';
+
+function showBrandLoading(brand) {
+  const section = brand==='croc' ? crocSection : sikaSection;
+  section.querySelectorAll('.page').forEach(p => {
+    if(p.classList.contains('active')) {
+      p.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted)">
+        <div style="font-size:28px;margin-bottom:12px">⏳</div>
+        <div style="font-size:14px;font-weight:600">กำลังโหลดข้อมูล…</div>
+      </div>`;
+    }
+  });
+}
+
+function switchBrand(brand) {
+  currentBrand = brand;
+  document.getElementById('brandQC').classList.toggle('active', brand==='qc');
+  document.getElementById('brandCROC').classList.toggle('active', brand==='croc');
+  document.getElementById('brandSIKA').classList.toggle('active', brand==='sika');
+
+  const bannerLink = document.getElementById('bannerLink');
+  const bannerLabel = document.getElementById('bannerLabel');
+  if(brand==='qc'){
+    bannerLink.href = SHEET_QC;
+    bannerLabel.textContent = '📊 ดูข้อมูลดิบ สินค้าควิกโค้ท ใน Google Sheets';
+  } else if(brand==='croc') {
+    bannerLink.href = SHEET_CROC;
+    bannerLabel.textContent = '📊 ดูข้อมูลดิบ สินค้าจระเข้ ใน Google Sheets';
+  } else {
+    bannerLink.href = SHEET_SIKA;
+    bannerLabel.textContent = '📊 ดูข้อมูลดิบ สินค้าซิก้า ใน Google Sheets';
+  }
+
+  if(brand==='qc'){
+    qcSection.style.display=''; crocSection.style.display='none'; sikaSection.style.display='none';
+    navTabs.querySelectorAll('.tab-btn').forEach(b=>{ b.style.display = b.dataset.brand==='qc' ? '' : 'none'; });
+  } else if(brand==='croc') {
+    qcSection.style.display='none'; crocSection.style.display=''; sikaSection.style.display='none';
+    navTabs.querySelectorAll('.tab-btn').forEach(b=>{ b.style.display = b.dataset.brand==='croc' ? '' : 'none'; });
+    loadCrocData();
+  } else {
+    qcSection.style.display='none'; crocSection.style.display='none'; sikaSection.style.display='';
+    navTabs.querySelectorAll('.tab-btn').forEach(b=>{ b.style.display = b.dataset.brand==='sika' ? '' : 'none'; });
+    loadSikaData();
+  }
+}
+
+// ── INIT ──
 loadQCData();
-showPage(0,'qc');
+showPage(0, 'qc');
 
 </script>
 </body>
