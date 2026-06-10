@@ -339,7 +339,8 @@ function updateFooter(nm) {
 // ── QUICKCOAT DATA ──
 // ══════════════════════════════════════════════
 const QC_SHEET_ID = '1aKR6KmUGosext5SE1d92VF-CVEHeCJEFfM_IvHE6gzY';
-const QC_API = `https://docs.google.com/spreadsheets/d/${QC_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
+const QC_GID = '246191077';
+const QC_API = `https://docs.google.com/spreadsheets/d/${QC_SHEET_ID}/export?format=csv&gid=${QC_GID}`;
 
 let qcDataLive = null;
 let qcLoading = false;
@@ -389,18 +390,25 @@ function parseQCCSV(csvText) {
       const name = a;
       const monthly = {}, bags = {};
       YEARS_Q.forEach(y => { monthly[y] = new Array(12).fill(0); bags[y] = new Array(12).fill(0); });
-      for (let m = 0; m < 12; m++) {
-        const dr = rows[i + 1 + m];
-        if (!dr || !(dr[0]||'').includes('เดือน')) break;
+      // อ่าน 12 เดือนถัดไป — ข้าม row ว่างหรือ row ที่ไม่ใช่เดือน
+      let m = 0;
+      let j = i + 1;
+      while (m < 12 && j < rows.length) {
+        const dr = rows[j];
+        const da = (dr[0]||'').trim();
+        if (!da) { j++; continue; } // ข้าม row ว่าง
+        if (!da.includes('เดือน')) break; // หมดข้อมูลสินค้านี้แล้ว
         YEARS_Q.forEach((y, yi) => {
-          const bRaw = (dr[BAG_COLS[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
-          const sRaw = (dr[SALE_COLS[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
+          const bRaw = (dr[BAG_COLS[yi]]||'').toString().replace(/,/g,'').replace(/^-+$/,'0').replace(/^=.*$/,'0').trim();
+          const sRaw = (dr[SALE_COLS[yi]]||'').toString().replace(/,/g,'').replace(/^-+$/,'0').replace(/^=.*$/,'0').trim();
           bags[y][m]    = parseFloat(bRaw) || 0;
           monthly[y][m] = parseFloat(sRaw) || 0;
         });
+        m++;
+        j++;
       }
       products.push({ name, unit, monthly, bags });
-      i += 13;
+      i = j - 1;
       continue;
     }
     i++;
@@ -418,230 +426,96 @@ function parseQCCSV(csvText) {
 
   const last69 = monthlyTotals['2569'].reduce((last, v, m) => v > 0 ? m+1 : last, 0);
 
-  // อ่านค่า rebate 2569 จาก row ที่มี 'รวมทั้งหมดได้รีเบท' (row150) และ 'คิดเป็นเปอร์เซ็น' (row151)
-  let rebate2569 = null;
+  // อ่านค่า rebate 2569 จาก row ที่มี 'รวมทั้งหมดได้รีเบท'
+  let rebate2569 = null, rebate2567 = null, rebate2568 = null;
   for (let ri = 0; ri < rows.length; ri++) {
     const ra = (rows[ri][0]||'').trim();
     if (ra.includes('รวมทั้งหมดได้รีเบท') || ra.includes('รีเบท ประมาณ')) {
-      // col D=index3 = current, col E=index4 = proposed
+      // col D=index3 = current(2569), col E=index4 = proposed(2569)
+      // col B=index1 = rebate2567, col C=index2 = rebate2568
       const cur  = parseFloat((rows[ri][3]||'').toString().replace(/,/g,'')) || 0;
       const prop = parseFloat((rows[ri][4]||'').toString().replace(/,/g,'')) || 0;
-      let curP = 0, propP = 0;
+      const r67  = parseFloat((rows[ri][1]||'').toString().replace(/,/g,'')) || 0;
+      const r68  = parseFloat((rows[ri][2]||'').toString().replace(/,/g,'')) || 0;
+      let curP = 0, propP = 0, r67P = 0, r68P = 0;
       if (ri+1 < rows.length) {
         curP  = parseFloat((rows[ri+1][3]||'').toString().replace(/,/g,'')) || 0;
         propP = parseFloat((rows[ri+1][4]||'').toString().replace(/,/g,'')) || 0;
+        r67P  = parseFloat((rows[ri+1][1]||'').toString().replace(/,/g,'')) || 0;
+        r68P  = parseFloat((rows[ri+1][2]||'').toString().replace(/,/g,'')) || 0;
       }
       if (cur > 0 || prop > 0) {
         rebate2569 = { current: cur, currentPct: curP, proposed: prop, proposedPct: propP };
-        console.log('[QC CSV] rebate2569:', rebate2569);
       }
+      if (r67 > 0) rebate2567 = { total: r67, pct: r67P };
+      if (r68 > 0) rebate2568 = { total: r68, pct: r68P };
+      console.log('[QC CSV] rebate2567:', rebate2567, 'rebate2568:', rebate2568, 'rebate2569:', rebate2569);
       break;
     }
   }
 
-  return { products, monthlyTotals, yearlyTotals, lastMonth2569: last69, rebate2569 };
+  return { products, monthlyTotals, yearlyTotals, lastMonth2569: last69, rebate2569, rebate2567, rebate2568 };
 }
 
-function buildQCFromEmbed() {
-  const YEARS_Q = ['2565','2566','2567','2568','2569'];
-  const mTot = {};
-  YEARS_Q.forEach(y => { mTot[y] = new Array(12).fill(0); });
-  YEARS_Q.forEach(y => {
-    qcMonthlyTotals[Number(y)].forEach((v,m) => { mTot[y][m] = v; });
+
+
+function showLoadError(brand, reason) {
+  const section = brand==='qc' ? qcSection : brand==='croc' ? crocSection : sikaSection;
+  if (!section) return;
+  section.querySelectorAll('.page').forEach(p => {
+    p.innerHTML = `<div style="text-align:center;padding:60px 20px">
+      <div style="font-size:32px;margin-bottom:12px">⚠️</div>
+      <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:8px">โหลดข้อมูลไม่สำเร็จ</div>
+      <div style="font-size:13px;color:#6b7280;margin-bottom:16px">${reason}</div>
+      <button onclick="retryLoad('${brand}')" style="background:#2563eb;color:#fff;border:none;border-radius:20px;padding:8px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">ลองใหม่</button>
+    </div>`;
   });
-  const yTot = {};
-  YEARS_Q.forEach(y => { yTot[y] = qcYearlyTotals[Number(y)] || 0; });
-  const last69 = mTot['2569'].reduce((last, v, m) => v > 0 ? m+1 : last, 0);
-  const prods = qcProducts.map(p => ({
-    name: p.name, unit: 'ถุง',
-    monthly: Object.fromEntries(YEARS_Q.map(y => [y, p.monthly[Number(y)]])),
-    bags: Object.fromEntries(YEARS_Q.map(y => [y, p.bags[Number(y)]]))
-  }));
-  return { products: prods, monthlyTotals: mTot, yearlyTotals: yTot, lastMonth2569: last69 };
+}
+
+function retryLoad(brand) {
+  if (brand==='qc') { qcLoading=false; qcDataLive=null; loadQCData(); }
+  else if (brand==='croc') { crocLoading=false; crocData=null; loadCrocData(); }
+  else { sikaLoading=false; sikaDataLive=null; loadSikaData(); }
 }
 
 function loadQCData() {
   if (qcDataLive || qcLoading) return;
   qcLoading = true;
-  const fallback = (reason) => {
-    console.warn('[QC] fallback เพราะ:', reason);
-    qcLoading = false;
-    qcDataLive = buildQCFromEmbed();
-    setFetchBadge('qc', 'embed');
-    reRenderAll('qc');
-  };
   fetch(QC_API)
     .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
     .then(csv => {
       try {
         const data = parseQCCSV(csv);
-        if (!data.products || data.products.length < 3) throw new Error('parse failed: products=' + (data.products||[]).length);
+        if (!data.products || data.products.length < 1) throw new Error('parse ไม่สำเร็จ: products=' + (data.products||[]).length);
         qcLoading = false;
         qcDataLive = data;
         console.log('[QC] live fetch สำเร็จ lastMonth=', data.lastMonth2569, 'products=', data.products.length);
         setFetchBadge('qc', 'live', data.lastMonth2569);
         reRenderAll('qc');
-      } catch(e) { fallback(e.message); }
+      } catch(e) {
+        qcLoading = false;
+        console.error('[QC] parse error:', e.message);
+        showLoadError('qc', 'อ่านข้อมูลจาก Google Sheets ไม่สำเร็จ: ' + e.message);
+      }
     })
-    .catch(e => fallback(e.message));
+    .catch(e => {
+      qcLoading = false;
+      console.error('[QC] fetch error:', e.message);
+      showLoadError('qc', 'เชื่อมต่อ Google Sheets ไม่ได้: ' + e.message);
+    });
 }
 
-// ── Hardcoded QC embed data ──
-const qcMonthlyTotals = {
-  2565:[703500,625593,863409,614327,515879,739565,644794,663112,425047,566514,604533,543785],
-  2566:[566617,558166,977196,591037,764234,1045746,953428,975150,949402,940318,799625,848979],
-  2567:[723411,1122234,1100079,1010138,796879,745794,1056028,714654,801964,818682,721019,564056],
-  2568:[906022,502019,1210079,897671,857208,1495712,872465,836232,937942,1291463,954669,1072340],
-  2569:[706159,830421,1068785,1249813,781028,0,0,0,0,0,0,0],
-};
-const qcYearlyTotals = {2565:7510059,2566:9969898,2567:10174939,2568:11833822,2569:4636206};
-const qcQuarterlyTotals = {
-  2565:[2192503,1869771,1732953,1714832],
-  2566:[2101979,2401017,2877979,2588922],
-  2567:[2945724,2552811,2572647,2103757],
-  2568:[2618120,3250592,2646639,3318472],
-  2569:[2605365,0,0,0],
-};
-const qcRebateSummary = {
-  2567:{total:211245,pct:2.076},
-  2568:{total:313191,pct:2.647},
-  "2569_current":167309,   "2569_current_pct":1.35,
-  "2569_proposed":324333,  "2569_proposed_pct":2.64,
-};
-const qcProducts = [
-  {
-    name:"ปูนก่ออิฐมวลเบา ตราจิงโจ้ ม่วง (40กก.)",
-    monthly:{
-      2565:[389369,319977,454907,299159,224280,320626,214276,287738,225047,230673,269252,188879],
-      2566:[243533,261858,474206,341589,404280,441895,489316,482243,458935,501093,449438,453045],
-      2567:[446075,577888,689678,499764,302206,502336,569850,393308,542245,511178,311850,330336],
-      2568:[530769,281308,780706,532718,458671,935288,562617,556547,556707,809426,647652,682745],
-      2569:[465364,583411,578692,707991,500187,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[2525,2075,2950,1940,1420,2030,1350,1790,1400,1435,1675,1175],
-      2566:[1515,1629,2950,2125,2515,2749,3044,3000,2855,3115,2792,2814],
-      2567:[2775,3595,4290,3109,1880,3125,3545,2445,3380,3280,1980,2125],
-      2568:[3315,1750,4853,3314,2849,5814,3500,3553,3557,5180,4055,4270],
-      2569:[2895,3625,3600,4400,3075,0,0,0,0,0,0,0],
-    },
-    rebate2567:53549, rebate2568:73352, targetRebate:1500000,
-  },
-  {
-    name:"ปูนฉาบอิฐมวลเบา ตราลูกดิ่ง (แดง)",
-    monthly:{
-      2565:[178178,123766,216419,186224,181318,235388,171266,200607,117757,194720,199766,157710],
-      2566:[165701,188832,301122,218607,225000,350579,232150,357393,314579,253430,263271,183785],
-      2567:[182944,237617,285729,340654,433178,130374,197579,170411,122804,163766,254103,144000],
-      2568:[174673,128187,221636,170748,291028,315000,246449,95888,195561,163598,113551,202626],
-      2569:[109346,109346,313318,393224,116916,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[2325,1615,2824,2430,2230,2895,2090,2385,1400,2315,2375,1875],
-      2566:[1970,2245,3580,2599,2675,4168,2760,4249,3740,3009,3130,2185],
-      2567:[2175,2825,3395,4050,5150,1550,2349,2025,1460,1995,3095,1750],
-      2568:[2075,1524,2635,2030,3460,3745,2930,1140,2325,1945,1350,2415],
-      2569:[1300,1300,3725,4675,1375,0,0,0,0,0,0,0],
-    },
-    rebate2567:0, rebate2568:0, targetRebate:0,
-  },
-  {
-    name:"ปูนฉาบผิวบาง ตราลูกดิ่ง (เหลือง)",
-    monthly:{
-      2565:[128944,167832,178065,128944,102804,168598,199439,174766,82243,133645,113084,174766],
-      2566:[143925,92523,164486,30841,127477,215888,187103,113084,145981,160374,71963,174766],
-      2567:[71963,269346,100748,139813,39065,113084,267290,113084,127477,121308,143103,82243],
-      2568:[176000,92523,200262,174766,98692,207664,49346,154206,145981,267290,184224,135495],
-      2569:[94579,113084,164486,133645,137757,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[630,820,870,630,500,820,970,850,400,650,550,850],
-      2566:[700,450,800,150,620,1050,910,550,710,780,350,850],
-      2567:[350,1310,490,680,190,550,1300,550,620,590,700,400],
-      2568:[870,450,974,850,480,1010,240,750,710,1300,902,670],
-      2569:[462,550,800,650,670,0,0,0,0,0,0,0],
-    },
-    rebate2567:8673, rebate2568:8183, targetRebate:500000,
-  },
-  {
-    name:"ปูนฉาบผิวบาง ตราลูกดิ่ง (เทา)",
-    monthly:{
-      2565:[7009,14019,14019,0,7477,14953,59813,0,0,7477,22430,22430],
-      2566:[13458,14953,37383,0,7477,37383,44860,22430,29907,25421,14953,37383],
-      2567:[22430,37383,23925,29907,22430,0,1495,32897,4486,22430,11963,7477],
-      2568:[14953,0,7477,19439,4486,11963,0,17944,14953,37383,0,0],
-      2569:[22430,14953,7477,14953,4486,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[50,100,100,0,50,100,400,7,3,50,150,150],
-      2566:[90,100,250,0,50,250,300,150,200,170,100,250],
-      2567:[150,250,160,200,150,0,10,220,30,150,80,50],
-      2568:[100,0,50,130,30,80,0,120,100,250,0,0],
-      2569:[150,100,50,100,30,0,0,0,0,0,0,0],
-    },
-    rebate2567:0, rebate2568:0, targetRebate:0,
-  },
-  {
-    name:"ปูนเทปรับระดับพื้น ตราจิงโจ้ น้ำเงิน (40กก.)",
-    monthly:{
-      2565:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2566:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2567:[0,0,0,0,0,0,19813,4953,4953,0,0,0],
-      2568:[9626,0,0,0,4332,25798,14054,11648,24739,13765,9241,51474],
-      2569:[14439,9626,4813,0,21682,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2566:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2567:[0,0,0,0,0,0,200,50,50,0,0,0],
-      2568:[100,0,0,0,45,276,150,126,265,150,100,550],
-      2569:[150,100,50,0,200,0,0,0,0,0,0,0],
-    },
-    rebate2567:0, rebate2568:0, targetRebate:0,
-  },
-  {
-    name:"ปูนกาวกระเบื้อง จิงโจ้ เขียว 20กก.",
-    monthly:{
-      2565:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2566:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2567:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2568:[0,0,0,0,0,0,0,0,0,0,0,6893],
-      2569:[0,0,0,0,0,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[0,0,6,8,4,10,20,0,0,8,8,18],
-      2566:[12,4,10,2,8,22,22,4,12,8,2,18],
-      2567:[6,20,4,12,4,8,16,8,13,0,0,0],
-      2568:[0,0,0,0,0,0,0,0,0,0,0,60],
-      2569:[0,0,0,0,0,0,0,0,0,0,0,0],
-    },
-    rebate2567:0, rebate2568:0, targetRebate:0,
-  },
-  {
-    name:"ปูนเทปรับระดับพื้น ตราจิงโจ้ น้ำตาล (40กก.)",
-    monthly:{
-      2565:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2566:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2567:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2568:[0,0,0,0,15327,1533,0,0,0,0,0,3065],
-      2569:[0,0,0,0,0,0,0,0,0,0,0,0],
-    },
-    bags:{
-      2565:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2566:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2567:[0,0,0,0,0,0,0,0,0,0,0,0],
-      2568:[0,0,0,0,200,20,0,0,0,0,0,40],
-      2569:[0,0,0,0,0,0,0,0,0,0,0,0],
-    },
-    rebate2567:0, rebate2568:0, targetRebate:0,
-  },
-];
+
+// ══════════════════════════════════════════════
+// ── QUICKCOAT PAGE BUILDERS ──
+// ══════════════════════════════════════════════
+
 
 // ══════════════════════════════════════════════
 // ── QUICKCOAT PAGE BUILDERS ──
 // ══════════════════════════════════════════════
 function buildPage1() {
-  if (!qcDataLive) qcDataLive = buildQCFromEmbed();
+  if (!qcDataLive) { showLoadError('qc','ข้อมูลยังไม่โหลด'); return ''; }
   const NM = getLastMonth(qcDataLive);
   const mTot = qcDataLive.monthlyTotals;
   const yTot = qcDataLive.yearlyTotals;
@@ -687,33 +561,29 @@ function buildPage1() {
     </div>`;
   }).join('');
 
-  // NM-month strip — เปรียบเทียบทุกปี
-  const fNM = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
-  const fN = {}; YEARS.forEach(y => fN[y] = fNM(y));
+  // ยอดรวม ม.ค.–ธ.ค. ทุกปี (เต็มปี; ปี 2569 ใช้เท่าที่มีจริง)
+  const fFull = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,12).reduce((a,b)=>a+b,0);
+  const fN = {}; YEARS.forEach(y => fN[y] = fFull(y));
   const fmStrip = YEARS.map(y=>{
     const v = fN[y]; const prev = fN[y-1];
     const chg = prev ? pChange(prev,v) : null;
     const col = YR_COL[y];
+    const sub = y===lastY ? `<div class="fm-sub" style="color:var(--muted);font-size:12px;margin-top:2px">${NM} เดือน</div>` : '';
     const badge = chg !== null
       ? `<span class="fm-badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`
       : '';
     return `<div class="fm-card" style="${y===lastY?'border-color:'+col:''}">
       <div class="fm-year" style="color:${col}">ปี ${y}</div>
       <div class="fm-val" style="color:${col}">${fmtM(v)}</div>
-      ${badge}
+      ${sub}${badge}
     </div>`;
   }).join('');
 
-  // ไตรมาส — ใช้ hardcode แต่ Q ปี 2569 คำนวณจาก live
+  // ไตรมาส — คำนวณจาก live monthly ทุกปี
   const qTot = {};
   YEARS.forEach(y => {
-    if (y === lastY) {
-      // คำนวณ Q จาก live monthly
-      const m = mTot[String(y)] || mTot[y] || Array(12).fill(0);
-      qTot[y] = [0,1,2,3].map(q => m.slice(q*3,(q+1)*3).reduce((a,b)=>a+b,0));
-    } else {
-      qTot[y] = qcQuarterlyTotals[y] || [0,0,0,0];
-    }
+    const m = mTot[String(y)] || mTot[y] || Array(12).fill(0);
+    qTot[y] = [0,1,2,3].map(q => m.slice(q*3,(q+1)*3).reduce((a,b)=>a+b,0));
   });
   let qRows = '';
   for(let q=0;q<4;q++){
@@ -756,18 +626,16 @@ function buildPage1() {
   }).join('');
   mRows+=`<tr class="total-row"><td>รวม</td>${mTotCells}<td>–</td></tr>`;
 
-  // ดึงค่า rebate live ถ้ามี ไม่งั้นใช้ embed
+  // ดึงค่า rebate จาก live data เท่านั้น
   const liveRb = (qcDataLive && qcDataLive.rebate2569) || {};
-  const rb2569cur   = liveRb.current    || qcRebateSummary['2569_current'];
-  const rb2569curP  = liveRb.currentPct || qcRebateSummary['2569_current_pct'];
-  const rb2569prop  = liveRb.proposed   || qcRebateSummary['2569_proposed'];
-  const rb2569propP = liveRb.proposedPct|| qcRebateSummary['2569_proposed_pct'];
+  const rb2567 = qcDataLive.rebate2567 || {};
+  const rb2568 = qcDataLive.rebate2568 || {};
 
   const rebateItems = [
-    {label:'รีเบทปี 2567', val:qcRebateSummary[2567].total, pct:qcRebateSummary[2567].pct},
-    {label:'รีเบทปี 2568', val:qcRebateSummary[2568].total, pct:qcRebateSummary[2568].pct},
-    {label:'รีเบท 2569 ที่คาดว่าทำได้จริง', val:rb2569cur, pct:rb2569curP},
-    {label:'รีเบท 2569 (ที่กำลังขอพิจารณา)', val:rb2569prop, pct:rb2569propP},
+    {label:'รีเบทปี 2567', val:rb2567.total||0, pct:rb2567.pct||null},
+    {label:'รีเบทปี 2568', val:rb2568.total||0, pct:rb2568.pct||null},
+    {label:'รีเบท 2569 ที่คาดว่าทำได้จริง', val:liveRb.current||0, pct:liveRb.currentPct||null},
+    {label:'รีเบท 2569 (ที่กำลังขอพิจารณา)', val:liveRb.proposed||0, pct:liveRb.proposedPct||null},
   ];
   const rebCards = rebateItems.map(ri=>`
     <div class="rebate-item">
@@ -780,11 +648,13 @@ function buildPage1() {
   <div class="page-title">แดชบอร์ด ควิกโค้ท</div>
   <div class="page-sub">ยอดซื้อรวมทุกรายการ ปี 2565–2569</div>
 
-  <div class="section-title">ยอดรวมรายปี</div>
-  <div class="stat-grid">${yearCards}</div>
-
-  <div class="section-title">ยอดซื้อ ${nmLabel(NM)} เทียบทุกปี</div>
+  <div class="section-title">ยอดซื้อ ม.ค.–ธ.ค. เทียบทุกปี</div>
   <div class="four-month-strip">${fmStrip}</div>
+
+  <div class="section-title">สรุปรีเบท</div>
+  <div class="rebate-summary">${rebCards}</div>
+
+  <div class="chart-wrap"><div class="chart-title">ยอดซื้อรายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${yBars}</div></div>
 
   <div class="section-title">รายไตรมาส</div>
   <div class="tbl-wrap"><table>
@@ -797,14 +667,11 @@ function buildPage1() {
     <thead><tr><th>เดือน</th>${YEARS.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead>
     <tbody>${mRows}</tbody>
   </table></div>
-
-  <div class="section-title">สรุปรีเบท</div>
-  <div class="rebate-summary">${rebCards}</div>
   `;
 }
 
 function buildPage2() {
-  if (!qcDataLive) qcDataLive = buildQCFromEmbed();
+  if (!qcDataLive) { showLoadError('qc','ข้อมูลยังไม่โหลด'); return ''; }
   const NM = getLastMonth(qcDataLive);
   const mTot = qcDataLive.monthlyTotals;
   const lastY = 2569;
@@ -911,12 +778,11 @@ function buildPage2() {
 // ── CROC DATA ──
 // ══════════════════════════════════════════════
 const CROC_SHEET_ID = '1ru3ctlBD9jaHE62NOUk6Dcdh-tP5cXqzzXhwW0hsjK4';
-const CROC_API = `https://docs.google.com/spreadsheets/d/${CROC_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
+const CROC_GID = '1779795165';
+const CROC_API = `https://docs.google.com/spreadsheets/d/${CROC_SHEET_ID}/export?format=csv&gid=${CROC_GID}`;
 
 let crocData = null;
 let crocLoading = false;
-
-const CROC_DATA_EMBED = {"monthlyTotals":{"2565":[0.0,288691.83,416713.38,547399.61,660742.87,417218.4,664625.59,1243295.28,632560.91,77805.18,604167.22,643298.69],"2566":[448503.56,694000.5,560475.91,445854.4,525561.08,733634.4,702100.79,668830.78,664075.88,779075.88,790041.63,294092.31],"2567":[487689.14,820409.26,974547.63,627605.82,647990.82,672559.38,864713.26,800033.76,1443692.5,870212.49,1113704.76,627994.1],"2568":[460699.14,1003995.02,609069.77,922357.81,932470.03,603087.11,657841.31,1115797.19,884139.61,1442123.27,519624.2,1229648.27],"2569":[665117.24,761127.15,1089491.65,648537.63,970283.48,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"yearlyTotals":{"2565":6196518.96,"2566":7306247.12,"2567":9951152.92,"2568":10380852.73,"2569":4134557.15},"rebateSummary":{"2567":{"total":478193,"pct":4.8054},"2568":{"total":522591,"pct":5.0342},"2569_current":150616},"products":[{"group":"กาวซีเมนต์","name":"ปูนกาวกระเบื้อง จระเข้ เขียว 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,211502.08,408302.17,397746.84,574655.0,198477.58,583018.58,861582.96,589629.61,77805.18,569035.93,575149.3],"2566":[400347.12,623929.38,395984.88,381411.54,384688.5,542627.9,565508.89,577667.54,557733.55,620927.11,604381.85,191411.74],"2567":[388379.93,645744.49,752474.66,393266.23,593941.04,566056.49,655096.7,687113.95,1195511.35,631900.11,800580.07,550710.4],"2568":[410307.79,858845.31,408273.02,625558.03,814215.98,500594.12,508077.0,792934.64,631848.83,1048077.46,392224.8,961963.87],"2569":[515239.64,562675.62,828738.34,536716.33,872905.99,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,1600,3100,3120,4680,1560,4580,6540,4680,795,4650,4585],"2566":[3120,4990,3170,3120,3103,4700,4640,4600,4575,4740,4860,1560],"2567":[3215,5060,6140,3270,4860,4470,5220,5316,9190,4770,6230,4290],"2568":[3270,6450,3120,4820,6400,4050,4050,6390,5061,8020,3240,6910],"2569":[4110,4110,6240,3900,6240,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวกระเบื้อง+สระว่ายน้ำ จระเข้ แดง 20 กก. (สีเทา)","unit":"ถุง","monthly":{"2565":[0.0,9891.34,8411.21,63139.67,52485.98,121896.73,46436.92,191320.09,24147.2,0.0,27862.15,25992.52],"2566":[36074.6,35910.74,79523.55,43646.29,86151.15,95456.9,94014.96,67964.66,57987.57,122518.8,92634.06,65058.76],"2567":[25091.66,55357.84,116832.85,56248.09,18133.24,103045.04,45613.13,31653.64,122426.31,27316.85,70995.82,39327.16],"2568":[16433.37,43025.29,57375.91,151442.49,89130.83,42178.94,49068.24,56775.47,133478.3,99185.53,104151.17,70890.7],"2569":[71174.87,97487.81,123765.03,29141.99,84806.73,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,60,50,390,312,725,250,1030,130,0,150,140],"2566":[200,200,470,240,560,646,543,405,340,700,560,380],"2567":[150,310,670,310,100,570,270,180,700,150,420,218],"2568":[90,234,316,858,518,234,332,340,850,560,572,388],"2569":[390,530,702,156,440,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวทุกพื้นผิว จระเข้ ทอง 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,47356.34,0.0,81031.96,30067.29,80537.38,28037.38,162616.82,0.0,0.0,0.0,28037.38],"2566":[0.0,26200.96,82071.94,0.0,50634.7,78170.12,11909.67,10876.55,27093.69,19041.75,28438.34,33083.22],"2567":[38354.29,78194.63,32389.1,124159.35,28868.58,0.0,136691.61,76949.37,71802.79,135805.28,166578.27,31176.64],"2568":[32838.0,94290.56,55044.93,126907.15,0.0,40822.23,78271.38,248824.61,11059.31,156978.5,0.0,86483.89],"2569":[32921.5,43067.35,84103.83,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,90,0,156,56,150,50,290,0,0,0,50],"2566":[0,50,160,0,100,162,40,20,50,40,55,60],"2567":[70,150,60,250,60,0,260,150,140,250,320,60],"2568":[60,170,100,240,0,78,150,650,20,310,0,158],"2569":[78,80,160,0,0,0,0,0,0,0,0,0]}},{"group":"กาวซีเมนต์","name":"ปูนกาวงานปูทับ จระเข้ เงิน 20 กก.","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2567":[0.0,12903.39,32250.17,16037.5,0.0,0.0,0.0,0.0,0.0,0.0,10037.4,0.0],"2568":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6508.51,26315.03,741.21,0.0],"2569":[0.0,25688.55,25046.24,10283.24,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,0,0,0,0,0,0,0],"2567":[0,0,0,0,0,0,0,0,0,0,0,0],"2568":[0,0,0,0,0,0,0,0,20,80,10,0],"2569":[0,80,78,30,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (1 กก.) สีเทา","unit":"กระปุก","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,1682.24,0.0,1682.24,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,1640.88,0.0,0.0,5006.51,0.0,0.0,0.0,0.0,0.0],"2567":[1667.83,0.0,1619.15,4931.46,0.0,0.0,697.47,0.0,0.0,0.0,4625.77,0.0],"2568":[0.0,0.0,1657.93,0.0,0.0,0.0,0.0,0.0,1623.13,2761.17,0.0,1606.38],"2569":[1673.33,0.0,0.0,4869.39,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,12,0,12,0,0,0],"2566":[0,0,0,12,0,0,36,0,0,0,0,0],"2567":[12,0,12,36,0,0,12,0,0,0,36,0],"2568":[0,0,12,0,0,0,0,0,12,24,0,12],"2569":[12,0,0,36,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (4 กก.) สีเทา","unit":"แกลลอน","monthly":{"2565":[0.0,6878.09,0.0,0.0,0.0,0.0,5450.47,5450.47,9084.11,0.0,0.0,5450.47],"2566":[10579.39,0.0,0.0,5316.43,2927.05,0.0,11537.2,0.0,5368.76,6814.24,21197.96,0.0],"2567":[16131.09,0.0,20918.55,10546.87,0.0,0.0,7680.69,0.0,10371.61,5185.8,10380.25,0.0],"2568":[0.0,5330.5,20742.74,1590.47,15999.5,3784.56,0.0,0.0,6383.17,14640.58,0.0,5856.21],"2569":[6389.41,5938.92,0.0,28208.82,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,17,0,0,0,0,12,12,20,0,0,12],"2566":[24,0,0,12,8,0,28,0,12,12,48,0],"2567":[36,0,48,24,0,0,24,0,24,12,28,0],"2568":[0,12,52,4,40,12,0,0,17,40,0,16],"2569":[24,16,0,72,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"จระเข้ ฟลอร์ สมูท เบส (สีเทา) (20 กก.)","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,7711.36,0.0,0.0,0.0,0.0,0.0,0.0],"2567":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2568":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2569":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,30,0,0,0,0,0,0],"2567":[0,0,0,0,0,0,0,0,0,0,0,0],"2568":[0,0,0,0,0,0,0,0,0,0,0,0],"2569":[0,0,0,0,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์กันซึม จระเข้เฟล็กซ์ ซิลด์ (20 กก.) สีเทา","unit":"ถุง","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,27260.29,0.0],"2567":[14356.63,18324.49,0.0,0.0,0.0,0.0,0.0,0.0,31552.51,62168.3,0.0,0.0],"2568":[0.0,0.0,45493.72,0.0,7459.01,0.0,15916.06,7698.02,60445.79,54989.42,0.0,44477.39],"2569":[15135.44,14935.5,15134.73,31734.05,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,0,0,0,0,0,0,0,0,15,0],"2567":[15,10,0,0,0,0,0,0,20,39,0,0],"2568":[0,0,30,0,5,0,10,5,40,40,0,30],"2569":[10,10,10,20,0,0,0,0,0,0,0,0]}},{"group":"เคมีก่อสร้าง","name":"ซีเมนต์ทากันซึมชนิดยืดหยุ่น จระเข้ เฟล็กซ์ 2 เค (ชุด)","unit":"ชุด","monthly":{"2565":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"2566":[0.0,0.0,2595.82,6793.15,0.0,0.0,3981.35,0.0,7298.49,0.0,2548.09,0.0],"2567":[0.0,2708.41,3258.52,0.0,0.0,0.0,0.0,2031.3,0.0,4062.6,0.0,2663.66],"2568":[0.0,0.0,6635.58,6771.0,0.0,6115.04,0.0,0.0,15871.21,0.0,0.0,16781.72],"2569":[5669.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,0,0,0,0,0,0,0,0,0,0,0],"2566":[0,0,4,14,0,0,6,0,11,0,4,0],"2567":[0,4,5,0,0,0,0,3,0,6,0,4],"2568":[0,0,10,10,0,10,0,0,28,0,0,30],"2569":[10,0,0,0,0,0,0,0,0,0,0,0]}},{"group":"ยาแนว","name":"ยาแนว ทุกสี + ยาแนวพรีเมี่ยมพลัส","unit":"ถุง","monthly":{"2565":[0.0,13063.98,0.0,5481.14,3534.6,16306.71,0.0,22324.94,8017.75,0.0,7269.14,8669.02],"2566":[1502.45,7959.42,299.72,7046.11,1159.68,9668.12,10142.21,12322.03,8593.82,9773.98,13581.04,4538.59],"2567":[3707.71,7176.01,14804.63,22416.32,7047.96,3457.85,18933.66,2285.5,12027.93,3773.55,50507.18,4116.24],"2568":[1119.98,2503.36,13845.94,10088.67,5664.71,9592.22,6508.63,9564.45,16921.36,39175.58,22507.02,41588.11],"2569":[16913.55,11333.4,12703.48,7583.81,12570.76,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},"bags":{"2565":[0,500,0,140,200,640,0,860,280,0,240,320],"2566":[100,260,20,300,80,520,360,480,240,400,620,180],"2567":[160,280,520,900,380,160,700,100,490,140,1700,100],"2568":[60,60,500,440,260,440,180,320,550,1330,830,1330],"2569":[560,360,340,240,400,0,0,0,0,0,0,0]}}],"bimonthlyByGroup":{"กาวซีเมนต์":{"2565":[268749.76,958631.85,1058119.96,1873012.75,691581.99,1226077.28],"2566":[1122462.8,982638.2,1237729.27,1327942.27,1405302.47,1015007.97],"2567":[1244026.23,1523657.95,1310044.39,1633118.4,2184762.69,1669405.76],"2568":[1455740.32,1424601.53,1486942.1,1733951.34,2113451.47,1616455.64],"2569":[1348255.34,1637795.0,957712.72,0.0,0.0,0.0]},"เคมีก่อสร้าง":{"2565":[6878.09,0.0,0.0,12583.18,10766.35,5450.47],"2566":[10579.39,16346.28,10638.41,20525.06,19481.49,51006.34],"2567":[53188.45,41274.55,0.0,10409.46,113340.82,17669.68],"2568":[5330.5,82891.44,33358.11,23614.08,156714.47,68721.7],"2569":[49742.1,79946.99,0.0,0.0,0.0,0.0]},"ยาแนว":{"2565":[13063.98,5481.14,19841.31,22324.94,8017.75,15938.16],"2566":[9461.87,7345.83,10827.8,22464.24,18367.8,18119.63],"2567":[10883.72,37220.95,10505.81,21219.16,15801.48,54623.42],"2568":[3623.34,23934.61,15256.93,16073.08,56096.94,64095.13],"2569":[28246.95,20287.29,12570.76,0.0,0.0,0.0]}}};
 
 function parseCSVLine(line) {
   const result = [];
@@ -943,7 +809,6 @@ function parseCrocCSV(csvText) {
   const SALE_COLS_C = [2, 4, 6, 8, 10];
   const UNIT_VALS = ['ถุง','กระปุก','แกลลอน','ชุด','ถัง'];
 
-  // debug: log first 5 rows
   console.log('[CROC CSV] first 3 rows:', rows.slice(0,3).map(r=>r.slice(0,6)));
 
   const products_c = [];
@@ -955,14 +820,11 @@ function parseCrocCSV(csvText) {
     const b = (row[1]||'').trim();
     const c = (row[2]||'').trim();
 
-    // group header: col A = ชื่อกลุ่ม, col B = 'ปี 2565' หรือ 'ปี'
-    if (a && (b === 'ปี 2565' || b.startsWith('ปี ')) && !a.includes('เดือน') && !a.includes('รวม')) {
-      const grp = a.replace('กาวยาแนว','ยาแนว').trim();
-      currentGroup = grp;
+    const knownGroups = ['กาวซีเมนต์','เคมีก่อสร้าง','กาวยาแนว','ยาแนว'];
+    if (a && knownGroups.some(g => a.includes(g)) && !a.includes('เดือน') && !a.includes('รวม')) {
+      currentGroup = a.replace('กาวยาแนว','ยาแนว').trim();
     }
 
-    // product header: col B = unit และ col C = 'ยอด'/'ยอดซื้อ'
-    // รองรับกรณี CSV encode unit ต่างออกมาด้วย includes
     const bIsUnit = UNIT_VALS.includes(b) || UNIT_VALS.some(u => b.includes(u));
     const cIsYod = (c === 'ยอด' || c === 'ยอดซื้อ' || c.includes('ยอด'));
     if (bIsUnit && cIsYod && a && !a.includes('เดือน') && !a.includes('รวม') && !a.includes('ปี ')) {
@@ -970,18 +832,24 @@ function parseCrocCSV(csvText) {
       const unit = b;
       const monthly = {}, bags = {};
       YEARS_C.forEach(y => { monthly[y] = new Array(12).fill(0); bags[y] = new Array(12).fill(0); });
-      for (let m = 0; m < 12; m++) {
-        const dr = rows[i + 1 + m];
-        if (!dr || !(dr[0]||'').includes('เดือน')) break;
+      let m = 0;
+      let j = i + 1;
+      while (m < 12 && j < rows.length) {
+        const dr = rows[j];
+        const da = (dr[0]||'').trim();
+        if (!da) { j++; continue; }
+        if (!da.includes('เดือน')) break;
         YEARS_C.forEach((y, yi) => {
-          const bRaw = (dr[BAG_COLS_C[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
-          const sRaw = (dr[SALE_COLS_C[yi]]||'').replace(/,/g,'').replace(/-/g,'0').trim();
+          const bRaw = (dr[BAG_COLS_C[yi]]||'').toString().replace(/,/g,'').replace(/^-+$/,'0').trim();
+          const sRaw = (dr[SALE_COLS_C[yi]]||'').toString().replace(/,/g,'').replace(/^-+$/,'0').trim();
           bags[y][m]    = parseFloat(bRaw) || 0;
           monthly[y][m] = parseFloat(sRaw) || 0;
         });
+        m++;
+        j++;
       }
       products_c.push({ group: currentGroup, name, unit, monthly, bags });
-      i += 12;
+      i = j - 1;
       continue;
     }
   }
@@ -1007,9 +875,30 @@ function parseCrocCSV(csvText) {
   });
   YEARS_C.forEach(y => { yearlyTotals_c[y] = monthlyTotals_c[y].reduce((a,b) => a+b, 0); });
 
+  // อ่าน rebate จาก row ที่มี 'รวมทั้งหมดได้รีเบท'
+  const rebateSummary = {};
+  for (let ri = 0; ri < rows.length; ri++) {
+    const ra = (rows[ri][0]||'').trim();
+    if (ra.includes('รวมทั้งหมดได้รีเบท') || ra.includes('รีเบท ประมาณ')) {
+      const r67 = parseFloat((rows[ri][1]||'').toString().replace(/,/g,'')) || 0;
+      const r68 = parseFloat((rows[ri][2]||'').toString().replace(/,/g,'')) || 0;
+      const r69 = parseFloat((rows[ri][3]||'').toString().replace(/,/g,'')) || 0;
+      let r67P=0, r68P=0;
+      if (ri+1 < rows.length) {
+        r67P = parseFloat((rows[ri+1][1]||'').toString().replace(/,/g,'')) || 0;
+        r68P = parseFloat((rows[ri+1][2]||'').toString().replace(/,/g,'')) || 0;
+      }
+      if (r67 > 0) rebateSummary['2567'] = { total: r67, pct: r67P };
+      if (r68 > 0) rebateSummary['2568'] = { total: r68, pct: r68P };
+      if (r69 > 0) rebateSummary['2569_current'] = r69;
+      console.log('[CROC CSV] rebateSummary:', rebateSummary);
+      break;
+    }
+  }
+
   return {
     monthlyTotals: monthlyTotals_c, yearlyTotals: yearlyTotals_c,
-    rebateSummary: CROC_DATA_EMBED.rebateSummary,
+    rebateSummary,
     products: products_c, bimonthlyByGroup: bimonthlyByGroup_c
   };
 }
@@ -1021,8 +910,6 @@ function setFetchBadge(brand, mode, nm) {
   const names = {qc:'ควิกโค้ท', croc:'จระเข้', sika:'ซิก้าแลงโก้'};
   if (mode === 'live') {
     label.innerHTML = `📊 ข้อมูลสด ${names[brand]} (${nm} เดือน) &nbsp;<span style="background:#16a34a;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px">LIVE</span>`;
-  } else {
-    label.innerHTML = `📊 ${names[brand]} ใช้ข้อมูล embed (fetch ไม่สำเร็จ) &nbsp;<span style="background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px">OFFLINE</span>`;
   }
 }
 
@@ -1044,7 +931,7 @@ function onCrocLoaded(data) {
   crocLoading = false;
   const nm = (data.monthlyTotals?.['2569']||data.monthlyTotals?.[2569]||[]).reduce((l,v,i)=>v>0?i+1:l,0)||4;
   console.log('[CROC] loaded lastMonth=', nm);
-  setFetchBadge('croc', data._fromEmbed ? 'embed' : 'live', nm);
+  setFetchBadge('croc', 'live', nm);
   reRenderAll('croc');
 }
 
@@ -1052,25 +939,26 @@ function loadCrocData() {
   if(crocData || crocLoading) return;
   crocLoading = true;
   showBrandLoading('croc');
-  const fallback = () => {
-    console.warn('[CROC] fallback ใช้ embed');
-    crocLoading = false;
-    const d = JSON.parse(JSON.stringify(CROC_DATA_EMBED));
-    d._fromEmbed = true;
-    onCrocLoaded(d);
-  };
   fetch(CROC_API)
     .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
     .then(csv => {
       try {
         const data = parseCrocCSV(csv);
-        if (!data.products || data.products.length < 5) throw new Error('parse failed: products=' + (data.products||[]).length);
+        if (!data.products || data.products.length < 1) throw new Error('parse ไม่สำเร็จ: products=' + (data.products||[]).length);
         console.log('[CROC] live fetch สำเร็จ products=', data.products.length);
         crocLoading = false;
         onCrocLoaded(data);
-      } catch(e) { console.warn('[CROC] parse error:', e.message); fallback(); }
+      } catch(e) {
+        crocLoading = false;
+        console.error('[CROC] parse error:', e.message);
+        showLoadError('croc', 'อ่านข้อมูลจาก Google Sheets ไม่สำเร็จ: ' + e.message);
+      }
     })
-    .catch(e => { console.warn('[CROC] fetch error:', e.message); fallback(); });
+    .catch(e => {
+      crocLoading = false;
+      console.error('[CROC] fetch error:', e.message);
+      showLoadError('croc', 'เชื่อมต่อ Google Sheets ไม่ได้: ' + e.message);
+    });
 }
 
 // ── CROC PAGE BUILDERS ──
@@ -1105,21 +993,19 @@ function parseCrocData() {
 }
 
 function buildCrocPage1(){
+  if (!crocData) { showLoadError('croc','ข้อมูลยังไม่โหลด'); return ''; }
   const cd = parseCrocData();
   const CY = cd.YEARS || YEARS;
   const mTot = cd.monthlyTotals;
   const yTot = cd.yearlyTotals;
   const colFor = y => YR_COL_C[y] || '#6366f1';
   const lastY = CY[CY.length-1];
-  // NM จาก live data
   const NM = (mTot[lastY]||[]).reduce((last,v,i)=>v>0?i+1:last,0)||4;
-
-  // คำนวณ yearlyTotals ปี lastY จาก live (NM เดือน)
   const y69live = (mTot[lastY]||[]).reduce((a,b)=>a+b,0);
 
   const yearCards = CY.map(y=>{
     const v = y===lastY ? y69live : (yTot[y]||0);
-    const prevV = y===lastY ? (yTot[y-1]||0) : (yTot[y-1]||0);
+    const prevV = yTot[y-1]||0;
     const chg = prevV ? pChange(prevV,v) : null;
     const col = colFor(y);
     const badge = y===lastY
@@ -1136,15 +1022,16 @@ function buildCrocPage1(){
     return `<div class="bar-group"><div class="bar" style="height:${h}%;background:${colFor(y)}" data-tip="ปี ${y}: ${fmtM(v)}"></div><div class="bar-label" style="color:${colFor(y)}">'${String(y).slice(2)}</div><div class="bar-val">${fmtM(v)}</div></div>`;
   }).join('');
 
-  const fNM = y=>(mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
-  const fN={}; CY.forEach(y=>fN[y]=fNM(y));
+  const fFull=y=>(mTot[y]||Array(12).fill(0)).slice(0,12).reduce((a,b)=>a+b,0);
+  const fN={}; CY.forEach(y=>fN[y]=fFull(y));
   const fmStrip=CY.map(y=>{
     const v=fN[y],prev=fN[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
+    const sub=y===lastY?`<div class="fm-sub" style="color:var(--muted);font-size:12px;margin-top:2px">${NM} เดือน</div>`:'';
     const badge=chg!==null?`<span class="fm-badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'';
-    return `<div class="fm-card"><div class="fm-year" style="color:${col}">ปี ${y}</div><div class="fm-val" style="color:${col}">${fmtM(v)}</div>${badge}</div>`;
+    return `<div class="fm-card"><div class="fm-year" style="color:${col}">ปี ${y}</div><div class="fm-val" style="color:${col}">${fmtM(v)}</div>${sub}${badge}</div>`;
   }).join('');
 
-  // bimonthly totals คำนวณจาก mTot ตรงๆ
+  // ราย 2 เดือน คำนวณจาก live
   const bmTot = {}; CY.forEach(y=>{ const m=mTot[y]||Array(12).fill(0); bmTot[y]=[0,1,2,3,4,5].map(b=>m[b*2]+m[b*2+1]); });
   let bmRows='';
   for(let b=0;b<6;b++){
@@ -1206,8 +1093,8 @@ function buildCrocPage1(){
   return `
   <div class="page-title">แดชบอร์ด จระเข้</div>
   <div class="page-sub">ยอดซื้อรวมทุกรายการ ปี ${CY[0]}–${lastY}</div>
-  <div class="section-title">ยอดรวมรายปี</div><div class="stat-grid">${yearCards}</div>
-  <div class="section-title">ยอดซื้อ ${nmLabel(NM)} เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
+  <div class="section-title">ยอดซื้อ ม.ค.–ธ.ค. เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
+  ${rebCards}
   <div class="chart-wrap"><div class="chart-title">ยอดซื้อรายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${yBars}</div></div>
   <div class="section-title">ราย 2 เดือน (รวมทุกกลุ่ม)</div>
   <div class="note">ปี ${lastY}: มีข้อมูล ${nmLabel(NM)}</div>
@@ -1215,10 +1102,11 @@ function buildCrocPage1(){
   <div class="section-title">ราย 2 เดือน แยกกลุ่มสินค้า</div>${groupBmTables}
   <div class="section-title">รายเดือน</div>
   <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${mRows}</tbody></table></div>
-  ${rebCards}`;
+  `;
 }
 
 function buildCrocPage2(){
+  if (!crocData) { showLoadError('croc','ข้อมูลยังไม่โหลด'); return ''; }
   const cd = parseCrocData();
   const CY = cd.YEARS || YEARS;
   const mTot = cd.monthlyTotals;
@@ -1301,64 +1189,14 @@ function buildCrocPage2(){
 // ══════════════════════════════════════════════
 // ── SIKA DATA ──
 // ══════════════════════════════════════════════
-const SIKA_YEARS = [2565,2566,2567,2568,2569];
 const SIKA_SHEET_ID = '1Rn5wDBvdNDog_gnxZjbQ08dxurWphqrH4u1MENmXLeM';
-const SIKA_API = `https://docs.google.com/spreadsheets/d/${SIKA_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=สรุปดูง่าย`;
+const SIKA_GID      = '401787243';
+const SIKA_API      = `https://docs.google.com/spreadsheets/d/${SIKA_SHEET_ID}/export?format=csv&gid=${SIKA_GID}`;
+const SIKA_YEARS    = [2565, 2566, 2567, 2568, 2569];
 
 let sikaDataLive = null;
-let sikaLoading = false;
+let sikaLoading  = false;
 
-const sikaMonthlyTotals = {
-  2565:[0,0,0,0,0,0,117480,121333,23600,250278,0,39356],
-  2566:[186885,103096,153716,165698,14284,157179,364329,409630,168023,110728,122460,91774],
-  2567:[172135,146994,299064,21728,121398,73788,144998,155994,122277,158869,136211,145170],
-  2568:[21728,183593,254357,108311,177855,192196,129960,121415,331581,195816,255207,139706],
-  2569:[126400,174174,102342,170628,111244,0,0,0,0,0,0,0],
-};
-const sikaYearlyTotals = {2565:552047,2566:2047802,2567:1698627,2568:2111725,2569:684787};
-const sikaQuarterlyTotals = {
-  2565:[0,0,262413,289634],
-  2566:[443697,337161,941982,324962],
-  2567:[618193,216914,423269,440251],
-  2568:[459678,478362,582956,590729],
-  2569:[402915,281872,0,0],
-};
-const sikaRebateSummary = {2567:{total:12364,pct:0.73},2568:{total:79872,pct:3.78}};
-const sikaProductsEmbed = [
-  {group:'เคมีก่อสร้าง',name:'ปูนแลงโก้ #110 (ฉาบผิวบางสีเทา) 20 กก.',unit:'ถุง',
-    monthly:{2565:[0,0,0,0,0,0,20880,41760,10440,33000,0,0],2566:[49200,9840,49200,9840,0,0,0,0,0,0,0,0],2567:[9840,36960,18480,0,0,0,0,0,3080,20944,29260,6160],2568:[0,16324,3080,9240,0,0,18788,9240,18480,3080,6160,0],2569:[9240,0,0,0,10140,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,132,264,66,208,0,0],2566:[330,66,330,66,0,0,0,0,0,0,0,0],2567:[66,264,132,0,0,0,0,0,22,150,209,44],2568:[0,106,20,76,0,0,134,68,134,22,44,0],2569:[66,0,0,0,66,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'ปูนแรงอัด 700 ksc แลงโก้ #701 (นอนชริงค์เกราท์) 25 กก.',unit:'ถุง',
-    monthly:{2565:[0,0,0,0,0,0,96600,52640,13160,166460,0,0],2566:[81480,76048,54320,97776,10864,97776,108640,113959,0,72378,54712,43456],2567:[65184,65184,108640,21728,108640,65184,76048,98552,66380,65184,65184,54320],2568:[21728,78804,65184,76048,141232,102812,34272,80360,171360,182784,161112,45696],2569:[79968,103224,79968,96768,26320,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,463,244,61,852,0,0],2566:[420,392,280,504,56,504,560,616,0,392,280,224],2567:[336,336,560,112,560,336,392,508,340,336,336,280],2568:[112,400,336,392,728,504,168,392,840,896,784,224],2569:[392,506,392,448,116,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'ปูนแลงโก้ #226 (ซีเมนต์กันซึม 2 ส่วนผสม) 23 กก.',unit:'ถุง',
-    monthly:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,8864,10070,0,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,13,16,0,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'ปูนแลงโก้ #731 ปูนฉาบซ่อมแซมโครงสร้าง กำลังอัดสูงพิเศษ 25 กก.',unit:'ถุง',
-    monthly:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,0,0,20709,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,0,0,30,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'ปูน ซิก้าเกราท์ # 212 GP (นอนชริงค์เกราท์) 20 กก.',unit:'ถุง',
-    monthly:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,166067,272793,102297,0,34100,0],2567:[45430,0,35804,0,0,0,0,0,0,0,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,1021,1680,630,0,210,0],2567:[282,0,217,0,0,0,0,0,0,0,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'น้ำยาประสานคอนกรีต แลงโก้ # 751 ขนาด 20 ลิตร',unit:'ถัง',
-    monthly:{2565:[0,0,0,0,0,0,0,16997,0,34435,0,33134],2566:[34416,17208,8604,17208,0,43020,43020,0,51624,31510,4302,25812],2567:[38718,25812,82303,0,0,8604,40629,32503,24377,39275,16252,56881],2568:[0,69073,93447,23023,24377,89384,32503,16252,30342,0,0,0],2569:[0,0,16250,0,0,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,27,0,50,0,48],2566:[48,24,12,24,0,60,60,0,72,48,6,36],2567:[54,36,126,0,0,12,60,48,36,60,24,84],2568:[0,102,138,36,36,132,48,24,13,0,0,0],2569:[0,0,24,0,0,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'น้ำยาประสานคอนกรีต แลงโก้ # 751 ขนาด 5 ลิตร',unit:'แกลลอน',
-    monthly:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,0,0,0,0,0],2568:[0,0,0,0,0,0,0,0,73126,0,69054,81252],2569:[12188,48751,0,50328,57318,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,0,0,0,0,0],2568:[0,0,0,0,0,0,0,0,108,0,102,120],2569:[18,72,0,54,60,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'กาวอีพอกซี่ เสียบเหล็ก 1กก. แลงโก้',unit:'กระปุก',
-    monthly:{2565:[0,0,0,0,0,0,0,3499,0,10260,0,6222],2566:[3420,0,17100,10260,3420,10260,17100,3420,0,6840,17100,10260],2567:[6840,6792,23222,0,6635,0,9952,9952,0,6635,13270,3317],2568:[0,13270,33174,0,0,0,19904,3317,19904,9952,6635,6635],2569:[6635,9952,0,10548,10812,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,12,0,36,0,24],2566:[12,0,60,36,12,36,60,12,0,24,60,36],2567:[24,24,84,0,24,0,36,36,0,24,48,12],2568:[0,48,120,0,0,0,72,12,72,36,24,24],2569:[24,36,0,36,36,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'กาวอีพอกซี่ เสียบเหล็ก 2กก. แลงโก้',unit:'แกลลอน',
-    monthly:{2565:[0,0,0,0,0,0,0,6437,0,6123,0,0],2566:[18369,0,24492,30615,0,6123,18369,18369,0,0,12246,12246],2567:[6123,12246,30615,0,6123,0,18369,6123,18369,6123,12246,24492],2568:[0,6123,48984,0,12246,0,24492,12246,18369,0,12246,6123],2569:[18369,12246,6123,12984,6654,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,12,0,12,0,0],2566:[36,0,48,60,0,12,36,36,0,0,24,24],2567:[12,24,60,0,12,0,36,12,36,12,24,48],2568:[0,12,96,0,24,0,48,24,36,0,24,12],2569:[36,24,12,24,12,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'ปูนแลงโก้ #243 (ฟลอร์ ฮาร์ดเดนเนอร์)-สีเทา 25 กก.',unit:'ถุง',
-    monthly:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,0,0,0,0,0],2568:[0,0,10488,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,0,0,0,0,0,0],2567:[0,0,0,0,0,0,0,0,0,0,0,0],2568:[0,0,80,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]}},
-  {group:'เคมีก่อสร้าง',name:'ซีเมนต์กันซึม SIKA TOPSEAL107 (A+B) 25 กิโลกรัม',unit:'ชุด',
-    monthly:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,11133,1090,14102,0,0,0],2567:[0,0,0,0,0,0,0,0,0,0,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]},
-    bags:{2565:[0,0,0,0,0,0,0,0,0,0,0,0],2566:[0,0,0,0,0,0,16,3,20,0,0,0],2567:[0,0,0,0,0,0,0,0,0,0,0,0],2568:[0,0,0,0,0,0,0,0,0,0,0,0],2569:[0,0,0,0,0,0,0,0,0,0,0,0]}},
-];
 const SIKA_GROUPS = ['เคมีก่อสร้าง'];
 const SIKA_GROUP_COL = {'เคมีก่อสร้าง':'#e07b1e'};
 const YR_COL_S = {2565:'#6366f1',2566:'#0ea5e9',2567:'#10b981',2568:'#e07b1e',2569:'#d97706'};
@@ -1421,26 +1259,26 @@ function parseSikaCSV(csvText) {
   });
   YEARS_S.forEach(y => { yearlyTotals[y] = monthlyTotals[y].reduce((a,b) => a+b, 0); });
 
-  return { products, monthlyTotals, yearlyTotals, rebateSummary: sikaRebateSummary };
-}
+  // ── parse rebateSummary ──
+  const rebateSummary = {};
+  for (let ri = 0; ri < rows.length; ri++) {
+    const cell0 = (rows[ri][0]||'').trim();
+    if (cell0.includes('\u0e23\u0e27\u0e21\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e44\u0e14\u0e49\u0e23\u0e35\u0e40\u0e1a\u0e17')) {
+      const totals = [rows[ri][1], rows[ri][2], rows[ri][3]];
+      let pcts = ['','',''];
+      if (ri+1 < rows.length && (rows[ri+1][0]||'').includes('\u0e04\u0e34\u0e14\u0e40\u0e1b\u0e47\u0e19\u0e40\u0e1b\u0e2d\u0e23\u0e4c\u0e40\u0e0b\u0e47\u0e19')) {
+        pcts = [rows[ri+1][1], rows[ri+1][2], rows[ri+1][3]];
+      }
+      [2567,2568,2569].forEach((yr,idx) => {
+        const t = parseFloat((totals[idx]||'0').replace(/,/g,'')) || 0;
+        const p = parseFloat((pcts[idx]||'0').replace(/,/g,'')) || null;
+        if (t > 0 || p) rebateSummary[yr] = { total: t, pct: p };
+      });
+      break;
+    }
+  }
 
-function parseSikaFromEmbed() {
-  const YEARS_S = ['2565','2566','2567','2568','2569'];
-  const monthlyTotals = {}, yearlyTotals = {};
-  YEARS_S.forEach(y => { monthlyTotals[y] = new Array(12).fill(0); });
-  sikaProductsEmbed.forEach(p => {
-    YEARS_S.forEach(y => {
-      (p.monthly[Number(y)]||p.monthly[y]||[]).forEach((v,m) => { monthlyTotals[y][m] += v; });
-    });
-  });
-  YEARS_S.forEach(y => { yearlyTotals[y] = monthlyTotals[y].reduce((a,b)=>a+b,0); });
-  // wrap products ให้ key เป็น string
-  const products = sikaProductsEmbed.map(p => ({
-    ...p,
-    monthly: Object.fromEntries(YEARS_S.map(y => [y, p.monthly[Number(y)] || p.monthly[y] || Array(12).fill(0)])),
-    bags: Object.fromEntries(YEARS_S.map(y => [y, p.bags[Number(y)] || p.bags[y] || Array(12).fill(0)])),
-  }));
-  return { products, monthlyTotals, yearlyTotals, rebateSummary: sikaRebateSummary };
+  return { products, monthlyTotals, yearlyTotals, rebateSummary };
 }
 
 function loadSikaData() {
@@ -1448,34 +1286,34 @@ function loadSikaData() {
   sikaLoading = true;
   showBrandLoading('sika');
 
-  const fallback = () => {
-    console.warn('[SIKA] fallback ใช้ embed');
-    sikaLoading = false;
-    sikaDataLive = parseSikaFromEmbed();
-    setFetchBadge('sika', 'embed');
-    reRenderAll('sika');
-  };
-
   fetch(SIKA_API)
     .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
     .then(csv => {
       try {
         const data = parseSikaCSV(csv);
-        if (!data.products || data.products.length < 5) throw new Error('parse failed: products=' + (data.products||[]).length);
+        if (!data.products || data.products.length < 1) throw new Error('parse ไม่สำเร็จ: products=' + (data.products||[]).length);
         sikaLoading = false;
         sikaDataLive = data;
         const nm = (data.monthlyTotals?.['2569']||[]).reduce((l,v,i)=>v>0?i+1:l,0)||4;
         console.log('[SIKA] live fetch สำเร็จ lastMonth=', nm, 'products=', data.products.length);
         setFetchBadge('sika', 'live', nm);
         reRenderAll('sika');
-      } catch(e) { console.warn('[SIKA] parse error:', e.message); fallback(); }
+      } catch(e) {
+        sikaLoading = false;
+        console.error('[SIKA] parse error:', e.message);
+        showLoadError('sika', 'อ่านข้อมูลจาก Google Sheets ไม่สำเร็จ: ' + e.message);
+      }
     })
-    .catch(e => { console.warn('[SIKA] fetch error:', e.message); fallback(); });
+    .catch(e => {
+      sikaLoading = false;
+      console.error('[SIKA] fetch error:', e.message);
+      showLoadError('sika', 'เชื่อมต่อ Google Sheets ไม่ได้: ' + e.message);
+    });
 }
 
 // ── SIKA PAGE BUILDERS ──
 function buildSikaPage1() {
-  if (!sikaDataLive) sikaDataLive = parseSikaFromEmbed();
+  if (!sikaDataLive) { showLoadError('sika','ข้อมูลยังไม่โหลด'); return ''; }
   const CY = SIKA_YEARS;
   const mTot = sikaDataLive.monthlyTotals;
   const lastY = 2569;
@@ -1497,12 +1335,13 @@ function buildSikaPage1() {
     return `<div class="stat-card"><div class="year-label" style="color:${col}">ปี ${y}</div><div class="value" style="color:${col}">${fmtM(v)}</div><div class="sub">บาท</div>${badge}</div>`;
   }).join('');
 
-  const fNM = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,NM).reduce((a,b)=>a+b,0);
-  const fN = {}; CY.forEach(y=>fN[y]=fNM(y));
+  const fFull = y => (mTot[String(y)]||mTot[y]||Array(12).fill(0)).slice(0,12).reduce((a,b)=>a+b,0);
+  const fN = {}; CY.forEach(y=>fN[y]=fFull(y));
   const fmStrip = CY.map(y=>{
     const v=fN[y], prev=fN[y-1]; const chg=prev?pChange(prev,v):null; const col=colFor(y);
+    const sub=y===lastY?`<div class="fm-sub" style="color:var(--muted);font-size:12px;margin-top:2px">${NM} เดือน</div>`:'';
     const badge=chg!==null?`<span class="fm-badge ${chg>=0?'up':'down'}">${chg>=0?'+':''}${(chg*100).toFixed(1)}%</span>`:'';
-    return `<div class="fm-card"><div class="fm-year" style="color:${col}">ปี ${y}</div><div class="fm-val" style="color:${col}">${fmtM(v)}</div>${badge}</div>`;
+    return `<div class="fm-card"><div class="fm-year" style="color:${col}">ปี ${y}</div><div class="fm-val" style="color:${col}">${fmtM(v)}</div>${sub}${badge}</div>`;
   }).join('');
 
   const yBarData = CY.map(y => y===lastY ? y69live : (sikaDataLive.yearlyTotals[String(y)]||sikaDataLive.yearlyTotals[y]||0));
@@ -1510,15 +1349,11 @@ function buildSikaPage1() {
   const legend = CY.map(y=>`<div class="legend-item"><div class="legend-dot" style="background:${colFor(y)}"></div><span>ปี ${y}${y===lastY?` (${NM} เดือน)`:''}</span></div>`).join('');
   const yBars = yBarData.map((v,i)=>{ const h=Math.max(3,Math.round((v/yBarMax)*100)); const y=CY[i]; return `<div class="bar-group"><div class="bar" style="height:${h}%;background:${colFor(y)}" data-tip="ปี ${y}: ${fmtM(v)}"></div><div class="bar-label" style="color:${colFor(y)}">'${String(y).slice(2)}</div><div class="bar-val">${fmtM(v)}</div></div>`; }).join('');
 
-  // ไตรมาส คำนวณจาก live
+  // ไตรมาส — คำนวณจาก live monthly ทุกปี
   const qTot = {};
   CY.forEach(y => {
-    if (y === lastY) {
-      const m = mTot[String(y)]||mTot[y]||Array(12).fill(0);
-      qTot[y] = [0,1,2,3].map(q => m.slice(q*3,(q+1)*3).reduce((a,b)=>a+b,0));
-    } else {
-      qTot[y] = sikaQuarterlyTotals[y] || [0,0,0,0];
-    }
+    const m = mTot[String(y)]||mTot[y]||Array(12).fill(0);
+    qTot[y] = [0,1,2,3].map(q => m.slice(q*3,(q+1)*3).reduce((a,b)=>a+b,0));
   });
   let qRows='';
   for(let q=0;q<4;q++){
@@ -1546,20 +1381,19 @@ function buildSikaPage1() {
   return `
   <div class="page-title">แดชบอร์ด ซิก้าแลงโก้</div>
   <div class="page-sub">ยอดซื้อรวมทุกรายการ ปี 2565–2569</div>
-  <div class="section-title">ยอดรวมรายปี</div><div class="stat-grid">${yearCards}</div>
-  <div class="section-title">ยอดซื้อ ${nmLabel(NM)} เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
+  <div class="section-title">ยอดซื้อ ม.ค.–ธ.ค. เทียบทุกปี</div><div class="four-month-strip">${fmStrip}</div>
+  <div class="section-title">สรุปรีเบท</div>
+  <div class="rebate-summary" style="grid-template-columns:repeat(3,1fr)">${rebCards}</div>
   <div class="chart-wrap"><div class="chart-title">ยอดซื้อรายปี (บาท)</div><div class="chart-legend">${legend}</div><div class="bar-chart">${yBars}</div></div>
   <div class="section-title">รายไตรมาส</div>
   <div class="note">ปี 2565: เริ่มซื้อ Q3 | ปี 2569: มีข้อมูล ${nmLabel(NM)}</div>
   <div class="tbl-wrap"><table><thead><tr><th>ไตรมาส</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${qRows}</tbody></table></div>
   <div class="section-title">รายเดือน</div>
-  <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${mRows}</tbody></table></div>
-  <div class="section-title">สรุปรีเบท</div>
-  <div class="rebate-summary" style="grid-template-columns:repeat(3,1fr)">${rebCards}</div>`;
+  <div class="tbl-wrap"><table><thead><tr><th>เดือน</th>${CY.map(y=>`<th class="${y===lastY?'yr2569':''}">${y}</th>`).join('')}<th>68→69</th></tr></thead><tbody>${mRows}</tbody></table></div>`;
 }
 
 function buildSikaPage2() {
-  if (!sikaDataLive) sikaDataLive = parseSikaFromEmbed();
+  if (!sikaDataLive) { showLoadError('sika','ข้อมูลยังไม่โหลด'); return ''; }
   const CY = SIKA_YEARS;
   const mTot = sikaDataLive.monthlyTotals;
   const lastY = 2569;
