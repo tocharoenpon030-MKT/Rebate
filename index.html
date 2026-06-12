@@ -820,14 +820,26 @@ function parseCrocCSV(csvText) {
     const b = (row[1]||'').trim();
     const c = (row[2]||'').trim();
 
-    const knownGroups = ['กาวซีเมนต์','เคมีก่อสร้าง','กาวยาแนว','ยาแนว'];
-    if (a && knownGroups.some(g => a.includes(g)) && !a.includes('เดือน') && !a.includes('รวม')) {
+    // group header: exact match เท่านั้น และ col B ต้องเป็น 'ปี...' หรือ blank (ไม่ใช่ unit)
+    const EXACT_GROUPS = ['กาวซีเมนต์','เคมีก่อสร้าง','กาวยาแนว','ยาแนว'];
+    const bIsYearOrBlank = !b || b.startsWith('ปี ');
+    if (a && EXACT_GROUPS.some(g => a === g || a === g + ' ') && bIsYearOrBlank && !a.includes('เดือน') && !a.includes('รวม')) {
       currentGroup = a.replace('กาวยาแนว','ยาแนว').trim();
     }
 
     const bIsUnit = UNIT_VALS.includes(b) || UNIT_VALS.some(u => b.includes(u));
     const cIsYod = (c === 'ยอด' || c === 'ยอดซื้อ' || c.includes('ยอด'));
     if (bIsUnit && cIsYod && a && !a.includes('เดือน') && !a.includes('รวม') && !a.includes('ปี ')) {
+      // ถ้า currentGroup ว่าง ให้ scan ย้อนกลับหา group
+      if (!currentGroup) {
+        for (let back = i - 1; back >= Math.max(0, i - 5); back--) {
+          const ba = (rows[back][0]||'').replace(/\xa0/g,' ').trim();
+          if (ba && knownGroups.some(g => ba.includes(g)) && !ba.includes('เดือน') && !ba.includes('รวม')) {
+            currentGroup = ba.replace('กาวยาแนว','ยาแนว').trim();
+            break;
+          }
+        }
+      }
       const name = a;
       const unit = b;
       const monthly = {}, bags = {};
@@ -888,9 +900,13 @@ function parseCrocCSV(csvText) {
         r67P = parseFloat((rows[ri+1][1]||'').toString().replace(/,/g,'')) || 0;
         r68P = parseFloat((rows[ri+1][2]||'').toString().replace(/,/g,'')) || 0;
       }
+      let r69P = 0;
+      if (ri+1 < rows.length) {
+        r69P = parseFloat((rows[ri+1][3]||'').toString().replace(/,/g,'')) || 0;
+      }
       if (r67 > 0) rebateSummary['2567'] = { total: r67, pct: r67P };
       if (r68 > 0) rebateSummary['2568'] = { total: r68, pct: r68P };
-      if (r69 > 0) rebateSummary['2569_current'] = r69;
+      if (r69 > 0) rebateSummary['2569_current'] = { total: r69, pct: r69P };
       console.log('[CROC CSV] rebateSummary:', rebateSummary);
       break;
     }
@@ -1057,7 +1073,7 @@ function buildCrocPage1(){
     const rItems=[
       {label:'รีเบทปี 2567', val:rb['2567']?.total||rb[2567]?.total||0, pct:rb['2567']?.pct||rb[2567]?.pct||null},
       {label:'รีเบทปี 2568', val:rb['2568']?.total||rb[2568]?.total||0, pct:rb['2568']?.pct||rb[2568]?.pct||null},
-      {label:'รีเบท 2569 ที่ทำได้ตอนนี้', val:rb['2569_current']||0, pct:null},
+      {label:'รีเบท 2569 ที่ทำได้ตอนนี้', val:rb['2569_current']?.total||0, pct:rb['2569_current']?.pct||null},
     ];
     rebCards=`<div class="section-title">สรุปรีเบท</div>
     <div class="rebate-summary" style="grid-template-columns:repeat(3,1fr)">${rItems.map(ri=>`
