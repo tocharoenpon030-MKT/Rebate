@@ -208,7 +208,7 @@ tbody tr.total-row td { background: var(--surface2) !important; font-weight: 700
 
 /* ── REBATE ── */
 .rebate-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-@media (min-width: 480px) { .rebate-summary { grid-template-columns: repeat(4,1fr); } }
+@media (min-width: 480px) { .rebate-summary { grid-template-columns: repeat(5,1fr); } }
 .rebate-item {
   background: var(--surface); border: 1.5px solid rgba(22,163,74,.4);
   border-radius: var(--radius); padding: 12px;
@@ -431,21 +431,23 @@ function parseQCCSV(csvText) {
   for (let ri = 0; ri < rows.length; ri++) {
     const ra = (rows[ri][0]||'').trim();
     if (ra.includes('รวมทั้งหมดได้รีเบท') || ra.includes('รีเบท ประมาณ')) {
-      // col D=index3 = current(2569), col E=index4 = proposed(2569)
+      // col D=index3 = current(2569), col E=index4 = proposed(2569), col F=index5 = ใกล้เดิม(2569)
       // col B=index1 = rebate2567, col C=index2 = rebate2568
       const cur  = parseFloat((rows[ri][3]||'').toString().replace(/,/g,'')) || 0;
       const prop = parseFloat((rows[ri][4]||'').toString().replace(/,/g,'')) || 0;
+      const near = parseFloat((rows[ri][5]||'').toString().replace(/,/g,'')) || 0;
       const r67  = parseFloat((rows[ri][1]||'').toString().replace(/,/g,'')) || 0;
       const r68  = parseFloat((rows[ri][2]||'').toString().replace(/,/g,'')) || 0;
-      let curP = 0, propP = 0, r67P = 0, r68P = 0;
+      let curP = 0, propP = 0, nearP = 0, r67P = 0, r68P = 0;
       if (ri+1 < rows.length) {
         curP  = parseFloat((rows[ri+1][3]||'').toString().replace(/,/g,'')) || 0;
         propP = parseFloat((rows[ri+1][4]||'').toString().replace(/,/g,'')) || 0;
+        nearP = parseFloat((rows[ri+1][5]||'').toString().replace(/,/g,'')) || 0;
         r67P  = parseFloat((rows[ri+1][1]||'').toString().replace(/,/g,'')) || 0;
         r68P  = parseFloat((rows[ri+1][2]||'').toString().replace(/,/g,'')) || 0;
       }
-      if (cur > 0 || prop > 0) {
-        rebate2569 = { current: cur, currentPct: curP, proposed: prop, proposedPct: propP };
+      if (cur > 0 || prop > 0 || near > 0) {
+        rebate2569 = { current: cur, currentPct: curP, proposed: prop, proposedPct: propP, near: near, nearPct: nearP };
       }
       if (r67 > 0) rebate2567 = { total: r67, pct: r67P };
       if (r68 > 0) rebate2568 = { total: r68, pct: r68P };
@@ -635,7 +637,8 @@ function buildPage1() {
     {label:'รีเบทปี 2567', val:rb2567.total||0, pct:rb2567.pct||null},
     {label:'รีเบทปี 2568', val:rb2568.total||0, pct:rb2568.pct||null},
     {label:'รีเบท 2569 ที่คาดว่าทำได้จริง', val:liveRb.current||0, pct:liveRb.currentPct||null},
-    {label:'รีเบท 2569 (ที่กำลังขอพิจารณา)', val:liveRb.proposed||0, pct:liveRb.proposedPct||null},
+    {label:'รีเบท 2569 ซื้อต่ำสุด', val:liveRb.proposed||0, pct:liveRb.proposedPct||null},
+    {label:'รีเบท 2569 รีเบทใกล้เดิม', val:liveRb.near||0, pct:liveRb.nearPct||null},
   ];
   const rebCards = rebateItems.map(ri=>`
     <div class="rebate-item">
